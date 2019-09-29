@@ -22,8 +22,6 @@ namespace Core.Entities
 
         public double CalcularAsignacionFamiliar() => EsAsignacionFamiliar ? SueldoMinimo * 0.1 : 0;
 
-        public double CalcularDescuentoPorAfp() => throw new NotImplementedException();
-
         public int CalcularTotalHorasSemanales() => TotalHoras / ((FechaFin - FechaInicio).Days / 7);
 
         public bool VerificarFechaFin() => FechaFin.Month - FechaInicio.Month >= 3 &&
@@ -34,6 +32,7 @@ namespace Core.Entities
         public bool VerificarTotalHora() => TotalHoras >= 8 && TotalHoras <= 40;
 
         public bool VerificarVigencia() => (FechaFin >= DateTime.Today) && EsAnulado;
+
         public bool VerificarValorHora()
         {
             switch (Empleado.Grado)

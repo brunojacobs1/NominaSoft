@@ -9,6 +9,5 @@ namespace Core.Entities
         public int IdAFP { get; set; }
         public String NombreAFP { get; set; }
         public double PorcentajeDescuento { get; set; }
-
     }
 }

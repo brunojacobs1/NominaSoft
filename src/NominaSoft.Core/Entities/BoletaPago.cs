@@ -15,15 +15,23 @@ namespace NominaSoft.Core.Entities
         public ConceptosDeDescuentos ConceptosDeDescuentos { get; set; }
 
         public int CalcularTotalHorasBoleta() => Contrato.CalcularTotalHorasSemanales() * PeriodoPago.CalcularTotalSemanas();
+
         public double CalcularSueldoBasico() => CalcularTotalHorasBoleta() * Contrato.ValorHora;
+
+        public double CalcularDescuentoPorAfp() => CalcularSueldoBasico() * Contrato.AFP.PorcentajeDescuento;
+
         public double CalcularSumatoriaDescuentos() => ConceptosDeDescuentos.MontoDeOtrosDescuentos +
                                                         ConceptosDeDescuentos.MontoPorAdelantos +
                                                         ConceptosDeDescuentos.MontoPorHorasAusentes;
+
         public double CalcularSumatoriaIngresos() => ConceptosDeIngresos.MontoPorHorasAusentes +
                                                         ConceptosDeIngresos.MontoDeOtrosIngresos +
                                                         ConceptosDeIngresos.MontoPorHorasExtra;
+
         public double CalcularTotalDescuentos() => CalcularSumatoriaDescuentos() + Contrato.CalcularDescuentoPorAfp();
+        
         public double CalcularTotalIngresos() => CalcularSueldoBasico() + Contrato.CalcularAsignacionFamiliar() + CalcularSumatoriaIngresos();
+
         public double CalcularSueldoNeto() => CalcularTotalIngresos() + CalcularTotalDescuentos();
     }
 }

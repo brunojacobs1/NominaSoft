@@ -14,6 +14,5 @@ namespace Core.Entities
         public DateTime FechaDeNacimiento { get; set; }
         public int Grado { get; set; }
         public String NombreEmpleado { get; set; }
-
     }
 }
