@@ -13,7 +13,7 @@ namespace Core.Entities
         public DateTime FechaFin { get; set; }
         public DateTime FechaInicio { get; set; }
         public bool EsAsignacionFamiliar { get; set; }
-        public int TotalHoras { get; set; }
+        public int TotalHorasSemanales { get; set; }
         public int ValorHora { get; set; }
         public Empleado Empleado { get; set; }
         public AFP AFP { get; set; }
@@ -22,16 +22,15 @@ namespace Core.Entities
 
         public double CalcularAsignacionFamiliar() => EsAsignacionFamiliar ? SueldoMinimo * 0.1 : 0;
 
-        public int CalcularTotalHorasSemanales() => TotalHoras / ((FechaFin - FechaInicio).Days / 7);
-
         public bool VerificarFechaFin() => FechaFin.Month - FechaInicio.Month >= 3 &&
-                                    FechaFin.Month - FechaInicio.Month <= 12;
+                    (((FechaFin.Year - FechaInicio.Year) * 12) + FechaFin.Month - FechaInicio.Month) <= 12;
+                                    //FechaFin.Month - FechaInicio.Month <= 12;
 
         public bool VerificarFechaInicio(Contrato _contrato) => FechaInicio > _contrato.FechaFin;
 
-        public bool VerificarTotalHora() => TotalHoras >= 8 && TotalHoras <= 40;
+        public bool VerificarTotalHora() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;
 
-        public bool VerificarVigencia() => (FechaFin >= DateTime.Today) && EsAnulado;
+        public bool VerificarVigencia() => (FechaFin >= DateTime.Today) && !EsAnulado;
 
         public bool VerificarValorHora()
         {

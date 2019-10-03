@@ -5,32 +5,23 @@ using System.Text;
 
 namespace NominaSoft.Core.Entities
 {
-    class BoletaPago
+    public class BoletaPago
     {
         public int IdBoletaPago { get; set; }
         public DateTime FechaPago { get; set; }
         public Contrato Contrato { get; set; }
         public PeriodoPago PeriodoPago { get; set; }
-        public ConceptosDeIngresos ConceptosDeIngresos { get; set; }
-        public ConceptosDeDescuentos ConceptosDeDescuentos { get; set; }
+        public ConceptosDePago ConceptosDePago { get; set; }
 
-        public int CalcularTotalHorasBoleta() => Contrato.CalcularTotalHorasSemanales() * PeriodoPago.CalcularTotalSemanas();
+        public int CalcularTotalHorasBoleta() => Contrato.TotalHorasSemanales * PeriodoPago.CalcularTotalSemanas();
 
         public double CalcularSueldoBasico() => CalcularTotalHorasBoleta() * Contrato.ValorHora;
 
         public double CalcularDescuentoPorAfp() => CalcularSueldoBasico() * Contrato.AFP.PorcentajeDescuento;
 
-        public double CalcularSumatoriaDescuentos() => ConceptosDeDescuentos.MontoDeOtrosDescuentos +
-                                                        ConceptosDeDescuentos.MontoPorAdelantos +
-                                                        ConceptosDeDescuentos.MontoPorHorasAusentes;
-
-        public double CalcularSumatoriaIngresos() => ConceptosDeIngresos.MontoPorHorasAusentes +
-                                                        ConceptosDeIngresos.MontoDeOtrosIngresos +
-                                                        ConceptosDeIngresos.MontoPorHorasExtra;
-
-        public double CalcularTotalDescuentos() => CalcularSumatoriaDescuentos() + Contrato.CalcularDescuentoPorAfp();
+        public double CalcularTotalDescuentos() => ConceptosDePago.CalcularSumatoriaDescuentos() + CalcularDescuentoPorAfp();
         
-        public double CalcularTotalIngresos() => CalcularSueldoBasico() + Contrato.CalcularAsignacionFamiliar() + CalcularSumatoriaIngresos();
+        public double CalcularTotalIngresos() => CalcularSueldoBasico() + Contrato.CalcularAsignacionFamiliar() + ConceptosDePago.CalcularSumatoriaIngresos();
 
         public double CalcularSueldoNeto() => CalcularTotalIngresos() + CalcularTotalDescuentos();
     }

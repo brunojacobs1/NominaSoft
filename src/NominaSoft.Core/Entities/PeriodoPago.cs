@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NominaSoft.Core.Entities
 {
-    class PeriodoPago
+    public class PeriodoPago
     {
         public int PeriodoPagoID { get; set; }
         public bool Esactivo { get; set; }
