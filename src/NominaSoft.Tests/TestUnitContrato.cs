@@ -30,81 +30,6 @@ namespace NominaSoft.Test
             Assert.Equal<Double>(valorEsperado, valorObtenido);
         }
 
-        //[Fact]
-        //public void TestCalcularTotalHorasSemanales1()
-        //{
-        //    Contrato contrato = new Contrato();
-
-        //    contrato.TotalHoras = 48;
-        //    contrato.FechaInicio = Convert.ToDateTime("03/02/2019");
-        //    contrato.FechaFin = Convert.ToDateTime("04/02/2019");
-
-        //    int valorEsperado = 7;
-        //    int valorObtenido = contrato.CalcularTotalHorasSemanales();
-
-        //    Assert.Equal<int>(valorEsperado, valorObtenido);
-        //}
-
-        //[Fact]
-        //public void TestCalcularTotalHorasSemanales2()
-        //{
-        //    Contrato contrato = new Contrato();
-
-        //    contrato.TotalHoras = 20;
-        //    contrato.FechaInicio = Convert.ToDateTime("01/01/2019");
-        //    contrato.FechaFin = Convert.ToDateTime("07/01/2019");
-
-        //    int valorEsperado = 7;
-        //    int valorObtenido = contrato.CalcularTotalHorasSemanales();
-
-        //    Assert.Equal<int>(valorEsperado, valorObtenido);
-        //}
-
-        //[Fact]
-        //public void TestCalcularTotalHorasSemanales3()
-        //{
-        //    Contrato contrato = new Contrato();
-
-        //    contrato.TotalHoras = 32;
-        //    contrato.FechaInicio = Convert.ToDateTime("01/02/2019");
-        //    contrato.FechaFin = Convert.ToDateTime("01/02/2020");
-
-        //    int valorEsperado = 7;
-        //    int valorObtenido = contrato.CalcularTotalHorasSemanales();
-
-        //    Assert.Equal<int>(valorEsperado, valorObtenido);
-        //}
-
-        //[Fact]
-        //public void TestCalcularTotalHorasSemanales4()
-        //{
-        //    Contrato contrato = new Contrato();
-
-        //    contrato.TotalHoras = 32;
-        //    contrato.FechaInicio = Convert.ToDateTime("03/02/2019");
-        //    contrato.FechaFin = Convert.ToDateTime("07/29/2019");
-
-        //    int valorEsperado = 7;
-        //    int valorObtenido = contrato.CalcularTotalHorasSemanales();
-
-        //    Assert.Equal<int>(valorEsperado, valorObtenido);
-        //}
-
-        //[Fact]
-        //public void TestCalcularTotalHorasSemanales5()
-        //{
-        //    Contrato contrato = new Contrato();
-
-        //    contrato.TotalHoras = 32;
-        //    contrato.FechaInicio = Convert.ToDateTime("01/02/2019");
-        //    contrato.FechaFin = Convert.ToDateTime("11/02/2019");
-
-        //    int valorEsperado = 7;
-        //    int valorObtenido = contrato.CalcularTotalHorasSemanales();
-
-        //    Assert.Equal<int>(valorEsperado, valorObtenido);
-        //}
-
         [Fact]
         public void TestVerificarFechaFin1()
         {
@@ -190,7 +115,7 @@ namespace NominaSoft.Test
         public void TestVerificarTotalHora1()
         {
             Contrato contrato = new Contrato();
-            contrato.TotalHoras = 10;
+            contrato.TotalHorasSemanales = 10;
 
             Boolean valorEsperado = true;
             Boolean valorObtenido = contrato.VerificarTotalHora();
@@ -201,7 +126,7 @@ namespace NominaSoft.Test
         public void TestVerificarTotalHora2()
         {
             Contrato contrato = new Contrato();
-            contrato.TotalHoras = 4;
+            contrato.TotalHorasSemanales = 4;
 
             Boolean valorEsperado = false;
             Boolean valorObtenido = contrato.VerificarTotalHora();
@@ -212,7 +137,7 @@ namespace NominaSoft.Test
         public void TestVerificarTotalHora3()
         {
             Contrato contrato = new Contrato();
-            contrato.TotalHoras = 50;
+            contrato.TotalHorasSemanales = 50;
 
             Boolean valorEsperado = false;
             Boolean valorObtenido = contrato.VerificarTotalHora();
