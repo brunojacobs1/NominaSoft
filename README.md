@@ -1,4 +1,5 @@
 # NominaSoft ~ Proyecto de Calidad y Pruebas de Software
+=======
 
 ### Integrantes del proyecto
 
