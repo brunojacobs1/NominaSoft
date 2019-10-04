@@ -1,4 +1,14 @@
 # BrunoSoft ~ Proyecto de Klidad
+
+### Integrantes del proyecto
+
+ - Luis Sebastián Arribasplata Chávarri
+ - Daniel Badinho Cornejo Chunga
+ - Jose Alberto Esparza del Castillo
+ - Bruno Jacobs Schulz
+ - José Miguel Leython Lias
+ - Loana Valeri Yañez López
+
 ### Propósito del proyecto
 Desarrollar un sistema de nómina de empleados y evaluar la calidad del producto. Su alcance es sólo la implementación
 de dos casos de uso: Gestionar contratos y procesar pagos.
