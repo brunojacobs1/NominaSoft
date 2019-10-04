@@ -32,7 +32,7 @@ namespace Core.Entities
 
         public bool VerificarFechaInicio(Contrato _contrato) => FechaInicio > _contrato.FechaFin;
 
-        public bool VerificarTotalHora() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;
+        public bool VerificarTotalHorasSemanales() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;
 
         public bool VerificarVigencia() => (FechaFin >= DateTime.Today) && !EsAnulado;
 

@@ -27,5 +27,7 @@ namespace NominaSoft.Core.Entities
         }
 
         public int CalcularTotalSemanas() => (FechaFin - FechaInicio).Days / 7;
+
+        public int CalcularTotalHoras() => (FechaFin - FechaInicio).Days * 24;
     }
 }
