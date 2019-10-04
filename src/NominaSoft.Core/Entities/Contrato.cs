@@ -7,16 +7,20 @@ namespace Core.Entities
 {
     public class Contrato
     {
+        public int ValorHora { get; set; }
         public int IdContrato { get; set; }
+        public int TotalHorasSemanales { get; set; }
+
         public bool EsAnulado { get; set; }
+        public bool EsAsignacionFamiliar { get; set; }
+
         public String Cargo { get; set; }
+
         public DateTime FechaFin { get; set; }
         public DateTime FechaInicio { get; set; }
-        public bool EsAsignacionFamiliar { get; set; }
-        public int TotalHorasSemanales { get; set; }
-        public int ValorHora { get; set; }
-        public Empleado Empleado { get; set; }
+
         public AFP AFP { get; set; }
+        public Empleado Empleado { get; set; }
 
         public const double SueldoMinimo = 930.00;
 

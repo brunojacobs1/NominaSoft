@@ -7,7 +7,9 @@ namespace NominaSoft.Core.Entities
     public class PeriodoPago
     {
         public int PeriodoPagoID { get; set; }
+
         public bool Esactivo { get; set; }
+
         public DateTime FechaFin { get; set; }
         public DateTime FechaInicio { get; set; }
 

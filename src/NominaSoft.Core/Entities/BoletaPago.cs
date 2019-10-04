@@ -8,6 +8,7 @@ namespace NominaSoft.Core.Entities
     public class BoletaPago
     {
         public int IdBoletaPago { get; set; }
+
         public DateTime FechaPago { get; set; }
         public Contrato Contrato { get; set; }
         public PeriodoPago PeriodoPago { get; set; }

@@ -8,10 +8,6 @@ namespace NominaSoft.Core
 {
     public class ConceptosDePago
     {
-        public Contrato Contrato { get; set; }
-
-        public PeriodoPago PeriodoPago { get; set; }
-
         public double MontoDeOtrosIngresos { get; set; }
 
         public double MontoPorHorasExtra { get; set; }
@@ -21,6 +17,10 @@ namespace NominaSoft.Core
         public double MontoDeOtrosDescuentos { get; set; }
 
         public double MontoPorAdelantos { get; set; }
+
+        public Contrato Contrato { get; set; }
+
+        public PeriodoPago PeriodoPago { get; set; }
 
         public double CalcularSumatoriaDescuentos() => MontoDeOtrosDescuentos +
                                                         MontoPorAdelantos +
