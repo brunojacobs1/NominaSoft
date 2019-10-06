@@ -34,8 +34,8 @@ namespace NominaSoft.Test
         public void TestVerificarFechaFin1()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaInicio= Convert.ToDateTime("01/02/2019");
-            contrato.FechaFin = Convert.ToDateTime("11/02/2019");
+            contrato.FechaInicio= Convert.ToDateTime("02/01/2019");
+            contrato.FechaFin = Convert.ToDateTime("02/11/2019");
 
             Boolean valorEsperado = true;
             Boolean valorObtenido = contrato.VerificarFechaFin();
@@ -46,8 +46,8 @@ namespace NominaSoft.Test
         public void TestVerificarFechaFin2()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaInicio = Convert.ToDateTime("06/02/2019");
-            contrato.FechaFin = Convert.ToDateTime("07/02/2019");
+            contrato.FechaInicio = Convert.ToDateTime("02/06/2019");
+            contrato.FechaFin = Convert.ToDateTime("02/07/2019");
 
             Boolean valorEsperado = false;
             Boolean valorObtenido = contrato.VerificarFechaFin();
@@ -58,8 +58,8 @@ namespace NominaSoft.Test
         public void TestVerificarFechaFin3()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaInicio = Convert.ToDateTime("01/02/2019");
-            contrato.FechaFin = Convert.ToDateTime("07/02/2020");
+            contrato.FechaInicio = Convert.ToDateTime("02/01/2019");
+            contrato.FechaFin = Convert.ToDateTime("02/07/2020");
 
             Boolean valorEsperado = false;
             Boolean valorObtenido = contrato.VerificarFechaFin();
@@ -70,10 +70,10 @@ namespace NominaSoft.Test
         public void TestVerificarFechaInicio1()
         {
             Contrato contratoAnterior = new Contrato();
-            contratoAnterior.FechaFin = Convert.ToDateTime("07/02/2019");
+            contratoAnterior.FechaFin = Convert.ToDateTime("02/07/2019");
 
             Contrato contratoNuevo = new Contrato();
-            contratoNuevo.FechaInicio = Convert.ToDateTime("08/02/2019");
+            contratoNuevo.FechaInicio = Convert.ToDateTime("02/08/2019");
 
 
             Boolean valorEsperado = true;
@@ -85,10 +85,10 @@ namespace NominaSoft.Test
         public void TestVerificarFechaInicio2()
         {
             Contrato contratoAnterior = new Contrato();
-            contratoAnterior.FechaFin = Convert.ToDateTime("08/14/2019");
+            contratoAnterior.FechaFin = Convert.ToDateTime("14/08/2019");
 
             Contrato contratoNuevo = new Contrato();
-            contratoNuevo.FechaInicio = Convert.ToDateTime("06/23/2019");
+            contratoNuevo.FechaInicio = Convert.ToDateTime("23/06/2019");
 
 
             Boolean valorEsperado = false;
@@ -100,10 +100,10 @@ namespace NominaSoft.Test
         public void TestVerificarFechaInicio3()
         {
             Contrato contratoAnterior = new Contrato();
-            contratoAnterior.FechaFin = Convert.ToDateTime("06/23/2019");
+            contratoAnterior.FechaFin = Convert.ToDateTime("23/06/2019");
 
             Contrato contratoNuevo = new Contrato();
-            contratoNuevo.FechaInicio = Convert.ToDateTime("06/23/2019");
+            contratoNuevo.FechaInicio = Convert.ToDateTime("23/06/2019");
 
 
             Boolean valorEsperado = false;
@@ -112,35 +112,35 @@ namespace NominaSoft.Test
         }
 
         [Fact]
-        public void TestVerificarTotalHora1()
+        public void TestVerificarTotalHorasSemanales1()
         {
             Contrato contrato = new Contrato();
             contrato.TotalHorasSemanales = 10;
 
             Boolean valorEsperado = true;
-            Boolean valorObtenido = contrato.VerificarTotalHora();
+            Boolean valorObtenido = contrato.VerificarTotalHorasSemanales();
             Assert.Equal<Boolean>(valorEsperado, valorObtenido);
         }
 
         [Fact]
-        public void TestVerificarTotalHora2()
+        public void TestVerificarTotalHorasSemanales2()
         {
             Contrato contrato = new Contrato();
             contrato.TotalHorasSemanales = 4;
 
             Boolean valorEsperado = false;
-            Boolean valorObtenido = contrato.VerificarTotalHora();
+            Boolean valorObtenido = contrato.VerificarTotalHorasSemanales();
             Assert.Equal<Boolean>(valorEsperado, valorObtenido);
         }
 
         [Fact]
-        public void TestVerificarTotalHora3()
+        public void TestVerificarTotalHorasSemanales3()
         {
             Contrato contrato = new Contrato();
             contrato.TotalHorasSemanales = 50;
 
             Boolean valorEsperado = false;
-            Boolean valorObtenido = contrato.VerificarTotalHora();
+            Boolean valorObtenido = contrato.VerificarTotalHorasSemanales();
             Assert.Equal<Boolean>(valorEsperado, valorObtenido);
         }
 
@@ -148,7 +148,7 @@ namespace NominaSoft.Test
         public void TestVerificarVigencia1()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaFin = Convert.ToDateTime("12/02/2019");
+            contrato.FechaFin = Convert.ToDateTime("02/12/2019");
             contrato.EsAnulado = false;
 
             Boolean valorEsperado = true;
@@ -160,7 +160,7 @@ namespace NominaSoft.Test
         public void TestVerificarVigencia2()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaFin = Convert.ToDateTime("10/02/2019");
+            contrato.FechaFin = Convert.ToDateTime("02/10/2019");
             contrato.EsAnulado = true;
 
             Boolean valorEsperado = false;
@@ -172,7 +172,7 @@ namespace NominaSoft.Test
         public void TestVerificarVigencia3()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaFin = Convert.ToDateTime("09/20/2019");
+            contrato.FechaFin = Convert.ToDateTime("20/09/2019");
             contrato.EsAnulado = false;
 
             Boolean valorEsperado = false;
@@ -184,7 +184,7 @@ namespace NominaSoft.Test
         public void TestVerificarVigencia4()
         {
             Contrato contrato = new Contrato();
-            contrato.FechaFin = Convert.ToDateTime("07/20/2019");
+            contrato.FechaFin = Convert.ToDateTime("20/07/2019");
             contrato.EsAnulado = true;
 
             Boolean valorEsperado = false;
@@ -195,8 +195,10 @@ namespace NominaSoft.Test
         [Fact]
         public void TestVerificarValorHora1()
         {
+            Empleado empleado = new Empleado();
+            empleado.Grado = 0;
             Contrato contrato = new Contrato();
-            contrato.Empleado.Grado = 0;
+            contrato.Empleado = empleado;
             contrato.ValorHora = 6;
 
             Boolean valorEsperado = true;
@@ -207,8 +209,10 @@ namespace NominaSoft.Test
         [Fact]
         public void TestVerificarValorHora2()
         {
+            Empleado empleado = new Empleado();
+            empleado.Grado = 3;
             Contrato contrato = new Contrato();
-            contrato.Empleado.Grado = 3;
+            contrato.Empleado = empleado;
             contrato.ValorHora = 6;
 
             Boolean valorEsperado = false;
@@ -219,8 +223,10 @@ namespace NominaSoft.Test
         [Fact]
         public void TestVerificarValorHora3()
         {
+            Empleado empleado = new Empleado();
+            empleado.Grado = 4;
             Contrato contrato = new Contrato();
-            contrato.Empleado.Grado = 4;
+            contrato.Empleado = empleado;
             contrato.ValorHora = 15;
 
             Boolean valorEsperado = false;
@@ -231,8 +237,10 @@ namespace NominaSoft.Test
         [Fact]
         public void TestVerificarValorHora4()
         {
+            Empleado empleado = new Empleado();
+            empleado.Grado = 5;
             Contrato contrato = new Contrato();
-            contrato.Empleado.Grado = 5;
+            contrato.Empleado = empleado;
             contrato.ValorHora = 50;
 
             Boolean valorEsperado = true;
@@ -243,8 +251,10 @@ namespace NominaSoft.Test
         [Fact]
         public void TestVerificarValorHora5()
         {
+            Empleado empleado = new Empleado();
+            empleado.Grado = 1;
             Contrato contrato = new Contrato();
-            contrato.Empleado.Grado = 1;
+            contrato.Empleado = empleado;
             contrato.ValorHora = 28;
 
             Boolean valorEsperado = false;
