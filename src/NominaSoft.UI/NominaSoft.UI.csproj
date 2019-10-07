@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NominaSoft.Core\NominaSoft.Core.csproj" />
+    <ProjectReference Include="..\NominaSoft.Infraestructure\NominaSoft.Infraestructure.csproj" />
+  </ItemGroup>
+
 </Project>

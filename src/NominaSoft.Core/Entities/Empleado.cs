@@ -1,9 +1,9 @@
-﻿using Core.Enums;
+﻿using NominaSoft.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Entities
+namespace NominaSoft.Core.Entities
 {
     public class Empleado
     {
@@ -14,7 +14,10 @@ namespace Core.Entities
         public String Dni { get; set; }
         public String Direccion { get; set; }
         public String NombreEmpleado { get; set; }
+        public bool Habilitado { get; set; }
 
         public DateTime FechaDeNacimiento { get; set; }
+
+        public ICollection<Contrato> Contratos { get; set; }
     }
 }

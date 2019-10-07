@@ -6,12 +6,15 @@ namespace NominaSoft.Core.Entities
 {
     public class PeriodoPago
     {
-        public int PeriodoPagoID { get; set; }
-
+        public int IdPeriodoPago { get; set; }
         public bool Esactivo { get; set; }
 
         public DateTime FechaFin { get; set; }
         public DateTime FechaInicio { get; set; }
+        public bool Habilitado { get; set; }
+
+        public ICollection<BoletaPago> BoletasPago { get; set; }
+        public ICollection<ConceptosDePago> ConceptosPago { get; set; }
 
         public void DesactivarPeriodo() => Esactivo = false;
 

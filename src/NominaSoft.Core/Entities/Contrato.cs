@@ -1,14 +1,14 @@
-﻿using Core.Enums;
+﻿using NominaSoft.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Entities
+namespace NominaSoft.Core.Entities
 {
     public class Contrato
     {
-        public int ValorHora { get; set; }
         public int IdContrato { get; set; }
+        public int ValorHora { get; set; }
         public int TotalHorasSemanales { get; set; }
 
         public bool EsAnulado { get; set; }
@@ -19,10 +19,18 @@ namespace Core.Entities
         public DateTime FechaFin { get; set; }
         public DateTime FechaInicio { get; set; }
 
+        public int IdAFP { get; set; }
         public AFP AFP { get; set; }
+
+        public int IdEmpleado { get; set; }
         public Empleado Empleado { get; set; }
 
+        public bool Habilitado { get; set; }
+
         public const double SueldoMinimo = 930.00;
+
+        public ICollection<BoletaPago> BoletasPago { get; set; }
+        public ICollection<ConceptosDePago> ConceptosDePago { get; set; }
 
         public double CalcularAsignacionFamiliar() => EsAsignacionFamiliar ? SueldoMinimo * 0.1 : 0;
 

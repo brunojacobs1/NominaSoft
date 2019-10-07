@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Enums
+namespace NominaSoft.Core.Enums
 {
     [Flags]
     public enum GradoAcademico
