@@ -1,4 +1,5 @@
-﻿using NominaSoft.Infraestructure.EFCore;
+﻿using NominaSoft.Core.Interfaces;
+using NominaSoft.Infraestructure.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace NominaSoft.Infraestructure
 {
-    public class Repository<T> : IRepository<T> where T : EntityBase
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly NSContext _dbContext;
 

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NominaSoft.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace NominaSoft.Infraestructure
+namespace NominaSoft.Core.Interfaces
 {
-    public interface IRepository<T> where T: EntityBase
+    public interface IRepository<T> where T: class
     {
         T GetById(int id);
         IEnumerable<T> List();

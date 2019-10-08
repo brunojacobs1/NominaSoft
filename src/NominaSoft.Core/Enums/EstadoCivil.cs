@@ -4,9 +4,8 @@ using System.Text;
 
 namespace NominaSoft.Core.Enums
 {
-    public enum GradoAcademico
+    public enum EstadoCivil
     {
-        Primaria , Secundaria, Bachiller, Profesional, Magister, Doctor 
+        Soltero, Casado, Conviviente, Divorciado, Viudo
     }
-
 }

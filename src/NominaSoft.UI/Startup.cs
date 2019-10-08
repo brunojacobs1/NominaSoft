@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NominaSoft.Core.Entities;
+using NominaSoft.Core.Interfaces;
+using NominaSoft.Infraestructure;
 using NominaSoft.Infraestructure.EFCore;
 
 namespace NominaSoft
@@ -24,6 +28,18 @@ namespace NominaSoft
         {
             services.AddDbContextPool<NSContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("NSDBConnection")));
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDistributedMemoryCache();
+
+            services.AddTransient<IRepository<AFP>, Repository<AFP>>();
+            services.AddTransient<IRepository<BoletaPago>, Repository<BoletaPago>>();
+            services.AddTransient<IRepository<ConceptosDePago>, Repository<ConceptosDePago>>();
+            services.AddTransient<IRepository<Contrato>, Repository<Contrato>>();
+            services.AddTransient<IRepository<Empleado>, Repository<Empleado>>();
+            services.AddTransient<IRepository<PeriodoPago>, Repository<PeriodoPago>>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,10 +50,21 @@ namespace NominaSoft
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseStaticFiles();
+            //app.UseCookiePolicy();
+            //app.UseSession();
+
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=GestionarContrato}/{action=Index}/{id?}");
             });
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }
