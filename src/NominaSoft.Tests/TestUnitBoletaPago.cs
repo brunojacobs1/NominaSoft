@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using NominaSoft.Core;
 using NominaSoft.Core.Entities;
 
 namespace NominaSoft.Tests
@@ -587,7 +586,12 @@ namespace NominaSoft.Tests
         [Fact]
         public void TestCalcularTotalIngresos1()
         {
-            ConceptosDePago concepto = new ConceptosDePago();
+            ConceptosDePago conceptosDePago = new ConceptosDePago
+            {
+                MontoDeOtrosIngresos = 100.50,
+                MontoPorReintegro = 30,
+                MontoPorHorasExtra = 50.50,
+            };
 
             Contrato contrato = new Contrato
             {
@@ -605,11 +609,5 @@ namespace NominaSoft.Tests
                 PeriodoPago = periodo
             };
         }
-        //MontoPorHorasAusentes +
-        //MontoDeOtrosIngresos +
-        //MontoPorHorasExtra;
-        //public double CalcularTotalIngresos() => CalcularSueldoBasico() + Contrato.CalcularAsignacionFamiliar() + ConceptosDePago.CalcularSumatoriaIngresos();
-
-        //public double CalcularSueldoNeto() => CalcularTotalIngresos() + CalcularTotalDescuentos();
     }
 }

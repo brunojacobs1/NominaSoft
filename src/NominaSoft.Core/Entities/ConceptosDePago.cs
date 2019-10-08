@@ -18,6 +18,8 @@ namespace NominaSoft.Core.Entities
 
         public double MontoPorAdelantos { get; set; }
 
+        public double MontoPorReintegro { get; set; }
+
         public int IdContrato { get; set; }
         public Contrato Contrato { get; set; }
 
@@ -32,7 +34,7 @@ namespace NominaSoft.Core.Entities
                                                         MontoPorAdelantos +
                                                         MontoPorHorasAusentes;
 
-        public double CalcularSumatoriaIngresos() => MontoPorHorasAusentes +
+        public double CalcularSumatoriaIngresos() => MontoPorReintegro +
                                                         MontoDeOtrosIngresos +
                                                         MontoPorHorasExtra;
     }

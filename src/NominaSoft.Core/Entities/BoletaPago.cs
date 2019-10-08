@@ -29,6 +29,6 @@ namespace NominaSoft.Core.Entities
         
         public double CalcularTotalIngresos() => CalcularSueldoBasico() + Contrato.CalcularAsignacionFamiliar() + ConceptosDePago.CalcularSumatoriaIngresos();
 
-        public double CalcularSueldoNeto() => CalcularTotalIngresos() + CalcularTotalDescuentos();
+        public double CalcularSueldoNeto() => CalcularTotalIngresos() - CalcularTotalDescuentos();
     }
 }

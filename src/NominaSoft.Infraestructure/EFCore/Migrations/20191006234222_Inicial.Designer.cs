@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NominaSoft.Infraestructure.EFCore;
 
-namespace NominaSoft.Infraestructure.Migrations
+namespace NominaSoft.Infraestructure.EFCore.Migrations
 {
     [DbContext(typeof(NSContext))]
     [Migration("20191006234222_Inicial")]
