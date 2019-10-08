@@ -586,6 +586,7 @@ namespace NominaSoft.Tests
         [Fact]
         public void TestCalcularTotalIngresos1()
         {
+            int decimales = 5;
             ConceptosDePago conceptosDePago = new ConceptosDePago
             {
                 MontoDeOtrosIngresos = 100.50,
@@ -596,7 +597,8 @@ namespace NominaSoft.Tests
             Contrato contrato = new Contrato
             {
                 TotalHorasSemanales = 19,
-                ValorHora = 23
+                ValorHora = 23,
+                EsAsignacionFamiliar = true
             };
             PeriodoPago periodo = new PeriodoPago
             {
@@ -606,8 +608,53 @@ namespace NominaSoft.Tests
             BoletaPago boleta = new BoletaPago
             {
                 Contrato = contrato,
-                PeriodoPago = periodo
+                PeriodoPago = periodo,
+                ConceptosDePago = conceptosDePago
             };
+
+            double valorEsperado = 12947;
+            double valorObtenido = boleta.CalcularTotalIngresos();
+            Assert.Equal<double>(Math.Round(valorEsperado, decimales), Math.Round(valorObtenido, decimales));
+        }
+        [Fact]
+        public void TestCalcularSueldoNeto1()
+        {
+            int decimales = 5;
+            ConceptosDePago conceptosDePago = new ConceptosDePago
+            {
+                MontoDeOtrosIngresos = 100.50,
+                MontoPorReintegro = 30,
+                MontoPorHorasExtra = 50.50,
+                MontoDeOtrosDescuentos=30.68,
+                MontoPorAdelantos=362.6,
+                MontoPorHorasAusentes=0
+            };
+            AFP afp = new AFP
+            {
+                PorcentajeDescuento = 0.1
+            };
+            Contrato contrato = new Contrato
+            {
+                TotalHorasSemanales = 19,
+                ValorHora = 23,
+                EsAsignacionFamiliar = true,
+                AFP=afp
+            };
+            PeriodoPago periodo = new PeriodoPago
+            {
+                FechaInicio = Convert.ToDateTime("10/07/2019"),
+                FechaFin = Convert.ToDateTime("04/02/2020")
+            };
+            BoletaPago boleta = new BoletaPago
+            {
+                Contrato = contrato,
+                PeriodoPago = periodo,
+                ConceptosDePago = conceptosDePago
+            };
+
+            double valorEsperado = 11286.42;
+            double valorObtenido = boleta.CalcularSueldoNeto();
+            Assert.Equal<double>(Math.Round(valorEsperado, decimales), Math.Round(valorObtenido, decimales));
         }
     }
 }
