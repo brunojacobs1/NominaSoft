@@ -8,7 +8,7 @@ namespace NominaSoft.UI.Controllers
 {
     public class ProcesarPagosController : Controller
     {
-        public IActionResult Index()
+        public IActionResult ProcesarPagos()
         {
             return View();
         }

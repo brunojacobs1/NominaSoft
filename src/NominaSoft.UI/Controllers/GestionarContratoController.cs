@@ -17,9 +17,14 @@ namespace NominaSoft.UI.Controllers
             _repositoryEmpleado = repositoryEmpleado;
         }
 
-        public String Index()
+        //public String Index()
+        //{
+            //return _repositoryEmpleado.GetById(1).NombreEmpleado;
+        //}
+
+        public IActionResult GestionarContrato()
         {
-            return _repositoryEmpleado.GetById(1).NombreEmpleado;
+            return View();
         }
     }
 }
