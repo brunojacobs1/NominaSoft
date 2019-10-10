@@ -1,0 +1,397 @@
+﻿
+@{
+    ViewData["Title"] = "Gestionar Contrato";
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">BUSCAR EMPLEADO POR DNI</h4>
+                    <p class="card-description">
+                        Ingrese el <code>DNI</code> de un empleado para filtrarlo en el sistema
+                    </p>
+                    <form class="form-sample">
+                        <div class="contenedor">
+                            <input type="text" class="form-control mb-2" placeholder="10153248">
+                            <button type="submit" class="btn btn-primary" style="margin-left: 150px; margin-right: 150px">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">DATOS DEL EMPLEADO</h4>
+                    <form class="form-sample">
+                        <p class="card-description">
+                            Información personal
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Nombre</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Dirección</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Teléfono</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">F. de Nac.</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Estado Civil</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Grado Acad.</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row" style="text-align: center">
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearContrato">
+                                            Crear Contrato
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarContrato">
+                                            Editar Contrato
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#anularContrato">
+                                            Anular Contrato
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="crearContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">CREAR CONTRATO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h4 class="card-title" style="margin-bottom: 30px">Ingrese los siguientes datos</h4>
+                    <form class="form-sample">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <select class="form-control" id="sel1">
+                                                <option selected>Seleccione una AFP</option>
+                                                <option>Primax Seguros</option>
+                                                <option>La Positiva</option>
+                                                <option>Chupetin Films</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
+                                    <div class="col-sm-9 col-form-label" style="text-align: center">
+                                        <input type="checkbox" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="editarContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">EDITAR CONTRATO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h4 class="card-title" style="margin-bottom: 30px">Edite los siguientes datos</h4>
+                    <form class="form-sample">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <select class="form-control" id="sel1">
+                                                <option selected>Seleccione una AFP</option>
+                                                <option>Primax Seguros</option>
+                                                <option>La Positiva</option>
+                                                <option>Chupetin Films</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
+                                    <div class="col-sm-9 col-form-label" style="text-align: center">
+                                        <input type="checkbox" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="anularContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">ANULAR CONTRATO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h4 class="card-title" style="margin-bottom: 30px">Datos del contrato</h4>
+                    <form class="form-sample">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <select class="form-control" id="sel1" disabled>
+                                                <option selected>Seleccione una AFP</option>
+                                                <option>Primax Seguros</option>
+                                                <option>La Positiva</option>
+                                                <option>Chupetin Films</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
+                                    <div class="col-sm-9 col-form-label" style="text-align: center">
+                                        <input type="checkbox" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

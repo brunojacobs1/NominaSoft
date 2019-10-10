@@ -8,9 +8,9 @@ namespace NominaSoft.UI.Controllers
 {
     public class HomeController : Controller
     {
-        public String Index()
+        public IActionResult Index()
         {
-            return "pepperoni";
+            return View();
         }
     }
 }
