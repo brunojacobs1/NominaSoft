@@ -14,6 +14,7 @@ namespace NominaSoft.Core.Entities
         public String Dni { get; set; }
         public String Direccion { get; set; }
         public String NombreEmpleado { get; set; }
+        public String Telefono { get; set; }
         public bool Habilitado { get; set; }
 
         public DateTime FechaDeNacimiento { get; set; }

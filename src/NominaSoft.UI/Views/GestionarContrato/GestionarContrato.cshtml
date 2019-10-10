@@ -1,4 +1,5 @@
-﻿
+﻿@model ViewModelGestionarContrato
+
 @{
     ViewData["Title"] = "Gestionar contrato";
 }
@@ -12,9 +13,9 @@
                     <p class="card-description">
                         Ingrese el <code>DNI</code> de un empleado para filtrarlo en el sistema
                     </p>
-                    <form class="form-sample">
+                    <form class="form-sample" asp-controller="GestionarContrato" asp-action="BuscarEmpleado" method="get">
                         <div class="contenedor">
-                            <input type="text" class="form-control mb-2" placeholder="10153248">
+                            <input type="text" class="form-control mb-2" placeholder="10153248" name="search">
                             <button type="submit" class="btn btn-primary" style="margin-left: 150px; margin-right: 150px">Buscar</button>
                         </div>
                     </form>
@@ -34,7 +35,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Nombre</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.NombreEmpleado" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" disabled />
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +52,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Dirección</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.Direccion" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" disabled />
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +71,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Teléfono</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.Telefono" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" disabled />
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +88,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">F. de Nac.</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.FechaDeNacimiento" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" disabled />
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +107,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Estado Civil</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.EstadoCivil" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" disabled />
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +124,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Grado Acad.</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.Grado" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control" disabled />
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
