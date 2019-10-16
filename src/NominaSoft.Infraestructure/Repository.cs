@@ -37,8 +37,8 @@ namespace NominaSoft.Infraestructure
 
         public IEnumerable<T> List() => _dbContext.Set<T>().AsEnumerable();
 
-        public IEnumerable<T> List(Expression<Func<T, bool>> predicate) => _dbContext.Set<T>()
-                                                                                    .Where(predicate)
-                                                                                    .AsEnumerable();
+        public IEnumerable<T> List(ISpecification<T> spec) => _dbContext.Set<T>()
+                                                                        .Where(spec.Condicion)
+                                                                        .AsEnumerable();
     }
 }
