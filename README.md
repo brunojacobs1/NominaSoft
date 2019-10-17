@@ -43,3 +43,12 @@ de dos casos de uso: Gestionar contratos y procesar pagos.
   - [Introducing Gitflow](https://datasift.github.io/gitflow/IntroducingGitFlow.html)
 - **.NET Core**
   - [.NET Core Guide](https://docs.microsoft.com/en-us/dotnet/core/)
+- **Entity Framework Core**
+  - [Entity Framework Core Guide](https://docs.microsoft.com/en-us/ef/core/)
+- **Repository Pattern**
+  - [Repository Pattern](https://deviq.com/repository-pattern/)
+- **Specification Pattern**
+  - [Specification pattern: C# implementation](https://enterprisecraftsmanship.com/posts/specification-pattern-c-implementation/)
+  - [A Generic Specification Pattern in C](https://fabiomarreco.github.io/blog/2017/a-generic-specification-pattern-in-c/)
+  - [Specification Pattern](https://deviq.com/specification-pattern/)
+  

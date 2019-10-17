@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
+using NominaSoft.UI.ViewModels;
 
 namespace NominaSoft.UI.Controllers
 {
@@ -22,9 +23,24 @@ namespace NominaSoft.UI.Controllers
             //return _repositoryEmpleado.GetById(1).NombreEmpleado;
         //}
 
+        [HttpGet]
         public IActionResult GestionarContrato()
         {
-            return View();
+            //ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato();
+
+            return View(/*viewModelGestionarContrato*/);
         }
+
+        [HttpGet]
+        public IActionResult BuscarEmpleado(int search)
+        {
+            ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
+            {
+                Empleado = _repositoryEmpleado.GetById(search)
+            };
+
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+        }
+
     }
 }

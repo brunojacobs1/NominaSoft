@@ -317,6 +317,132 @@ namespace NominaSoft.Test
             Boolean valorObtenido = contrato.VerificarValorHora();
             Assert.Equal<Boolean>(valorEsperado, valorObtenido);
         }
+
+        [Fact]
+        public void TestVerificarValorHora6()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 0
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 27
+            };
+
+            Boolean valorEsperado = false;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
+
+        [Fact]
+        public void TestVerificarValorHora7()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 3
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 25
+            };
+
+            Boolean valorEsperado = true;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
+
+        [Fact]
+        public void TestVerificarValorHora8()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 4
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 39
+            };
+
+            Boolean valorEsperado = true;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
+
+        [Fact]
+        public void TestVerificarValorHora9()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 5
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 69
+            };
+
+            Boolean valorEsperado = false;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
+
+        [Fact]
+        public void TestVerificarValorHora10()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 2
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 8
+            };
+
+            Boolean valorEsperado = false;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
+
+        [Fact]
+        public void TestVerificarValorHora11()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 1
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 9
+            };
+
+            Boolean valorEsperado = true;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
+
+        [Fact]
+        public void TestVerificarValorHora12()
+        {
+            Empleado empleado = new Empleado
+            {
+                Grado = 2
+            };
+            Contrato contrato = new Contrato
+            {
+                Empleado = empleado,
+                ValorHora = 15
+            };
+
+            Boolean valorEsperado = true;
+            Boolean valorObtenido = contrato.VerificarValorHora();
+            Assert.Equal<Boolean>(valorEsperado, valorObtenido);
+        }
     }
 }
 
