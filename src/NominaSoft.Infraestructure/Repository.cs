@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace NominaSoft.Infraestructure
 {
@@ -29,16 +30,34 @@ namespace NominaSoft.Infraestructure
         public void Edit(T entity)
         {
             var t = _dbContext.Set<T>().Attach(entity);
-            t.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            t.State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
 
         public T GetById(int id) => _dbContext.Set<T>().Find(id);
 
+        public T Get(ISpecification<T> spec)
+        {
+            var resultadoConIncludes = spec.Includes
+                .Aggregate(_dbContext.Set<T>().AsQueryable(),
+                (current, include) => current.Include(include));
+
+            return resultadoConIncludes
+                .Where(spec.Condicion)
+                .SingleOrDefault();
+        }
+
         public IEnumerable<T> List() => _dbContext.Set<T>().AsEnumerable();
 
-        public IEnumerable<T> List(ISpecification<T> spec) => _dbContext.Set<T>()
-                                                                        .Where(spec.Condicion)
-                                                                        .AsEnumerable();
+        public IEnumerable<T> List(ISpecification<T> spec)
+        {
+            var resultadoConIncludes = spec.Includes
+                .Aggregate(_dbContext.Set<T>().AsQueryable(),
+                (current, include) => current.Include(include));
+
+            return resultadoConIncludes
+                .Where(spec.Condicion)
+                .AsEnumerable();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace NominaSoft.Core.Interfaces
     public interface ISpecification<T>
     {
         Expression<Func<T, bool>> Condicion { get; }
+        List<Expression<Func<T, object>>> Includes { get; }
     }
 }

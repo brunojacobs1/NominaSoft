@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
+using NominaSoft.Core.Specifications;
 using NominaSoft.UI.ViewModels;
 
 namespace NominaSoft.UI.Controllers
@@ -32,12 +33,18 @@ namespace NominaSoft.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult BuscarEmpleado(int search)
+        public IActionResult BuscarEmpleado(String dni)
         {
             ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
             {
-                Empleado = _repositoryEmpleado.GetById(search)
+                Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni))
             };
+
+            foreach (var contrato in viewModelGestionarContrato.Empleado.Contratos)
+            {
+                if (!contrato.VerificarVigencia())
+                    viewModelGestionarContrato.Empleado.Contratos.Remove(contrato);
+            }
 
             return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }

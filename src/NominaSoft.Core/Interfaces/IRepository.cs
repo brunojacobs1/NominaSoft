@@ -10,6 +10,7 @@ namespace NominaSoft.Core.Interfaces
     {
         T GetById(int id);
         IEnumerable<T> List();
+        T Get(ISpecification<T> spec);
         IEnumerable<T> List(ISpecification<T> spec);
         void Add(T entity);
         void Delete(T entity);
