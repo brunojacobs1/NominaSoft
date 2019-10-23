@@ -9,5 +9,6 @@ namespace NominaSoft.UI.ViewModels
     public class ViewModelGestionarContrato
     {
         public Empleado Empleado { get; set; }
+        public int EmpleadoNoEncontrado { get; set; }
     }
 }

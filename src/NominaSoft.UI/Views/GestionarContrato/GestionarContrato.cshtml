@@ -36,7 +36,7 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Nombre</label>
                                     <div class="col-sm-9">
                                         @{
-                                            if (Model != null)
+                                            if (Model.Empleado != null)
                                             {
                                                 <input type="text" class="form-control" disabled value="@Model.Empleado.NombreEmpleado" />
                                             }
@@ -53,7 +53,7 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Dirección</label>
                                     <div class="col-sm-9">
                                         @{
-                                            if (Model != null)
+                                            if (Model.Empleado != null)
                                             {
                                                 <input type="text" class="form-control" disabled value="@Model.Empleado.Direccion" />
                                             }
@@ -72,7 +72,7 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Teléfono</label>
                                     <div class="col-sm-9">
                                         @{
-                                            if (Model != null)
+                                            if (Model.Empleado != null)
                                             {
                                                 <input type="text" class="form-control" disabled value="@Model.Empleado.Telefono" />
                                             }
@@ -89,7 +89,7 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">F. de Nac.</label>
                                     <div class="col-sm-9">
                                         @{
-                                            if (Model != null)
+                                            if (Model.Empleado != null)
                                             {
                                                 <input type="text" class="form-control" disabled value="@Model.Empleado.FechaDeNacimiento.ToShortDateString()" />
                                             }
@@ -108,7 +108,7 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Estado Civil</label>
                                     <div class="col-sm-9">
                                         @{
-                                            if (Model != null)
+                                            if (Model.Empleado != null)
                                             {
 
                                                 switch (Model.Empleado.EstadoCivil)
@@ -145,7 +145,7 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Grado Acad.</label>
                                     <div class="col-sm-9">
                                         @{
-                                            if (Model != null)
+                                            if (Model.Empleado != null)
                                             {
                                                 switch (Model.Empleado.Grado)
                                                 {
@@ -491,3 +491,21 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    function empleadoNoEncontrado(noEncontrado) {
+
+        if (noEncontrado != 0) {
+            Swal.fire({
+              type: 'error',
+              title: 'Oops...',
+              text: 'No existe empleado',
+            })
+        }
+    }
+
+    empleadoNoEncontrado(@Model.EmpleadoNoEncontrado);
+
+</script>

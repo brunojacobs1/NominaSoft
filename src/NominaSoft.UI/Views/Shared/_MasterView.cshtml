@@ -37,31 +37,25 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a 
-                            class="nav-link" 
-                            asp-controller="Home"
-                            asp-action="Index"
-                        >
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Index">
                             <i class="ti-star menu-icon"></i>
                             <span class="menu-title">Inicio</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a 
-                            class="nav-link" 
-                            asp-controller="GestionarContrato"
-                            asp-action="GestionarContrato"
-                        >
+                        <a class="nav-link"
+                           asp-controller="GestionarContrato"
+                           asp-action="GestionarContrato">
                             <i class="ti-layout-list-post menu-icon"></i>
                             <span class="menu-title">Gestionar Contrato</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a 
-                            class="nav-link" 
-                            asp-controller="ProcesarPagos"
-                            asp-action="ProcesarPagos"
-                        >
+                        <a class="nav-link"
+                           asp-controller="ProcesarPagos"
+                           asp-action="ProcesarPagos">
                             <i class="ti-write menu-icon"></i>
                             <span class="menu-title">Procesar Pagos</span>
                         </a>
@@ -85,11 +79,10 @@
             </nav>
             <!-- partial -->
             <div class="main-panel">
-                
+
                 <!-- RENDER SECTIONS -->
                 @RenderBody()
                 <!-- END REDNDER SECTIONS -->
-
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
@@ -119,6 +112,12 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="~/js/dashboard.js"></script>
+    <!-- SweetAlert v2.0 -->
+    <!--
+    <script src="~/js/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- End custom js for this page-->
 </body>
 
