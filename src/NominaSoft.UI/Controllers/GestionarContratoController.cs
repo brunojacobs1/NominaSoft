@@ -40,7 +40,7 @@ namespace NominaSoft.UI.Controllers
                 Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni))
             };
 
-            foreach (var contrato in viewModelGestionarContrato.Empleado.Contratos)
+            foreach (Contrato contrato in viewModelGestionarContrato.Empleado.Contratos.ToList())
             {
                 if (!contrato.VerificarVigencia())
                     viewModelGestionarContrato.Empleado.Contratos.Remove(contrato);

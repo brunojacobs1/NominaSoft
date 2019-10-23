@@ -15,7 +15,7 @@
                     </p>
                     <form class="form-sample" asp-controller="GestionarContrato" asp-action="BuscarEmpleado" method="get">
                         <div class="contenedor">
-                            <input type="text" class="form-control mb-2" placeholder="10153248" name="search">
+                            <input type="text" class="form-control mb-2" placeholder="10153248" name="dni">
                             <button type="submit" class="btn btn-primary" style="margin-left: 150px; margin-right: 150px">Buscar</button>
                         </div>
                     </form>
@@ -91,7 +91,7 @@
                                         @{
                                             if (Model != null)
                                             {
-                                                <input type="text" class="form-control" disabled value="@Model.Empleado.FechaDeNacimiento" />
+                                                <input type="text" class="form-control" disabled value="@Model.Empleado.FechaDeNacimiento.ToShortDateString()" />
                                             }
                                             else
                                             {
@@ -110,7 +110,27 @@
                                         @{
                                             if (Model != null)
                                             {
-                                                <input type="text" class="form-control" disabled value="@Model.Empleado.EstadoCivil" />
+
+                                                switch (Model.Empleado.EstadoCivil)
+                                                {
+                                                    case 0:
+                                                        <input type="text" class="form-control" disabled value="Soltero" />
+                                                        break;
+                                                    case 1:
+                                                        <input type="text" class="form-control" disabled value="Casado" />
+                                                        break;
+                                                    case 2:
+                                                        <input type="text" class="form-control" disabled value="Conviviente" />
+                                                        break;
+                                                    case 3:
+                                                        <input type="text" class="form-control" disabled value="Divorciado" />
+                                                        break;
+                                                    case 4:
+                                                        <input type="text" class="form-control" disabled value="Viudo" />
+                                                        break;
+                                                }
+
+                                                <!--<input type="text" class="form-control" disabled value="@Model.Empleado.EstadoCivil" /> -->
                                             }
                                             else
                                             {
@@ -127,7 +147,28 @@
                                         @{
                                             if (Model != null)
                                             {
-                                                <input type="text" class="form-control" disabled value="@Model.Empleado.Grado" />
+                                                switch (Model.Empleado.Grado)
+                                                {
+                                                    case 0:
+                                                        <input type="text" class="form-control" disabled value="Primaria" />
+                                                        break;  
+                                                    case 1:
+                                                        <input type="text" class="form-control" disabled value="Secundaria" />
+                                                        break;
+                                                    case 2:
+                                                        <input type="text" class="form-control" disabled value="Bachiller" />
+                                                        break;
+                                                    case 3:
+                                                        <input type="text" class="form-control" disabled value="Profesional" />
+                                                        break;
+                                                    case 4:
+                                                        <input type="text" class="form-control" disabled value="Magister" />
+                                                        break;
+                                                    case 5:
+                                                        <input type="text" class="form-control" disabled value="Doctor" />
+                                                        break;
+                                                }
+                                                <!--<input type="text" class="form-control" disabled value="@Model.Empleado.Grado" />-->
                                             }
                                             else
                                             {
