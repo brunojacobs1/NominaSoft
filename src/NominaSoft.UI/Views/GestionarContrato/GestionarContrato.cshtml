@@ -13,7 +13,7 @@
                     <p class="card-description">
                         Ingrese el <code>DNI</code> de un empleado para filtrarlo en el sistema
                     </p>
-                    <form class="form-sample" asp-controller="GestionarContrato" asp-action="BuscarEmpleado" method="get">
+                    <form class="form-sample" asp-controller="GestionarContrato" asp-action="BuscarEmpleado" method="get" onsubmit="return encontrado(@Model.EmpleadoNoEncontrado);" >
                         <div class="contenedor">
                             <input type="text" class="form-control mb-2" placeholder="10153248" name="dni">
                             <button type="submit" class="btn btn-primary" style="margin-left: 150px; margin-right: 150px">Buscar</button>
@@ -495,17 +495,23 @@
 
 <script type="text/javascript">
 
-    function empleadoNoEncontrado(noEncontrado) {
-
-        if (noEncontrado != 0) {
-            Swal.fire({
-              type: 'error',
-              title: 'Oops...',
-              text: 'No existe empleado',
-            })
-        }
+    function ga() {
+        Swal.fire('Any fool can use a computer');
     }
 
-    empleadoNoEncontrado(@Model.EmpleadoNoEncontrado);
+    ga();
+
+    function encontrado(noEncontrado) {
+
+        if (noEncontrado == 1) {
+
+            Swal.fire({
+                type: 'warning',
+                title: '¡Alerta!',
+                text: 'Este material ya se encuentra en su carrito de compras',
+            })
+
+        }
+    }
 
 </script>
