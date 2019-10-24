@@ -28,19 +28,18 @@ namespace NominaSoft.UI.Controllers
         public IActionResult GestionarContrato()
         {
             ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato();
-
             return View(viewModelGestionarContrato);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult BuscarEmpleado(String dni)
         {
             ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
             {
                 Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni))
             };
-
-            if(viewModelGestionarContrato.Empleado != null)
+            
+            if (viewModelGestionarContrato.Empleado != null)
             {
                 foreach (Contrato contrato in viewModelGestionarContrato.Empleado.Contratos.ToList())
                 {
