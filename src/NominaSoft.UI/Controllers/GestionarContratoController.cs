@@ -25,9 +25,15 @@ namespace NominaSoft.UI.Controllers
         //}
 
         [HttpGet]
-        public IActionResult GestionarContrato()
+        public IActionResult GestionarContrato(ViewModelGestionarContrato viewModelGestionarContrato)
         {
-            ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato();
+            if(viewModelGestionarContrato == null)
+            {
+                viewModelGestionarContrato = new ViewModelGestionarContrato();
+            }
+
+            viewModelGestionarContrato.EmpleadoNoEncontrado = 0;
+           
             return View(viewModelGestionarContrato);
         }
 
@@ -52,7 +58,9 @@ namespace NominaSoft.UI.Controllers
                 viewModelGestionarContrato.EmpleadoNoEncontrado = 1;
             }
 
-            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+            return RedirectToAction("GestionarContrato", viewModelGestionarContrato);
+
+            //return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }
         /*
         [HttpGet]
