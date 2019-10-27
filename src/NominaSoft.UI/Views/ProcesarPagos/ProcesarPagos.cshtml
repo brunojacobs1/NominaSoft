@@ -1,14 +1,68 @@
-﻿@{
+﻿@model ViewModelProcesarPagos
+@{
     ViewData["Title"] = "Procesar pagos";
 }
 
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="card-title">PERIODO DE PAGO ACTIVO</h4>
+                    <p class="card-description">
+                        Ingrese el <code>DNI</code> de un empleado para filtrarlo en el sistema
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" style="text-align: center">Fecha Inicio: </label>
+                                <div class="col-sm-9">
+                                    @{
+                                        if (Model.PeriodoPago != null)
+                                        {
+                                            <label class="col-sm-9 col-form-label" style="text-align: center">@Model.PeriodoPago.FechaInicio.ToShortDateString()</label>                                            
+                                        }
+                                        else
+                                        {
+                                            <label class="col-sm-9 col-form-label" style="text-align: center">No hay fecha de inicio</label>                                            
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" style="text-align: center">Fecha Fin: </label>
+                                <div class="col-sm-9">
+                                    @{
+                                        if (Model.PeriodoPago != null)
+                                        {
+                                            <label class="col-sm-9 col-form-label" style="text-align: center">@Model.PeriodoPago.FechaFin.ToShortDateString()</label>
+                                        }
+                                        else
+                                        {
+                                            <label class="col-sm-9 col-form-label" style="text-align: center">No hay fecha de fin</label>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <form class="form-sample" asp-controller="ProcesarPagos" 
+                                  asp-action="VerificarProcesado" method="post" >
+                                    <button type="submit" class="btn btn-outline-warning">Procesar pagos</button>
+                            </form>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+
+                <div class="card-body">
                     <h4 class="card-title">PAGOS DEL PERIODO</h4>
-                    <button type="button" class="btn btn-outline-warning">Procesar pagos</button>
+                    
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -25,72 +79,83 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (var boleta in Model.PeriodoPago.BoletasPago)
+                                {
                                 <tr>
-                                    <td>1</td>
-                                    <td>Zuzu</td>
-                                    <td><label class="badge badge-info">12345678</label></td>
-                                    <td>200</td>
-                                    <td>15.50</td>
-                                    <td>800</td>
-                                    <td>1300</td>
-                                    <td>200</td>
-                                    <td>1100</td>
+                                    <td>@boleta.Contrato.Empleado.IdEmpleado</td>
+                                    <td>@boleta.Contrato.Empleado.NombreEmpleado</td>
+                                    <td>@boleta.Contrato.Empleado.Dni</td>
+                                    <td>@boleta.Contrato.ValorHora</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Pepperoni</td>
-                                    <td><label class="badge badge-info">87654321</label></td>
-                                    <td>100</td>
-                                    <td>12</td>
-                                    <td>950</td>
-                                    <td>5000</td>
-                                    <td>322</td>
-                                    <td>6000</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Olivia</td>
-                                    <td><label class="badge badge-info">64234125</label></td>
-                                    <td>500</td>
-                                    <td>30</td>
-                                    <td>2000</td>
-                                    <td>7000</td>
-                                    <td>0</td>
-                                    <td>7000</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Ditzy Huayno</td>
-                                    <td><label class="badge badge-info">96137654</label></td>
-                                    <td>400</td>
-                                    <td>10</td>
-                                    <td>250</td>
-                                    <td>1200</td>
-                                    <td>6</td>
-                                    <td>1194</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Lira</td>
-                                    <td><label class="badge badge-info">63459752</label></td>
-                                    <td>10000</td>
-                                    <td>10000</td>
-                                    <td>10000</td>
-                                    <td>10000</td>
-                                    <td>10000</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Chenta</td>
-                                    <td><label class="badge badge-info">45532187</label></td>
-                                    <td>200</td>
-                                    <td>30</td>
-                                    <td>950</td>
-                                    <td>1300</td>
-                                    <td>100</td>
-                                    <td>1200</td>
-                                </tr>
+                                }
+                                <!--
+    <tr>
+        <td>1</td>
+        <td>Zuzu</td>
+        <td><label class="badge badge-info">12345678</label></td>
+        <td>200</td>
+        <td>15.50</td>
+        <td>800</td>
+        <td>1300</td>
+        <td>200</td>
+        <td>1100</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Pepperoni</td>
+        <td><label class="badge badge-info">87654321</label></td>
+        <td>100</td>
+        <td>12</td>
+        <td>950</td>
+        <td>5000</td>
+        <td>322</td>
+        <td>6000</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Olivia</td>
+        <td><label class="badge badge-info">64234125</label></td>
+        <td>500</td>
+        <td>30</td>
+        <td>2000</td>
+        <td>7000</td>
+        <td>0</td>
+        <td>7000</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Ditzy Huayno</td>
+        <td><label class="badge badge-info">96137654</label></td>
+        <td>400</td>
+        <td>10</td>
+        <td>250</td>
+        <td>1200</td>
+        <td>6</td>
+        <td>1194</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Lira</td>
+        <td><label class="badge badge-info">63459752</label></td>
+        <td>10000</td>
+        <td>10000</td>
+        <td>10000</td>
+        <td>10000</td>
+        <td>10000</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Chenta</td>
+        <td><label class="badge badge-info">45532187</label></td>
+        <td>200</td>
+        <td>30</td>
+        <td>950</td>
+        <td>1300</td>
+        <td>100</td>
+        <td>1200</td>
+    </tr>
+        -->
                             </tbody>
                         </table>
                     </div>
