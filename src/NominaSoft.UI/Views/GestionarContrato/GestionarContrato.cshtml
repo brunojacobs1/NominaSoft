@@ -13,7 +13,7 @@
                     <p class="card-description">
                         Ingrese el <code>DNI</code> de un empleado para filtrarlo en el sistema
                     </p>
-                    <form class="form-sample" asp-controller="GestionarContrato" asp-action="BuscarEmpleado" method="post" onsubmit="return encontrado(@Model.EmpleadoNoEncontrado, event)" >
+                    <form class="form-sample" asp-controller="GestionarContrato" asp-action="BuscarEmpleado" method="get">
                         <div class="contenedor">
                             <input type="text" class="form-control mb-2" placeholder="10153248" name="dni">
                             <button type="submit" class="btn btn-primary" style="margin-left: 150px; margin-right: 150px">Buscar</button>
@@ -127,6 +127,7 @@
                                                         break;
                                                     case 4:
                                                         <input type="text" class="form-control" disabled value="Viudo" />
+
                                                         break;
                                                 }
 
@@ -151,7 +152,7 @@
                                                 {
                                                     case 0:
                                                         <input type="text" class="form-control" disabled value="Primaria" />
-                                                        break;  
+                                                        break;
                                                     case 1:
                                                         <input type="text" class="form-control" disabled value="Secundaria" />
                                                         break;
@@ -166,6 +167,7 @@
                                                         break;
                                                     case 5:
                                                         <input type="text" class="form-control" disabled value="Doctor" />
+
                                                         break;
                                                 }
                                                 <!--<input type="text" class="form-control" disabled value="@Model.Empleado.Grado" />-->
@@ -182,21 +184,65 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group row" style="text-align: center">
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearContrato">
-                                            Crear Contrato
-                                        </button>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarContrato">
-                                            Editar Contrato
-                                        </button>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#anularContrato">
-                                            Anular Contrato
-                                        </button>
-                                    </div>
+                                    @{
+                                        if (Model.Empleado == null)
+                                        {
+                                            <div class="col-sm-4">
+                                                <button type="button" disabled class="btn btn-primary" data-toggle="modal" data-target="#crearContrato">
+                                                    Crear Contrato
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button type="button" disabled class="btn btn-primary" data-toggle="modal" data-target="#editarContrato">
+                                                    Editar Contrato
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button type="button" disabled class="btn btn-primary" data-toggle="modal" data-target="#anularContrato">
+                                                    Anular Contrato
+                                                </button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if (Model.Empleado.Contratos.Count == 0)
+                                            {
+                                                <div class="col-sm-4">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearContrato">
+                                                        Crear Contrato
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarContrato">
+                                                        Editar Contrato
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#anularContrato">
+                                                        Anular Contrato
+                                                    </button>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-sm-4">
+                                                    <button disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearContrato">
+                                                        Crear Contrato
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarContrato">
+                                                        Editar Contrato
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#anularContrato">
+                                                        Anular Contrato
+                                                    </button>
+                                                </div>
+                                            }
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -219,13 +265,17 @@
             <div class="modal-body">
                 <div class="card-body">
                     <h4 class="card-title" style="margin-bottom: 30px">Ingrese los siguientes datos</h4>
-                    <form class="form-sample">
+                    <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="CrearContrato">
+                        @if (Model.Empleado != null)
+                        {
+                            <input id="empleadoId" name="empleadoId" type="hidden" value="@Model.Empleado.IdEmpleado">
+                        }
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" />
+                                        <input asp-for="Contrato.FechaInicio" type="date" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +283,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" />
+                                        <input asp-for="Contrato.FechaFin" type="date" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +293,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="Contrato.Cargo" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -252,12 +302,20 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
                                     <div class="col-sm-9">
                                         <div class="form-group">
-                                            <select class="form-control" id="sel1">
-                                                <option selected>Seleccione una AFP</option>
-                                                <option>Primax Seguros</option>
-                                                <option>La Positiva</option>
-                                                <option>Chupetin Films</option>
-                                            </select>
+                                            @{
+                                                if (Model.AFPs != null)
+                                                {
+                                                    <select asp-for="Contrato.IdAFP" class="form-control" id="sel1">
+                                                        <option selected value="0">Seleccione una AFP</option>
+                                                        @{
+                                                            foreach (var afp in Model.AFPs)
+                                                            {
+                                                                <option value="@afp.IdAFP">@afp.NombreAFP</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                }
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +326,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
                                     <div class="col-sm-9 col-form-label" style="text-align: center">
-                                        <input type="checkbox" />
+                                        <input asp-for="Contrato.EsAsignacionFamiliar" type="checkbox" />
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +334,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="Contrato.ValorHora" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -286,14 +344,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="Contrato.TotalHorasSemanales" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -492,22 +550,44 @@
     </div>
 </div>
 
+@section SweetAlert2 {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <!--
+        <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-<script type="text/javascript">
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+    -->
+    <script type="text/javascript">
 
-   
-    const encontrado = (noEncontrado, event) => {
+        function validacionEmpleado(empleadoEncontrado) {
 
-        if (noEncontrado == 1) {
-            Swal.fire({
-                type: 'warning',
-                title: '¡Alerta!',
-                text: 'Usuario no encontrado',
-            })
-            event.preventDefault();
+            if (empleadoEncontrado == 1) {
+
+                Swal.fire({
+                    type: 'error',
+                    title: 'Algo ha fallado...',
+                    text: 'No existe el empleado',
+                })
+
+            }
         }
 
-        
-    }
+        function validacionCreacionContrato(contratoCreado) {
 
-</script>
+            if (contratoCreado == 1) {
+
+                Swal.fire({
+                    type: 'success',
+                    title: 'Se guardó el nuevo contrato',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+
+            }
+        }
+
+        validacionEmpleado(@Model.EmpleadoNoEncontrado);
+        validacionCreacionContrato(@Model.ContratoCreado);
+
+    </script>
+}
