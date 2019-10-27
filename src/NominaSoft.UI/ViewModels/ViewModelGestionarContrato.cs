@@ -9,6 +9,9 @@ namespace NominaSoft.UI.ViewModels
     public class ViewModelGestionarContrato
     {
         public Empleado Empleado { get; set; }
+        public Contrato Contrato { get; set; }
+        public IEnumerable<AFP> AFPs { get; set; }
         public int EmpleadoNoEncontrado { get; set; }
+        public int ContratoCreado { get; set; }
     }
 }

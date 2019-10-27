@@ -102,7 +102,7 @@
     <!-- container-scroller -->
     <!-- SweetAlert v2.0 -->
     <!-- <script src="~/sweetalert2/dist/sweetalert2.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> -->
     <!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
     <!-- plugins:js -->
     <script src="~/vendors/base/vendor.bundle.base.js"></script>
@@ -119,6 +119,13 @@
     <!-- Custom js for this page-->
     <script src="~/js/dashboard.js"></script>
     <!-- End custom js for this page-->
+
+
+    @if (IsSectionDefined("SweetAlert2"))
+    {
+        @RenderSection("SweetAlert2", required: true)
+    }
+
 </body>
 
 </html>

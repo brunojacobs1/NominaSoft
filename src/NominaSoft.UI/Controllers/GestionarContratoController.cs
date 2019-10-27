@@ -13,10 +13,16 @@ namespace NominaSoft.UI.Controllers
     public class GestionarContratoController : Controller
     {
         private readonly IRepository<Empleado> _repositoryEmpleado;
+        private readonly IRepository<AFP> _repositoryAFP;
+        private readonly IRepository<Contrato> _repositoryContrato;
 
-        public GestionarContratoController(IRepository<Empleado> repositoryEmpleado)
+        public GestionarContratoController(IRepository<Empleado> repositoryEmpleado,
+                                            IRepository<AFP> repositoryAFP,
+                                            IRepository<Contrato> repositoryContrato)
         {
             _repositoryEmpleado = repositoryEmpleado;
+            _repositoryAFP = repositoryAFP;
+            _repositoryContrato = repositoryContrato;
         }
 
         //public String Index()
@@ -25,24 +31,20 @@ namespace NominaSoft.UI.Controllers
         //}
 
         [HttpGet]
-        public IActionResult GestionarContrato(ViewModelGestionarContrato viewModelGestionarContrato)
+        public IActionResult GestionarContrato()
         {
-            if(viewModelGestionarContrato == null)
-            {
-                viewModelGestionarContrato = new ViewModelGestionarContrato();
-            }
+            ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato();
 
-            viewModelGestionarContrato.EmpleadoNoEncontrado = 0;
-           
             return View(viewModelGestionarContrato);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult BuscarEmpleado(String dni)
         {
             ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
             {
-                Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni))
+                Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni)),
+                AFPs = _repositoryAFP.List()
             };
             
             if (viewModelGestionarContrato.Empleado != null)
@@ -58,16 +60,35 @@ namespace NominaSoft.UI.Controllers
                 viewModelGestionarContrato.EmpleadoNoEncontrado = 1;
             }
 
-            return RedirectToAction("GestionarContrato", viewModelGestionarContrato);
-
-            //return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }
-        /*
-        [HttpGet]
-        public IActionResult CrearContrato(ViewModelGestionarContrato viewModelGestionarContrato)
+        
+        [HttpPost]
+        public IActionResult CrearContrato(ViewModelGestionarContrato viewModelGestionarContrato, int empleadoId)
         {
+            Contrato contrato = new Contrato()
+            {
+                Empleado = _repositoryEmpleado.GetById(empleadoId),
+                FechaInicio = viewModelGestionarContrato.Contrato.FechaInicio,
+                FechaFin = viewModelGestionarContrato.Contrato.FechaFin,
+                Cargo = viewModelGestionarContrato.Contrato.Cargo,
+                AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.IdAFP),
+                EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar,
+                ValorHora = viewModelGestionarContrato.Contrato.ValorHora,
+                TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales,
+                Habilitado = true,
+                EsAnulado = false
+            };
 
+            _repositoryContrato.Add(contrato);
+
+            viewModelGestionarContrato = new ViewModelGestionarContrato
+            {
+                ContratoCreado = 1
+            };
+
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }
-        */
+        
     }
 }
