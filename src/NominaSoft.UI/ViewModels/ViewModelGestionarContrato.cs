@@ -13,5 +13,7 @@ namespace NominaSoft.UI.ViewModels
         public IEnumerable<AFP> AFPs { get; set; }
         public int EmpleadoNoEncontrado { get; set; }
         public int ContratoCreado { get; set; }
+        public int ErrorDatosContrato { get; set; }
+        public String MensajeError { get; set; }
     }
 }

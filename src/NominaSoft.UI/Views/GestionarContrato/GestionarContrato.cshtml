@@ -586,8 +586,23 @@
             }
         }
 
+        function validacionDatosContrato(contratoDatos, mensajeError) {
+
+            if (contratoDatos == 1) {
+
+                Swal.fire({
+                  type: 'warning',
+                  title: 'Error en los datos...',
+                  html:
+                    mensajeError.replace(".",".<br>")
+                })
+                
+            }
+        }
+
         validacionEmpleado(@Model.EmpleadoNoEncontrado);
         validacionCreacionContrato(@Model.ContratoCreado);
+        validacionDatosContrato(@Model.ErrorDatosContrato, '@Model.MensajeError');
 
     </script>
 }

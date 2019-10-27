@@ -66,6 +66,7 @@ namespace NominaSoft.UI.Controllers
         [HttpPost]
         public IActionResult CrearContrato(ViewModelGestionarContrato viewModelGestionarContrato, int empleadoId)
         {
+
             Contrato contrato = new Contrato()
             {
                 Empleado = _repositoryEmpleado.GetById(empleadoId),
@@ -76,16 +77,42 @@ namespace NominaSoft.UI.Controllers
                 EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar,
                 ValorHora = viewModelGestionarContrato.Contrato.ValorHora,
                 TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales,
-                Habilitado = true,
                 EsAnulado = false
             };
 
+            viewModelGestionarContrato = new ViewModelGestionarContrato();
+
+            // LA R02 NO SE APLICA YA QUE SI ES QUE ES LO MISMO QUE DECIR
+            // MIENTRAS SE ENCUENTRA CON UN CONTRATO VIGENTE (AUN NO HA TERMINADO O NO ESTA ANULADO)
+            // NO SE PUEDE CREAR NINGUN CONTRATO, Y ESO YA SE ESTA HACIENDO IMPLICITAMENTE
+
+            // R03
+            if (!contrato.VerificarFechaFin())
+            {
+                viewModelGestionarContrato.MensajeError = "La fecha fin es incorrecta.";
+            }
+
+            // R04
+            if(!contrato.VerificarTotalHorasSemanales())
+            {
+                viewModelGestionarContrato.MensajeError += "El total de horas semanales es incorrecto.";
+            }
+
+            // R05
+            if (!contrato.VerificarValorHora())
+            {
+                viewModelGestionarContrato.MensajeError += "El valor por hora es incorrecto.";
+            }
+
+            if(!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
+            {
+                viewModelGestionarContrato.ErrorDatosContrato = 1;
+                return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+            }
+
             _repositoryContrato.Add(contrato);
 
-            viewModelGestionarContrato = new ViewModelGestionarContrato
-            {
-                ContratoCreado = 1
-            };
+            viewModelGestionarContrato.ContratoCreado = 1;
 
             return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }
