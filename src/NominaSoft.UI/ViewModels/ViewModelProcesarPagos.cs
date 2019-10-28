@@ -9,6 +9,8 @@ namespace NominaSoft.UI.ViewModels
     public class ViewModelProcesarPagos
     {
         public PeriodoPago PeriodoPago { get; set; }
-        public Empleado Empleado { get; set; }
+        public IEnumerable<Contrato> Contratos { get; set; }
+        public ICollection<Planilla> Planillas { get; set; }
+        public int MostrarPlanilla { get; set; }
     }
 }

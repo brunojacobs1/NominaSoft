@@ -79,15 +79,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var boleta in Model.PeriodoPago.BoletasPago)
-                                {
-                                <tr>
-                                    <td>@boleta.Contrato.Empleado.IdEmpleado</td>
-                                    <td>@boleta.Contrato.Empleado.NombreEmpleado</td>
-                                    <td>@boleta.Contrato.Empleado.Dni</td>
-                                    <td>@boleta.Contrato.ValorHora</td>
-                                </tr>
-                                }
+                                    @{
+                                        if (Model.Planillas != null)
+                                        {
+                                            foreach (var planilla in Model.Planillas)
+                                            {
+                                                <tr>
+                                                    <td>@planilla.Empleado.IdEmpleado</td>
+                                                    <td>@planilla.Empleado.NombreEmpleado</td>
+                                                    <td>@planilla.Empleado.Dni</td>
+                                                    <td>@planilla.TotalHoras</td>
+                                                    <td>@planilla.Contrato.ValorHora</td>
+                                                    <td>@planilla.SueldoBasico</td>
+                                                    <td>@planilla.TotalIngresos</td>
+                                                    <td>@planilla.TotalDescuentos</td>
+                                                    <td>@planilla.SueldoNeto</td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+
+
                                 <!--
     <tr>
         <td>1</td>

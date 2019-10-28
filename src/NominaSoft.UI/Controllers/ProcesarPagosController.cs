@@ -13,10 +13,19 @@ namespace NominaSoft.UI.Controllers
     public class ProcesarPagosController : Controller
     {
         private readonly IRepository<PeriodoPago> _repositoryPeriodoPago;
+        private readonly IRepository<Contrato> _repositoryContrato;
+        private readonly IRepository<BoletaPago> _repositoryBoletaPago;
+        private readonly IRepository<ConceptosDePago> _repositoryConceptoPago;
 
-        public ProcesarPagosController(IRepository<PeriodoPago> repositoryPeriodoPago)
+        public ProcesarPagosController(IRepository<PeriodoPago> repositoryPeriodoPago,
+                                       IRepository<Contrato> repositoryContrato,
+                                       IRepository<BoletaPago> repositoryBoletaPago,
+                                       IRepository<ConceptosDePago> repositoryConceptoPago)
         {
             _repositoryPeriodoPago = repositoryPeriodoPago;
+            _repositoryContrato = repositoryContrato;
+            _repositoryBoletaPago = repositoryBoletaPago;
+            _repositoryConceptoPago = repositoryConceptoPago;
         }
         //public IActionResult ProcesarPagos()
         //{
@@ -32,18 +41,51 @@ namespace NominaSoft.UI.Controllers
         }
 
         [HttpPost]
-        public ViewResult VerificarProcesado(ViewModelProcesarPagos viewModelProcesarPagos)
+        public ViewResult VerificarProcesado()
         {
 
-            viewModelProcesarPagos.PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification());
+            ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos() {
+                PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification()),
+                Contratos = _repositoryContrato.List()
+            };
+            //R01
             if(viewModelProcesarPagos.PeriodoPago != null)
             {
-                viewModelProcesarPagos.PeriodoPago.BoletasPago = _repositoryPeriodoPago.get(new B);
-                foreach (BoletaPago BoletaPago in viewModelProcesarPagos.PeriodoPago.BoletasPago.ToList())
+               
+                foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
                 {
-                    if (!BoletaPago.Contrato.VerificarVigencia())
+                    if (contrato.VerificarVigencia())
                     {
-                        //necesito una lista de contratos
+                        //ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get();
+                        ConceptosDePago conceptos = new ConceptosDePago()
+                        {
+                            MontoDeOtrosDescuentos = 0,
+                            MontoDeOtrosIngresos = 0,
+                            MontoPorAdelantos = 0,
+                            MontoPorHorasAusentes = 0,
+                            MontoPorHorasExtra = 0,
+                            MontoPorReintegro = 0
+                        };
+                        BoletaPago boletaPago = new BoletaPago()
+                        {
+                            FechaPago = viewModelProcesarPagos.PeriodoPago.FechaFin,
+                            Contrato = contrato,
+                            IdPeriodoPago = viewModelProcesarPagos.PeriodoPago.IdPeriodoPago,
+                            PeriodoPago = viewModelProcesarPagos.PeriodoPago,
+                            ConceptosDePago = conceptos
+                        };
+                        _repositoryBoletaPago.Add(boletaPago);
+                        Planilla planilla = new Planilla()
+                        {
+                            Empleado = contrato.Empleado,
+                            Contrato = contrato,
+                            TotalHoras = boletaPago.CalcularTotalHorasBoleta(),
+                            SueldoBasico = boletaPago.CalcularSueldoBasico(),
+                            TotalIngresos = boletaPago.CalcularTotalIngresos(),
+                            TotalDescuentos = boletaPago.CalcularTotalDescuentos(),
+                            SueldoNeto = boletaPago.CalcularSueldoNeto()
+                        };
+                        viewModelProcesarPagos.Planillas.Add(planilla);
                     }
                 }
             }
