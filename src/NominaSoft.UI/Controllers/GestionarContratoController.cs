@@ -53,7 +53,9 @@ namespace NominaSoft.UI.Controllers
                 {
                     if (!contrato.VerificarVigencia())
                         viewModelGestionarContrato.Empleado.Contratos.Remove(contrato);
-                }
+                    else
+                        viewModelGestionarContrato.Contrato = contrato;
+                } 
             }
             else
             {
@@ -66,6 +68,7 @@ namespace NominaSoft.UI.Controllers
         [HttpPost]
         public IActionResult CrearContrato(ViewModelGestionarContrato viewModelGestionarContrato, int empleadoId)
         {
+            Boolean afpInvalida = false;
 
             Contrato contrato = new Contrato()
             {
@@ -73,14 +76,22 @@ namespace NominaSoft.UI.Controllers
                 FechaInicio = viewModelGestionarContrato.Contrato.FechaInicio,
                 FechaFin = viewModelGestionarContrato.Contrato.FechaFin,
                 Cargo = viewModelGestionarContrato.Contrato.Cargo,
-                AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.IdAFP),
                 EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar,
                 ValorHora = viewModelGestionarContrato.Contrato.ValorHora,
                 TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales,
                 EsAnulado = false
             };
 
+            if (viewModelGestionarContrato.Contrato.IdAFP == 0)
+                afpInvalida = true;
+            else
+                contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.IdAFP);
+
             viewModelGestionarContrato = new ViewModelGestionarContrato();
+
+            // AFP
+            if (afpInvalida)
+                viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
 
             // LA R02 NO SE APLICA YA QUE SI ES QUE ES LO MISMO QUE DECIR
             // MIENTRAS SE ENCUENTRA CON UN CONTRATO VIGENTE (AUN NO HA TERMINADO O NO ESTA ANULADO)
@@ -88,23 +99,17 @@ namespace NominaSoft.UI.Controllers
 
             // R03
             if (!contrato.VerificarFechaFin())
-            {
-                viewModelGestionarContrato.MensajeError = "La fecha fin es incorrecta.";
-            }
+                viewModelGestionarContrato.MensajeError += "La fecha fin es incorrecta.";
 
             // R04
             if(!contrato.VerificarTotalHorasSemanales())
-            {
                 viewModelGestionarContrato.MensajeError += "El total de horas semanales es incorrecto.";
-            }
 
             // R05
             if (!contrato.VerificarValorHora())
-            {
                 viewModelGestionarContrato.MensajeError += "El valor por hora es incorrecto.";
-            }
 
-            if(!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
+            if (!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
             {
                 viewModelGestionarContrato.ErrorDatosContrato = 1;
                 return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
@@ -113,6 +118,72 @@ namespace NominaSoft.UI.Controllers
             _repositoryContrato.Add(contrato);
 
             viewModelGestionarContrato.ContratoCreado = 1;
+
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+        }
+
+        [HttpPost]
+        public IActionResult EditarContrato(ViewModelGestionarContrato viewModelGestionarContrato, int contratoId, int empleadoId)
+        {
+            // LA R02 NO SE APLICA YA QUE SI ES QUE ES LO MISMO QUE DECIR
+            // MIENTRAS SE ENCUENTRA CON UN CONTRATO VIGENTE (AUN NO HA TERMINADO O NO ESTA ANULADO)
+            // NO SE PUEDE CREAR NINGUN CONTRATO, Y ESO YA SE ESTA HACIENDO IMPLICITAMENTE
+
+            viewModelGestionarContrato.Contrato.Empleado = _repositoryEmpleado.GetById(empleadoId);
+
+            // AFP
+            if(viewModelGestionarContrato.Contrato.IdAFP == 0)
+                viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
+
+            // R03
+            if (!viewModelGestionarContrato.Contrato.VerificarFechaFin())
+                viewModelGestionarContrato.MensajeError += "La fecha fin es incorrecta.";
+
+            // R04
+            if (!viewModelGestionarContrato.Contrato.VerificarTotalHorasSemanales())
+                viewModelGestionarContrato.MensajeError += "El total de horas semanales es incorrecto.";
+
+            // R05
+            if (!viewModelGestionarContrato.Contrato.VerificarValorHora())
+                viewModelGestionarContrato.MensajeError += "El valor por hora es incorrecto.";
+
+            if (!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
+            {
+                viewModelGestionarContrato.ErrorDatosContrato = 1;
+                viewModelGestionarContrato.Contrato = null;
+                return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+            }
+
+            Contrato contrato = _repositoryContrato.GetById(contratoId);
+
+            contrato.FechaInicio = viewModelGestionarContrato.Contrato.FechaInicio;
+            contrato.FechaFin = viewModelGestionarContrato.Contrato.FechaFin;
+            contrato.Cargo = viewModelGestionarContrato.Contrato.Cargo;
+            contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.IdAFP);
+            contrato.EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar;
+            contrato.ValorHora = viewModelGestionarContrato.Contrato.ValorHora;
+            contrato.TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales;
+
+            viewModelGestionarContrato = new ViewModelGestionarContrato();
+
+            _repositoryContrato.Edit(contrato);
+            viewModelGestionarContrato.ModificacionesContrato = 1;
+
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
+        }
+
+        [HttpPost]
+        public IActionResult AnularContrato(int contratoId)
+        {
+            Contrato contrato = _repositoryContrato.GetById(contratoId);
+            contrato.EsAnulado = true;
+
+            _repositoryContrato.Edit(contrato);
+
+            ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
+            {
+                ContratoAnulado = 1
+            };
 
             return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }

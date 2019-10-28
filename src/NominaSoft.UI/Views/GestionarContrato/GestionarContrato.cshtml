@@ -372,13 +372,24 @@
             <div class="modal-body">
                 <div class="card-body">
                     <h4 class="card-title" style="margin-bottom: 30px">Edite los siguientes datos</h4>
-                    <form class="form-sample">
+                    <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="EditarContrato">
+                        @if (Model.Contrato != null)
+                        {
+                            <input id="contratoId" name="contratoId" type="hidden" value="@Model.Contrato.IdContrato">
+                        }
+                        @if (Model.Empleado != null)
+                        {
+                            <input id="empleadoId" name="empleadoId" type="hidden" value="@Model.Empleado.IdEmpleado">
+                        }
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="date" class="form-control" asp-for="@Model.Contrato.FechaInicio" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -386,7 +397,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="date" class="form-control" asp-for="@Model.Contrato.FechaFin" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -396,7 +410,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="text" class="form-control" asp-for="@Model.Contrato.Cargo" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -405,12 +422,18 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
                                     <div class="col-sm-9">
                                         <div class="form-group">
-                                            <select class="form-control" id="sel1">
-                                                <option selected>Seleccione una AFP</option>
-                                                <option>Primax Seguros</option>
-                                                <option>La Positiva</option>
-                                                <option>Chupetin Films</option>
-                                            </select>
+                                            @if (Model.Contrato != null)
+                                            {
+                                                <select asp-for="Contrato.IdAFP" class="form-control" id="sel1">
+                                                    <option selected value="0">Seleccione una AFP</option>
+                                                    @{
+                                                        foreach (var afp in Model.AFPs)
+                                                        {
+                                                            <option value="@afp.IdAFP">@afp.NombreAFP</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -421,7 +444,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
                                     <div class="col-sm-9 col-form-label" style="text-align: center">
-                                        <input type="checkbox" />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input asp-for="Contrato.EsAsignacionFamiliar" type="checkbox" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -429,7 +455,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="text" class="form-control" asp-for="Contrato.ValorHora" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -439,14 +468,17 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="text" class="form-control" asp-for="Contrato.TotalHorasSemanales" />
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -467,13 +499,20 @@
             <div class="modal-body">
                 <div class="card-body">
                     <h4 class="card-title" style="margin-bottom: 30px">Datos del contrato</h4>
-                    <form class="form-sample">
+                    <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="AnularContrato">
+                        @if (Model.Contrato != null)
+                        {
+                            <input id="contratoId" name="contratoId" type="hidden" value="@Model.Contrato.IdContrato">
+                        }
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" disabled />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="date" class="form-control" disabled asp-for="@Model.Contrato.FechaInicio" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -481,7 +520,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" disabled />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="date" class="form-control" disabled asp-for="@Model.Contrato.FechaFin" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -491,7 +533,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="text" class="form-control" disabled asp-for="@Model.Contrato.Cargo" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -500,12 +545,18 @@
                                     <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
                                     <div class="col-sm-9">
                                         <div class="form-group">
-                                            <select class="form-control" id="sel1" disabled>
-                                                <option selected>Seleccione una AFP</option>
-                                                <option>Primax Seguros</option>
-                                                <option>La Positiva</option>
-                                                <option>Chupetin Films</option>
-                                            </select>
+                                            @if (Model.Contrato != null)
+                                            {
+                                                <select asp-for="Contrato.IdAFP" disabled class="form-control" id="sel1">
+                                                    <option selected value="0">Seleccione una AFP</option>
+                                                    @{
+                                                        foreach (var afp in Model.AFPs)
+                                                        {
+                                                            <option value="@afp.IdAFP">@afp.NombreAFP</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -516,7 +567,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
                                     <div class="col-sm-9 col-form-label" style="text-align: center">
-                                        <input type="checkbox" disabled />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input disabled asp-for="Contrato.EsAsignacionFamiliar" type="checkbox" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -524,7 +578,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="text" class="form-control" disabled asp-for="Contrato.ValorHora" />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -534,14 +591,17 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" disabled />
+                                        @if (Model.Contrato != null)
+                                        {
+                                            <input type="text" class="form-control" disabled asp-for="Contrato.TotalHorasSemanales" />
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Aceptar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
                         </div>
                     </form>
                 </div>
@@ -558,6 +618,10 @@
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
     -->
     <script type="text/javascript">
+
+        function replaceAll(searchString, replaceString, str) {
+           return str.split(searchString).join(replaceString);
+        }
 
         function validacionEmpleado(empleadoEncontrado) {
 
@@ -594,15 +658,44 @@
                   type: 'warning',
                   title: 'Error en los datos...',
                   html:
-                    mensajeError.replace(".",".<br>")
+                     replaceAll('.','<br>',mensajeError)
                 })
                 
+            }
+        }
+
+        function validacionModificacionContrato(contratoModificado) {
+
+            if (contratoModificado == 1) {
+
+                Swal.fire({
+                    type: 'success',
+                    title: 'Se guardó las modificaciones del contrato',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+
+            }
+        }
+
+        function validacionAnulacionContrato(contratoAnulado) {
+
+            if (contratoAnulado == 1) {
+
+                Swal.fire({
+                    type: 'info',
+                    title: '¡Atención!',
+                    text: 'Se anuló el contrato',
+                })
+
             }
         }
 
         validacionEmpleado(@Model.EmpleadoNoEncontrado);
         validacionCreacionContrato(@Model.ContratoCreado);
         validacionDatosContrato(@Model.ErrorDatosContrato, '@Model.MensajeError');
+        validacionModificacionContrato(@Model.ModificacionesContrato);
+        validacionAnulacionContrato(@Model.ContratoAnulado);
 
     </script>
 }
