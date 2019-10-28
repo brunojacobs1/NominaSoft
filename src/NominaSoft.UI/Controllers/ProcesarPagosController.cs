@@ -37,6 +37,10 @@ namespace NominaSoft.UI.Controllers
         {
             ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos();
             viewModelProcesarPagos.PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification());
+
+            if (viewModelProcesarPagos.PeriodoPago == null)
+                viewModelProcesarPagos.PeriodoNoActivo = 1;
+
             return View(viewModelProcesarPagos);
         }
 
@@ -51,43 +55,64 @@ namespace NominaSoft.UI.Controllers
             //R01
             if(viewModelProcesarPagos.PeriodoPago != null)
             {
-               
-                foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
+                if (DateTime.Now >= viewModelProcesarPagos.PeriodoPago.FechaFin)
                 {
-                    if (contrato.VerificarVigencia())
+                    if (viewModelProcesarPagos.Contratos != null)
                     {
-                        //ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get();
-                        ConceptosDePago conceptos = new ConceptosDePago()
+                        foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
                         {
-                            MontoDeOtrosDescuentos = 0,
-                            MontoDeOtrosIngresos = 0,
-                            MontoPorAdelantos = 0,
-                            MontoPorHorasAusentes = 0,
-                            MontoPorHorasExtra = 0,
-                            MontoPorReintegro = 0
-                        };
-                        BoletaPago boletaPago = new BoletaPago()
-                        {
-                            FechaPago = viewModelProcesarPagos.PeriodoPago.FechaFin,
-                            Contrato = contrato,
-                            IdPeriodoPago = viewModelProcesarPagos.PeriodoPago.IdPeriodoPago,
-                            PeriodoPago = viewModelProcesarPagos.PeriodoPago,
-                            ConceptosDePago = conceptos
-                        };
-                        _repositoryBoletaPago.Add(boletaPago);
-                        Planilla planilla = new Planilla()
-                        {
-                            Empleado = contrato.Empleado,
-                            Contrato = contrato,
-                            TotalHoras = boletaPago.CalcularTotalHorasBoleta(),
-                            SueldoBasico = boletaPago.CalcularSueldoBasico(),
-                            TotalIngresos = boletaPago.CalcularTotalIngresos(),
-                            TotalDescuentos = boletaPago.CalcularTotalDescuentos(),
-                            SueldoNeto = boletaPago.CalcularSueldoNeto()
-                        };
-                        viewModelProcesarPagos.Planillas.Add(planilla);
+                            if (contrato.VerificarVigencia())
+                            {
+                                //ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get();
+                                /*ConceptosDePago conceptos = new ConceptosDePago()
+                                {
+                                    IdConceptosDePago = 2,
+                                    MontoDeOtrosDescuentos = 0,
+                                    MontoDeOtrosIngresos = 0,
+                                    MontoPorAdelantos = 0,
+                                    MontoPorHorasAusentes = 0,
+                                    MontoPorHorasExtra = 0,
+                                    MontoPorReintegro = 0
+                                };*/
+                                BoletaPago boletaPago = new BoletaPago()
+                                {
+                                    FechaPago = viewModelProcesarPagos.PeriodoPago.FechaFin,
+                                    Contrato = contrato,
+                                    IdPeriodoPago = viewModelProcesarPagos.PeriodoPago.IdPeriodoPago,
+                                    PeriodoPago = viewModelProcesarPagos.PeriodoPago,
+                                    //ConceptosDePago = conceptos
+                                };
+                                _repositoryBoletaPago.Add(boletaPago);
+                                Planilla planilla = new Planilla()
+                                {
+                                    Empleado = contrato.Empleado,
+                                    Contrato = contrato,
+                                    TotalHoras = boletaPago.CalcularTotalHorasBoleta(),
+                                    SueldoBasico = boletaPago.CalcularSueldoBasico(),
+                                    TotalIngresos = boletaPago.CalcularTotalIngresos(),
+                                    TotalDescuentos = boletaPago.CalcularTotalDescuentos(),
+                                    SueldoNeto = boletaPago.CalcularSueldoNeto()
+                                };
+                                viewModelProcesarPagos.Planillas.Add(planilla);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        viewModelProcesarPagos.ContratosVigentes = 1;
+                        return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
                     }
                 }
+                else
+                {
+                    viewModelProcesarPagos.ProcesarPagos = 1;
+                    return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
+                }
+            }
+            else
+            {
+                viewModelProcesarPagos.PeriodoNoActivo = 1;
+                return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
             }
 
             return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml",viewModelProcesarPagos);

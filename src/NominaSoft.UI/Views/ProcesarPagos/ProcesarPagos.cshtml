@@ -20,11 +20,11 @@
                                     @{
                                         if (Model.PeriodoPago != null)
                                         {
-                                            <label class="col-sm-9 col-form-label" style="text-align: center">@Model.PeriodoPago.FechaInicio.ToShortDateString()</label>                                            
+                                            <label class="col-sm-9 col-form-label" style="text-align: center">@Model.PeriodoPago.FechaInicio.ToShortDateString()</label>
                                         }
                                         else
                                         {
-                                            <label class="col-sm-9 col-form-label" style="text-align: center">No hay fecha de inicio</label>                                            
+                                            <label class="col-sm-9 col-form-label" style="text-align: center">No hay fecha de inicio</label>
                                         }
                                     }
                                 </div>
@@ -48,12 +48,12 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <form class="form-sample" asp-controller="ProcesarPagos" 
-                                  asp-action="VerificarProcesado" method="post" >
-                                    <button type="submit" class="btn btn-outline-warning">Procesar pagos</button>
+                            <form class="form-sample" asp-controller="ProcesarPagos"
+                                  asp-action="VerificarProcesado" method="post">
+                                <button type="submit" class="btn btn-outline-warning">Procesar pagos</button>
                             </form>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
 
                 <div class="card-body">
                     <h4 class="card-title">PAGOS DEL PERIODO</h4>
-                    
+
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -79,95 +79,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                    @{
-                                        if (Model.Planillas != null)
+                                @{
+                                    if (Model.Planillas != null)
+                                    {
+                                        foreach (var planilla in Model.Planillas)
                                         {
-                                            foreach (var planilla in Model.Planillas)
-                                            {
-                                                <tr>
-                                                    <td>@planilla.Empleado.IdEmpleado</td>
-                                                    <td>@planilla.Empleado.NombreEmpleado</td>
-                                                    <td>@planilla.Empleado.Dni</td>
-                                                    <td>@planilla.TotalHoras</td>
-                                                    <td>@planilla.Contrato.ValorHora</td>
-                                                    <td>@planilla.SueldoBasico</td>
-                                                    <td>@planilla.TotalIngresos</td>
-                                                    <td>@planilla.TotalDescuentos</td>
-                                                    <td>@planilla.SueldoNeto</td>
-                                                </tr>
-                                            }
+                                            <tr>
+                                                <td>@planilla.Empleado.IdEmpleado</td>
+                                                <td>@planilla.Empleado.NombreEmpleado</td>
+                                                <td>@planilla.Empleado.Dni</td>
+                                                <td>@planilla.TotalHoras</td>
+                                                <td>@planilla.Contrato.ValorHora</td>
+                                                <td>@planilla.SueldoBasico</td>
+                                                <td>@planilla.TotalIngresos</td>
+                                                <td>@planilla.TotalDescuentos</td>
+                                                <td>@planilla.SueldoNeto</td>
+                                            </tr>
                                         }
                                     }
-
-
-                                <!--
-    <tr>
-        <td>1</td>
-        <td>Zuzu</td>
-        <td><label class="badge badge-info">12345678</label></td>
-        <td>200</td>
-        <td>15.50</td>
-        <td>800</td>
-        <td>1300</td>
-        <td>200</td>
-        <td>1100</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Pepperoni</td>
-        <td><label class="badge badge-info">87654321</label></td>
-        <td>100</td>
-        <td>12</td>
-        <td>950</td>
-        <td>5000</td>
-        <td>322</td>
-        <td>6000</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Olivia</td>
-        <td><label class="badge badge-info">64234125</label></td>
-        <td>500</td>
-        <td>30</td>
-        <td>2000</td>
-        <td>7000</td>
-        <td>0</td>
-        <td>7000</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>Ditzy Huayno</td>
-        <td><label class="badge badge-info">96137654</label></td>
-        <td>400</td>
-        <td>10</td>
-        <td>250</td>
-        <td>1200</td>
-        <td>6</td>
-        <td>1194</td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>Lira</td>
-        <td><label class="badge badge-info">63459752</label></td>
-        <td>10000</td>
-        <td>10000</td>
-        <td>10000</td>
-        <td>10000</td>
-        <td>10000</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>Chenta</td>
-        <td><label class="badge badge-info">45532187</label></td>
-        <td>200</td>
-        <td>30</td>
-        <td>950</td>
-        <td>1300</td>
-        <td>100</td>
-        <td>1200</td>
-    </tr>
-        -->
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -176,3 +106,29 @@
         </div>
     </div>
 </div>
+
+@section SweetAlert2 {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script type="text/javascript">
+        function ValidarPeriodoActivo(periodoActivo) {
+            if (periodoActivo == 1) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Algo ha fallado...',
+                    text: 'No se puede procesar porque no existe periodo de pago activo',
+                })
+            }
+        }
+
+        function validarProcesado(procesarPagos) {
+            if (procesarPagos == 1) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Algo ha fallado...',
+                    text: 'No se puede procesar porque la fecha actual no corresponde a la fecha admitida para procesar pagos',
+                })
+            }
+        }
+
+    </script>
+}

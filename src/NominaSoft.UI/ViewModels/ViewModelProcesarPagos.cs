@@ -11,6 +11,8 @@ namespace NominaSoft.UI.ViewModels
         public PeriodoPago PeriodoPago { get; set; }
         public IEnumerable<Contrato> Contratos { get; set; }
         public ICollection<Planilla> Planillas { get; set; }
-        public int MostrarPlanilla { get; set; }
+        public int PeriodoNoActivo { get; set; }
+        public int ProcesarPagos { get; set; }
+        public int ContratosVigentes { get; set; }
     }
 }
