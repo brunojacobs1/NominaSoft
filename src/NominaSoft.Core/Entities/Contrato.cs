@@ -34,9 +34,27 @@ namespace NominaSoft.Core.Entities
 
         public double CalcularAsignacionFamiliar() => EsAsignacionFamiliar ? SueldoMinimo * 0.1 : 0;
 
-        public bool VerificarFechaFin() => FechaFin.Month - FechaInicio.Month >= 3 &&
-                    (((FechaFin.Year - FechaInicio.Year) * 12) + FechaFin.Month - FechaInicio.Month) <= 12;
-                                    //FechaFin.Month - FechaInicio.Month <= 12;
+        public bool VerificarFechaFin() {
+            if (FechaFin.Year - FechaInicio.Year == 0)
+            {
+                if (FechaFin.Month - FechaInicio.Month >= 3 && FechaFin.Month - FechaInicio.Month <=12)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                if (((FechaFin.Year - FechaInicio.Year) * 12) + (FechaFin.Month - FechaInicio.Month) >= 3 &&
+                    ((FechaFin.Year - FechaInicio.Year) * 12) + (FechaFin.Month - FechaInicio.Month) <= 12)
+                    return true;
+                else
+                    return false;
+                
+            }
+        } 
+          
+        /* public bool VerificarFechaFin() => FechaFin.Month - FechaInicio.Month >= 3 &&
+                    (((FechaFin.Year - FechaInicio.Year) * 12) + FechaFin.Month - FechaInicio.Month) <= 12;*/
 
         public bool VerificarFechaInicio(Contrato _contrato) => FechaInicio > _contrato.FechaFin;
 
