@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace NominaSoft.Core.Entities
 {
     public class Planilla
     {
-        public Empleado Empleado { get; set; }
-        public Contrato Contrato { get; set; }
-        public Double TotalHoras { get; set; }
-        public Double SueldoBasico { get; set; }
-        public Double TotalIngresos { get; set; }
-        public Double TotalDescuentos { get; set; }
-        public Double SueldoNeto { get; set; }
+        public ICollection<DatosPlanilla> DatosPlanillas { get; set; }
+
+        public BoletaPago GenerarBoleta(PeriodoPago periodoPago, Contrato contrato, ConceptosDePago conceptosDePago)
+        {
+            BoletaPago boletaPago = new BoletaPago()
+            {
+                FechaPago = periodoPago.FechaFin,
+                Contrato = contrato,
+                IdPeriodoPago = periodoPago.IdPeriodoPago,
+                PeriodoPago = periodoPago,
+                //ConceptosDePago = conceptos
+            };
+            return boletaPago;
+        }
     }
 }

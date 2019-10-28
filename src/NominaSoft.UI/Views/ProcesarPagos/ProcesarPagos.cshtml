@@ -9,51 +9,51 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">PERIODO DE PAGO ACTIVO</h4>
-                    <p class="card-description">
-                        Ingrese el <code>DNI</code> de un empleado para filtrarlo en el sistema
-                    </p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" style="text-align: center">Fecha Inicio: </label>
-                                <div class="col-sm-9">
-                                    @{
-                                        if (Model.PeriodoPago != null)
-                                        {
+                    @{
+                        if (Model.PeriodoPago != null)
+                        {
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" style="text-align: center">Fecha Inicio: </label>
+                                        <div class="col-sm-9">
                                             <label class="col-sm-9 col-form-label" style="text-align: center">@Model.PeriodoPago.FechaInicio.ToShortDateString()</label>
-                                        }
-                                        else
-                                        {
-                                            <label class="col-sm-9 col-form-label" style="text-align: center">No hay fecha de inicio</label>
-                                        }
-                                    }
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" style="text-align: center">Fecha Fin: </label>
-                                <div class="col-sm-9">
-                                    @{
-                                        if (Model.PeriodoPago != null)
-                                        {
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" style="text-align: center">Fecha Fin: </label>
+                                        <div class="col-sm-9">
                                             <label class="col-sm-9 col-form-label" style="text-align: center">@Model.PeriodoPago.FechaFin.ToShortDateString()</label>
-                                        }
-                                        else
-                                        {
-                                            <label class="col-sm-9 col-form-label" style="text-align: center">No hay fecha de fin</label>
-                                        }
-                                    }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <form class="form-sample" asp-controller="ProcesarPagos"
+                                          asp-action="VerificarProcesado" method="post">
+                                        <button type="submit" class="btn btn-outline-warning">Procesar pagos</button>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <form class="form-sample" asp-controller="ProcesarPagos"
-                                  asp-action="VerificarProcesado" method="post">
-                                <button type="submit" class="btn btn-outline-warning">Procesar pagos</button>
-                            </form>
-                        </div>
-                    </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label class="col-sm-8 col-form-label text-danger" style="text-align: center">No se puede procesar porque no existe periodo de pago activo</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <form class="form-sample" asp-controller="ProcesarPagos"
+                                          asp-action="VerificarProcesado" method="post">
+                                        <button type="submit" disabled class="btn btn-outline-warning">Procesar pagos</button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -80,20 +80,20 @@
                             </thead>
                             <tbody>
                                 @{
-                                    if (Model.Planillas != null)
+                                    if (Model.Planilla != null)
                                     {
-                                        foreach (var planilla in Model.Planillas)
+                                        foreach (var datosPlanilla in Model.Planilla.DatosPlanillas)
                                         {
                                             <tr>
-                                                <td>@planilla.Empleado.IdEmpleado</td>
-                                                <td>@planilla.Empleado.NombreEmpleado</td>
-                                                <td>@planilla.Empleado.Dni</td>
-                                                <td>@planilla.TotalHoras</td>
-                                                <td>@planilla.Contrato.ValorHora</td>
-                                                <td>@planilla.SueldoBasico</td>
-                                                <td>@planilla.TotalIngresos</td>
-                                                <td>@planilla.TotalDescuentos</td>
-                                                <td>@planilla.SueldoNeto</td>
+                                                <td>@datosPlanilla.Empleado.IdEmpleado</td>
+                                                <td>@datosPlanilla.Empleado.NombreEmpleado</td>
+                                                <td>@datosPlanilla.Empleado.Dni</td>
+                                                <td>@datosPlanilla.TotalHoras</td>
+                                                <td>@datosPlanilla.Contrato.ValorHora</td>
+                                                <td>@datosPlanilla.SueldoBasico</td>
+                                                <td>@datosPlanilla.TotalIngresos</td>
+                                                <td>@datosPlanilla.TotalDescuentos</td>
+                                                <td>@datosPlanilla.SueldoNeto</td>
                                             </tr>
                                         }
                                     }
@@ -111,7 +111,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
 
-        function ValidarPeriodoActivo(periodoActivo) {
+        function validarPeriodoActivo(periodoActivo) {
             if (periodoActivo == 1) {
                 Swal.fire({
                     type: 'error',
@@ -131,7 +131,7 @@
             }
         }
 
-        function existencontratosVigentes(contratosVigentes) {
+        function existenContratosVigentes(contratosVigentes) {
             if (contratosVigentes == 1) {
                 Swal.fire({
                     type: 'error',
@@ -140,5 +140,22 @@
                 })
             }
         }
+
+        function pagosProcesados(contratosVigentes) {
+            if (contratosVigentes == 1) {
+                Swal.fire({
+                    type: 'success',
+                    title: 'Se procesaron los pagos de todos los empleados',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        }
+
+        validarPeriodoActivo(@Model.PeriodoActivo);
+        validarProcesado(@Model.ProcesarPagos);
+        existenContratosVigentes(@Model.ContratosVigentes);
+        pagosProcesados(@Model.PagosProcesados);
+
     </script>
 }
