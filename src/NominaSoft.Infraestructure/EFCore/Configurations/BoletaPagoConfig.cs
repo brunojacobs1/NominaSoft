@@ -13,10 +13,10 @@ namespace NominaSoft.Infraestructure.EFCore.Configurations
         {
             builder.HasKey(bp => bp.IdBoletaPago);
 
-            builder.HasOne(bp => bp.ConceptosDePago)
-                   .WithOne(cp => cp.BoletaPago)
-                   .HasForeignKey<ConceptosDePago>(cp => cp.IdBoletaPago)
-                   .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(bp => bp.ConceptosDePago)
+            //       .WithOne(cp => cp.BoletaPago)
+            //       .HasForeignKey<ConceptosDePago>(cp => cp.IdBoletaPago)
+            //       .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasQueryFilter(bp => EF.Property<bool>(bp, "Habilitado") == true);
         }

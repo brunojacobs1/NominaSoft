@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="EFCore\Migrations\20191006233327_Inicial.cs" />
     <Compile Remove="EFCore\Migrations\20191006233327_Inicial.Designer.cs" />
+    <Compile Remove="EFCore\Migrations\20191028022529_Fix ConceptosBoleta.cs" />
+    <Compile Remove="EFCore\Migrations\20191028022529_Fix ConceptosBoleta.Designer.cs" />
+    <Compile Remove="EFCore\Migrations\20191028023824_Fix ConceptosBoleta.cs" />
+    <Compile Remove="EFCore\Migrations\20191028023824_Fix ConceptosBoleta.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

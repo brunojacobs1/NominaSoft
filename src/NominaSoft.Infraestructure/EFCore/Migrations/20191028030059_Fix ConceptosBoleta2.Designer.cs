@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NominaSoft.Infraestructure.EFCore;
 
 namespace NominaSoft.Infraestructure.EFCore.Migrations
 {
     [DbContext(typeof(NSContext))]
-    partial class NSContextModelSnapshot : ModelSnapshot
+    [Migration("20191028030059_Fix ConceptosBoleta2")]
+    partial class FixConceptosBoleta2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
