@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NominaSoft.Infraestructure.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class Firstnotreally : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -135,7 +135,7 @@ namespace NominaSoft.Infraestructure.Migrations
                     FechaPago = table.Column<DateTime>(nullable: false),
                     IdContrato = table.Column<int>(nullable: false),
                     IdPeriodoPago = table.Column<int>(nullable: false),
-                    IdConceptosDePago = table.Column<int>(nullable: true),
+                    IdConceptosDePago = table.Column<int>(nullable: false),
                     Habilitado = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -146,7 +146,7 @@ namespace NominaSoft.Infraestructure.Migrations
                         column: x => x.IdConceptosDePago,
                         principalTable: "ConceptoPago",
                         principalColumn: "IdConceptosDePago",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BoletaPago_Contrato_IdContrato",
                         column: x => x.IdContrato,
@@ -164,7 +164,8 @@ namespace NominaSoft.Infraestructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_BoletaPago_IdConceptosDePago",
                 table: "BoletaPago",
-                column: "IdConceptosDePago");
+                column: "IdConceptosDePago",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BoletaPago_IdContrato",

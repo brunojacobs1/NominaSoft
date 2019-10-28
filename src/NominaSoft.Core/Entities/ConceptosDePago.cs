@@ -25,9 +25,7 @@ namespace NominaSoft.Core.Entities
 
         public int IdPeriodoPago { get; set; }
         public PeriodoPago PeriodoPago { get; set; }
-
-        //public int IdBoletaPago { get; set; }
-        //public BoletaPago BoletaPago { get; set; }
+        public BoletaPago BoletaPago { get; set; }
         public bool Habilitado { get; set; }
 
         public double CalcularSumatoriaDescuentos() => MontoDeOtrosDescuentos +

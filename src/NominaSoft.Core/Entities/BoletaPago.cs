@@ -16,6 +16,7 @@ namespace NominaSoft.Core.Entities
 
         public int IdPeriodoPago { get; set; }
         public PeriodoPago PeriodoPago { get; set; }
+        public int IdConceptosDePago { get; set; }
         public ConceptosDePago ConceptosDePago { get; set; }
         public bool Habilitado { get; set; }
 

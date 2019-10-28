@@ -40,11 +40,11 @@ namespace NominaSoft.Infraestructure.Migrations
                     b.Property<int>("IdBoletaPago")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ConceptosDePagoIdConceptosDePago");
-
                     b.Property<DateTime>("FechaPago");
 
                     b.Property<bool>("Habilitado");
+
+                    b.Property<int>("IdConceptosDePago");
 
                     b.Property<int>("IdContrato");
 
@@ -52,7 +52,8 @@ namespace NominaSoft.Infraestructure.Migrations
 
                     b.HasKey("IdBoletaPago");
 
-                    b.HasIndex("ConceptosDePagoIdConceptosDePago");
+                    b.HasIndex("IdConceptosDePago")
+                        .IsUnique();
 
                     b.HasIndex("IdContrato");
 
@@ -180,8 +181,9 @@ namespace NominaSoft.Infraestructure.Migrations
             modelBuilder.Entity("NominaSoft.Core.Entities.BoletaPago", b =>
                 {
                     b.HasOne("NominaSoft.Core.Entities.ConceptosDePago", "ConceptosDePago")
-                        .WithMany()
-                        .HasForeignKey("ConceptosDePagoIdConceptosDePago");
+                        .WithOne("BoletaPago")
+                        .HasForeignKey("NominaSoft.Core.Entities.BoletaPago", "IdConceptosDePago")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NominaSoft.Core.Entities.Contrato", "Contrato")
                         .WithMany("BoletasPago")

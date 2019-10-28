@@ -9,8 +9,8 @@ using NominaSoft.Infraestructure.EFCore;
 namespace NominaSoft.Infraestructure.Migrations
 {
     [DbContext(typeof(NSContext))]
-    [Migration("20191028044813_Inicial")]
-    partial class Inicial
+    [Migration("20191028054144_First(not really)")]
+    partial class Firstnotreally
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,11 +42,11 @@ namespace NominaSoft.Infraestructure.Migrations
                     b.Property<int>("IdBoletaPago")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ConceptosDePagoIdConceptosDePago");
-
                     b.Property<DateTime>("FechaPago");
 
                     b.Property<bool>("Habilitado");
+
+                    b.Property<int>("IdConceptosDePago");
 
                     b.Property<int>("IdContrato");
 
@@ -54,7 +54,8 @@ namespace NominaSoft.Infraestructure.Migrations
 
                     b.HasKey("IdBoletaPago");
 
-                    b.HasIndex("ConceptosDePagoIdConceptosDePago");
+                    b.HasIndex("IdConceptosDePago")
+                        .IsUnique();
 
                     b.HasIndex("IdContrato");
 
@@ -182,8 +183,9 @@ namespace NominaSoft.Infraestructure.Migrations
             modelBuilder.Entity("NominaSoft.Core.Entities.BoletaPago", b =>
                 {
                     b.HasOne("NominaSoft.Core.Entities.ConceptosDePago", "ConceptosDePago")
-                        .WithMany()
-                        .HasForeignKey("ConceptosDePagoIdConceptosDePago");
+                        .WithOne("BoletaPago")
+                        .HasForeignKey("NominaSoft.Core.Entities.BoletaPago", "IdConceptosDePago")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NominaSoft.Core.Entities.Contrato", "Contrato")
                         .WithMany("BoletasPago")
