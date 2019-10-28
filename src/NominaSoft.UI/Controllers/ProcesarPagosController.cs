@@ -39,7 +39,7 @@ namespace NominaSoft.UI.Controllers
             viewModelProcesarPagos.PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification());
 
             if (viewModelProcesarPagos.PeriodoPago == null)
-                viewModelProcesarPagos.PeriodoNoActivo = 1;
+                viewModelProcesarPagos.PeriodoActivo = 1;
 
             return View(viewModelProcesarPagos);
         }
@@ -111,7 +111,7 @@ namespace NominaSoft.UI.Controllers
             }
             else
             {
-                viewModelProcesarPagos.PeriodoNoActivo = 1;
+                viewModelProcesarPagos.PeriodoActivo = 1;
                 return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
             }
 

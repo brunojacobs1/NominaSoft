@@ -110,6 +110,7 @@
 @section SweetAlert2 {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
+
         function ValidarPeriodoActivo(periodoActivo) {
             if (periodoActivo == 1) {
                 Swal.fire({
@@ -130,5 +131,14 @@
             }
         }
 
+        function existencontratosVigentes(contratosVigentes) {
+            if (contratosVigentes == 1) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Algo ha fallado...',
+                    text: 'No se puede procesar porque no existen contratos vigentes',
+                })
+            }
+        }
     </script>
 }
