@@ -16,16 +16,22 @@ namespace NominaSoft.UI.Controllers
         private readonly IRepository<Contrato> _repositoryContrato;
         private readonly IRepository<BoletaPago> _repositoryBoletaPago;
         private readonly IRepository<ConceptosDePago> _repositoryConceptoPago;
+        private readonly IRepository<AFP> _repositoryAfp;
+        private readonly IRepository<Empleado> _repositoryEmpleado;
 
         public ProcesarPagosController(IRepository<PeriodoPago> repositoryPeriodoPago,
                                        IRepository<Contrato> repositoryContrato,
                                        IRepository<BoletaPago> repositoryBoletaPago,
-                                       IRepository<ConceptosDePago> repositoryConceptoPago)
+                                       IRepository<ConceptosDePago> repositoryConceptoPago,
+                                       IRepository<AFP> repositoryAfp,
+                                       IRepository<Empleado> repositoryEmpleado)
         {
             _repositoryPeriodoPago = repositoryPeriodoPago;
             _repositoryContrato = repositoryContrato;
             _repositoryBoletaPago = repositoryBoletaPago;
             _repositoryConceptoPago = repositoryConceptoPago;
+            _repositoryAfp = repositoryAfp;
+            _repositoryEmpleado = repositoryEmpleado;
         }
         //public IActionResult ProcesarPagos()
         //{
@@ -37,9 +43,9 @@ namespace NominaSoft.UI.Controllers
         {
             ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos();
             
-            //viewModelProcesarPagos.PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification());
+            viewModelProcesarPagos.PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification());
 
-            //if (viewModelProcesarPagos.PeriodoPago == null)
+            if (viewModelProcesarPagos.PeriodoPago == null)
                 viewModelProcesarPagos.PeriodoActivo = 1;
                 
             return View(viewModelProcesarPagos);
@@ -51,7 +57,11 @@ namespace NominaSoft.UI.Controllers
 
             ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos() {
                 PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification()),
-                Contratos = _repositoryContrato.List()
+                Contratos = _repositoryContrato.List(),
+                Planilla = new Planilla()
+                {
+                    DatosPlanillas = new List<DatosPlanilla>()
+                }
             };
             //R01
             if(viewModelProcesarPagos.PeriodoPago != null)
@@ -63,21 +73,25 @@ namespace NominaSoft.UI.Controllers
                         BoletaPago boletaPago;
                         foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
                         {
-                            if (contrato.VerificarVigencia())
+                            if (!contrato.VerificarVigencia())
                             {
-                                //ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get();
-                                //boletaPago = planilla.GenerarBoleta(viewModelProcesarPagos.PeriodoPago, contrato, conceptosDePago);
-                                //_repositoryBoletaPago.Add(boletaPago);
+                                contrato.AFP = _repositoryAfp.GetById(contrato.IdAFP);
+
+                                contrato.Empleado = _repositoryEmpleado.GetById(contrato.IdEmpleado);
+                                
+                                ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get(new BusquedaConceptoPagoSpecification(contrato.IdContrato, viewModelProcesarPagos.PeriodoPago.IdPeriodoPago));
+                                boletaPago = viewModelProcesarPagos.Planilla.GenerarBoleta(viewModelProcesarPagos.PeriodoPago, contrato, conceptosDePago);
+                                _repositoryBoletaPago.Add(boletaPago);
 
                                 DatosPlanilla datosPlanilla = new DatosPlanilla()
                                 {
                                     Empleado = contrato.Empleado,
                                     Contrato = contrato,
-                                    /*TotalHoras = boletaPago.CalcularTotalHorasBoleta(),
+                                    TotalHoras = boletaPago.CalcularTotalHorasBoleta(),
                                     SueldoBasico = boletaPago.CalcularSueldoBasico(),
                                     TotalIngresos = boletaPago.CalcularTotalIngresos(),
                                     TotalDescuentos = boletaPago.CalcularTotalDescuentos(),
-                                    SueldoNeto = boletaPago.CalcularSueldoNeto()*/
+                                    SueldoNeto = boletaPago.CalcularSueldoNeto()
                                 };
                                 viewModelProcesarPagos.Planilla.DatosPlanillas.Add(datosPlanilla);
                             }
@@ -101,7 +115,6 @@ namespace NominaSoft.UI.Controllers
                 viewModelProcesarPagos.PeriodoActivo = 1;
                 return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
             }
-
             return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml",viewModelProcesarPagos);
         }
 

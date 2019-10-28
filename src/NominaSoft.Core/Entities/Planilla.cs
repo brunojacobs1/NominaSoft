@@ -17,7 +17,7 @@ namespace NominaSoft.Core.Entities
                 Contrato = contrato,
                 IdPeriodoPago = periodoPago.IdPeriodoPago,
                 PeriodoPago = periodoPago,
-                //ConceptosDePago = conceptos
+                ConceptosDePago = conceptosDePago
             };
             return boletaPago;
         }
