@@ -66,7 +66,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
-                                <tr>
+                                <tr class="table text-center">
                                     <th>Cod Emp</th>
                                     <th>Nomb Emp</th>
                                     <th>DNI</th>
@@ -84,7 +84,7 @@
                                     {
                                         foreach (var datosPlanilla in Model.Planilla.DatosPlanillas)
                                         {
-                                            <tr>
+                                            <tr class="table text-center">
                                                 <td>@datosPlanilla.Empleado.IdEmpleado</td>
                                                 <td>@datosPlanilla.Empleado.NombreEmpleado</td>
                                                 <td>@datosPlanilla.Empleado.Dni</td>

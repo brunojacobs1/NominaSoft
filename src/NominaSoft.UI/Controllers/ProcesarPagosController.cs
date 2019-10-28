@@ -73,7 +73,7 @@ namespace NominaSoft.UI.Controllers
                         BoletaPago boletaPago;
                         foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
                         {
-                            if (!contrato.VerificarVigencia())
+                            if (contrato.VerificarVigencia())
                             {
                                 contrato.AFP = _repositoryAfp.GetById(contrato.IdAFP);
 
