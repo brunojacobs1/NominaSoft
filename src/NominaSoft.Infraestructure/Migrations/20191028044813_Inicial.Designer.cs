@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NominaSoft.Infraestructure.EFCore;
 
-namespace NominaSoft.Infraestructure.EFCore.Migrations
+namespace NominaSoft.Infraestructure.Migrations
 {
     [DbContext(typeof(NSContext))]
-    [Migration("20191006234222_Inicial")]
+    [Migration("20191028044813_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,8 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                     b.Property<int>("IdBoletaPago")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ConceptosDePagoIdConceptosDePago");
+
                     b.Property<DateTime>("FechaPago");
 
                     b.Property<bool>("Habilitado");
@@ -51,6 +53,8 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                     b.Property<int>("IdPeriodoPago");
 
                     b.HasKey("IdBoletaPago");
+
+                    b.HasIndex("ConceptosDePagoIdConceptosDePago");
 
                     b.HasIndex("IdContrato");
 
@@ -66,8 +70,6 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
 
                     b.Property<bool>("Habilitado");
 
-                    b.Property<int>("IdBoletaPago");
-
                     b.Property<int>("IdContrato");
 
                     b.Property<int>("IdPeriodoPago");
@@ -82,10 +84,9 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
 
                     b.Property<double>("MontoPorHorasExtra");
 
-                    b.HasKey("IdConceptosDePago");
+                    b.Property<double>("MontoPorReintegro");
 
-                    b.HasIndex("IdBoletaPago")
-                        .IsUnique();
+                    b.HasKey("IdConceptosDePago");
 
                     b.HasIndex("IdContrato");
 
@@ -153,6 +154,8 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<string>("Telefono");
+
                     b.HasKey("IdEmpleado");
 
                     b.ToTable("Empleado");
@@ -178,6 +181,10 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
 
             modelBuilder.Entity("NominaSoft.Core.Entities.BoletaPago", b =>
                 {
+                    b.HasOne("NominaSoft.Core.Entities.ConceptosDePago", "ConceptosDePago")
+                        .WithMany()
+                        .HasForeignKey("ConceptosDePagoIdConceptosDePago");
+
                     b.HasOne("NominaSoft.Core.Entities.Contrato", "Contrato")
                         .WithMany("BoletasPago")
                         .HasForeignKey("IdContrato")
@@ -191,11 +198,6 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
 
             modelBuilder.Entity("NominaSoft.Core.Entities.ConceptosDePago", b =>
                 {
-                    b.HasOne("NominaSoft.Core.Entities.BoletaPago", "BoletaPago")
-                        .WithOne("ConceptosDePago")
-                        .HasForeignKey("NominaSoft.Core.Entities.ConceptosDePago", "IdBoletaPago")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("NominaSoft.Core.Entities.Contrato", "Contrato")
                         .WithMany("ConceptosDePago")
                         .HasForeignKey("IdContrato")

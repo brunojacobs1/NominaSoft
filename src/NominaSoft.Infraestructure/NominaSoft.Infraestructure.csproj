@@ -11,6 +11,8 @@
     <Compile Remove="EFCore\Migrations\20191028022529_Fix ConceptosBoleta.Designer.cs" />
     <Compile Remove="EFCore\Migrations\20191028023824_Fix ConceptosBoleta.cs" />
     <Compile Remove="EFCore\Migrations\20191028023824_Fix ConceptosBoleta.Designer.cs" />
+    <Compile Remove="EFCore\Migrations\20191028030059_Fix ConceptosBoleta2.cs" />
+    <Compile Remove="EFCore\Migrations\20191028030059_Fix ConceptosBoleta2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

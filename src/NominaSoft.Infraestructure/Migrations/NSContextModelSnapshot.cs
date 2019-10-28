@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NominaSoft.Infraestructure.EFCore;
 
-namespace NominaSoft.Infraestructure.EFCore.Migrations
+namespace NominaSoft.Infraestructure.Migrations
 {
     [DbContext(typeof(NSContext))]
     partial class NSContextModelSnapshot : ModelSnapshot

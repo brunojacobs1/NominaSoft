@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NominaSoft.Infraestructure.EFCore.Migrations
+namespace NominaSoft.Infraestructure.Migrations
 {
     public partial class Inicial : Migration
     {
@@ -34,6 +34,7 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                     Dni = table.Column<string>(maxLength: 8, nullable: false),
                     Direccion = table.Column<string>(maxLength: 80, nullable: true),
                     NombreEmpleado = table.Column<string>(maxLength: 50, nullable: false),
+                    Telefono = table.Column<string>(nullable: true),
                     Habilitado = table.Column<bool>(nullable: false),
                     FechaDeNacimiento = table.Column<DateTime>(nullable: false)
                 },
@@ -93,34 +94,6 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BoletaPago",
-                columns: table => new
-                {
-                    IdBoletaPago = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FechaPago = table.Column<DateTime>(nullable: false),
-                    IdContrato = table.Column<int>(nullable: false),
-                    IdPeriodoPago = table.Column<int>(nullable: false),
-                    Habilitado = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BoletaPago", x => x.IdBoletaPago);
-                    table.ForeignKey(
-                        name: "FK_BoletaPago_Contrato_IdContrato",
-                        column: x => x.IdContrato,
-                        principalTable: "Contrato",
-                        principalColumn: "IdContrato",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BoletaPago_PeriodoPago_IdPeriodoPago",
-                        column: x => x.IdPeriodoPago,
-                        principalTable: "PeriodoPago",
-                        principalColumn: "IdPeriodoPago",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ConceptoPago",
                 columns: table => new
                 {
@@ -131,20 +104,14 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                     MontoPorHorasAusentes = table.Column<double>(nullable: false),
                     MontoDeOtrosDescuentos = table.Column<double>(nullable: false),
                     MontoPorAdelantos = table.Column<double>(nullable: false),
+                    MontoPorReintegro = table.Column<double>(nullable: false),
                     IdContrato = table.Column<int>(nullable: false),
                     IdPeriodoPago = table.Column<int>(nullable: false),
-                    IdBoletaPago = table.Column<int>(nullable: false),
                     Habilitado = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ConceptoPago", x => x.IdConceptosDePago);
-                    table.ForeignKey(
-                        name: "FK_ConceptoPago_BoletaPago_IdBoletaPago",
-                        column: x => x.IdBoletaPago,
-                        principalTable: "BoletaPago",
-                        principalColumn: "IdBoletaPago",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ConceptoPago_Contrato_IdContrato",
                         column: x => x.IdContrato,
@@ -159,6 +126,46 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BoletaPago",
+                columns: table => new
+                {
+                    IdBoletaPago = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FechaPago = table.Column<DateTime>(nullable: false),
+                    IdContrato = table.Column<int>(nullable: false),
+                    IdPeriodoPago = table.Column<int>(nullable: false),
+                    IdConceptosDePago = table.Column<int>(nullable: true),
+                    Habilitado = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BoletaPago", x => x.IdBoletaPago);
+                    table.ForeignKey(
+                        name: "FK_BoletaPago_ConceptoPago_IdConceptosDePago",
+                        column: x => x.IdConceptosDePago,
+                        principalTable: "ConceptoPago",
+                        principalColumn: "IdConceptosDePago",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BoletaPago_Contrato_IdContrato",
+                        column: x => x.IdContrato,
+                        principalTable: "Contrato",
+                        principalColumn: "IdContrato",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BoletaPago_PeriodoPago_IdPeriodoPago",
+                        column: x => x.IdPeriodoPago,
+                        principalTable: "PeriodoPago",
+                        principalColumn: "IdPeriodoPago",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BoletaPago_IdConceptosDePago",
+                table: "BoletaPago",
+                column: "IdConceptosDePago");
+
             migrationBuilder.CreateIndex(
                 name: "IX_BoletaPago_IdContrato",
                 table: "BoletaPago",
@@ -168,12 +175,6 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
                 name: "IX_BoletaPago_IdPeriodoPago",
                 table: "BoletaPago",
                 column: "IdPeriodoPago");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ConceptoPago_IdBoletaPago",
-                table: "ConceptoPago",
-                column: "IdBoletaPago",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConceptoPago_IdContrato",
@@ -199,10 +200,10 @@ namespace NominaSoft.Infraestructure.EFCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ConceptoPago");
+                name: "BoletaPago");
 
             migrationBuilder.DropTable(
-                name: "BoletaPago");
+                name: "ConceptoPago");
 
             migrationBuilder.DropTable(
                 name: "Contrato");
