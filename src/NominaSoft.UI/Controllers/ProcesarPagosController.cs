@@ -54,10 +54,19 @@ namespace NominaSoft.UI.Controllers
         [HttpPost]
         public ViewResult VerificarProcesado()
         {
+            IEnumerable<ConceptosDePago> conceptosDePagos = _repositoryConceptoPago.List(new BusquedaConceptosPeriodoActivoSpecification());
+
+            ICollection<Contrato> contratos = new List<Contrato>();
+
+            foreach(ConceptosDePago concepto in conceptosDePagos)
+            {
+                contratos.Add(concepto.Contrato);
+            }
+               
 
             ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos() {
                 PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification()),
-                Contratos = _repositoryContrato.List(),
+                Contratos = contratos,
                 Planilla = new Planilla()
                 {
                     DatosPlanillas = new List<DatosPlanilla>()
@@ -68,8 +77,26 @@ namespace NominaSoft.UI.Controllers
             {
                 if (DateTime.Now >= viewModelProcesarPagos.PeriodoPago.FechaFin)
                 {
-                    if (viewModelProcesarPagos.Contratos != null)
+                    /*
+                    foreach(Contrato c in viewModelProcesarPagos.Contratos)
                     {
+                        foreach (var cp in c.ConceptosDePago)
+                        {
+                            
+                        }
+                        if ()
+                        {
+                            Console.WriteLine(c.IdContrato);
+                            viewModelProcesarPagos.Contratos.ToList().Remove(c);
+                        }
+                    }
+
+                    int ga = viewModelProcesarPagos.Contratos.Count();
+                    */
+                    if (viewModelProcesarPagos.Contratos.Count() != 0)
+                    {
+                  
+
                         BoletaPago boletaPago;
                         foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
                         {
