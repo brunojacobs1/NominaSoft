@@ -94,7 +94,7 @@ namespace NominaSoft.UI.Controllers
                     int ga = viewModelProcesarPagos.Contratos.Count();
                     */
                     if (viewModelProcesarPagos.Contratos.Count() != 0)
-                    {
+                    {   
                   
 
                         BoletaPago boletaPago;
