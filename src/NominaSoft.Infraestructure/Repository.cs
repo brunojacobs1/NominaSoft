@@ -54,6 +54,7 @@ namespace NominaSoft.Infraestructure
                 (current, include) => current.Include(include));
 
             return resultadoConIncludes
+                .Where(spec.Condicion)
                 .OrderByDescending(spec.Extra)
                 .Take(1);
         }

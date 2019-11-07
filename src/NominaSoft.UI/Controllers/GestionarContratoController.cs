@@ -97,8 +97,10 @@ namespace NominaSoft.UI.Controllers
             if (!contrato.VerificarVigencia())
                 viewModelGestionarContrato.MensajeError = "El contrato no es vigente.";
 
+            Contrato c = _repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).FirstOrDefault();
+
             // RO2
-            if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification()).FirstOrDefault()))
+            if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).FirstOrDefault()))
                 viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
 
             // R03
@@ -141,7 +143,7 @@ namespace NominaSoft.UI.Controllers
                 viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
 
             // R02
-            if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification()).FirstOrDefault()))
+            if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).FirstOrDefault()))
                 viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
 
             // R03

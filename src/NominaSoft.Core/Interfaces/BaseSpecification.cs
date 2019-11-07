@@ -17,6 +17,10 @@ namespace NominaSoft.Core.Interfaces
         {
             Extra = extra;
         }
-
+        public BaseSpecification(Expression<Func<T, bool>> condicion, Expression<Func<T, Object>> extra)
+        {
+            Extra = extra;
+            Condicion = condicion;
+        }
     }
 }
