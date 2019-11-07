@@ -15,5 +15,6 @@ namespace NominaSoft.Core.Interfaces
         void Add(T entity);
         void Delete(T entity);
         void Edit(T entity);
+        IEnumerable<T> LastList(ISpecification<T> spec);
     }
 }

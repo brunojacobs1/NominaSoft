@@ -64,7 +64,7 @@ namespace NominaSoft.UI.Controllers
 
             return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
         }
-        
+
         [HttpPost]
         public IActionResult CrearContrato(ViewModelGestionarContrato viewModelGestionarContrato, int empleadoId)
         {
@@ -91,11 +91,15 @@ namespace NominaSoft.UI.Controllers
 
             // AFP
             if (afpInvalida)
-                viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
+                viewModelGestionarContrato.MensajeError += "AFP no seleccionada.";
 
-            // LA R02 NO SE APLICA YA QUE SI ES QUE ES LO MISMO QUE DECIR
-            // MIENTRAS SE ENCUENTRA CON UN CONTRATO VIGENTE (AUN NO HA TERMINADO O NO ESTA ANULADO)
-            // NO SE PUEDE CREAR NINGUN CONTRATO, Y ESO YA SE ESTA HACIENDO IMPLICITAMENTE
+            // R01
+            if (!contrato.VerificarVigencia())
+                viewModelGestionarContrato.MensajeError = "El contrato no es vigente.";
+
+            // RO2
+            if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification()).FirstOrDefault()))
+                viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
 
             // R03
             if (!contrato.VerificarFechaFin())
@@ -125,15 +129,20 @@ namespace NominaSoft.UI.Controllers
         [HttpPost]
         public IActionResult EditarContrato(ViewModelGestionarContrato viewModelGestionarContrato, int contratoId, int empleadoId)
         {
-            // LA R02 NO SE APLICA YA QUE SI ES QUE ES LO MISMO QUE DECIR
-            // MIENTRAS SE ENCUENTRA CON UN CONTRATO VIGENTE (AUN NO HA TERMINADO O NO ESTA ANULADO)
-            // NO SE PUEDE CREAR NINGUN CONTRATO, Y ESO YA SE ESTA HACIENDO IMPLICITAMENTE
 
             viewModelGestionarContrato.Contrato.Empleado = _repositoryEmpleado.GetById(empleadoId);
 
             // AFP
-            if(viewModelGestionarContrato.Contrato.IdAFP == 0)
+            if (viewModelGestionarContrato.Contrato.IdAFP == 0)
                 viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
+
+            // R01
+            if (!viewModelGestionarContrato.Contrato.VerificarVigencia())
+                viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
+
+            // R02
+            if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification()).FirstOrDefault()))
+                viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
 
             // R03
             if (!viewModelGestionarContrato.Contrato.VerificarFechaFin())

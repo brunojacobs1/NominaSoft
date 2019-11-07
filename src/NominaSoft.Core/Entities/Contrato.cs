@@ -56,7 +56,15 @@ namespace NominaSoft.Core.Entities
         /* public bool VerificarFechaFin() => FechaFin.Month - FechaInicio.Month >= 3 &&
                     (((FechaFin.Year - FechaInicio.Year) * 12) + FechaFin.Month - FechaInicio.Month) <= 12;*/
 
-        public bool VerificarFechaInicio(Contrato _contrato) => FechaInicio > _contrato.FechaFin;
+        public bool VerificarFechaInicio(Contrato _contrato)
+        {
+            if (_contrato != null)
+                if (FechaInicio.CompareTo(_contrato.FechaFin) < 0)
+                    return false;
+
+            return true;
+        }
+            
 
         public bool VerificarTotalHorasSemanales() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;
 
@@ -77,26 +85,7 @@ namespace NominaSoft.Core.Entities
                 default:
                     return ValorHora >= 41 && ValorHora <= 60;
             }
-            
-            //if(Empleado.Grado.Equals(GradoAcademico.Primaria) || Empleado.Grado.Equals(GradoAcademico.Secundaria))
-            //    return ValorHora >= 5 && ValorHora <= 10;
-            //else
-            //{
-            //    if (Empleado.Grado.Equals(GradoAcademico.Bachiller))
-            //        return ValorHora >= 11 && ValorHora <= 20;
-            //    else
-            //    {
-            //        if (Empleado.Grado.Equals(GradoAcademico.Profesional))
-            //            return ValorHora >= 21 && ValorHora <= 30;
-            //        else
-            //        {
-            //            if (Empleado.Grado.Equals(GradoAcademico.Magister))
-            //                return ValorHora >= 31 && ValorHora <= 40;
-            //            else
-            //                return ValorHora >= 41 && ValorHora <= 60;
-            //        }
-            //    }
-            //}
+
         }
     }
 }

@@ -47,6 +47,17 @@ namespace NominaSoft.Infraestructure
                 .SingleOrDefault();
         }
 
+        public IEnumerable<T> LastList(ISpecification<T> spec)
+        {
+            var resultadoConIncludes = spec.Includes
+                .Aggregate(_dbContext.Set<T>().AsQueryable(),
+                (current, include) => current.Include(include));
+
+            return resultadoConIncludes
+                .OrderByDescending(spec.Extra)
+                .Take(1);
+        }
+
         public IEnumerable<T> List() => _dbContext.Set<T>().AsEnumerable();
 
         public IEnumerable<T> List(ISpecification<T> spec)

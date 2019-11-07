@@ -9,5 +9,7 @@ namespace NominaSoft.Core.Interfaces
     {
         Expression<Func<T, bool>> Condicion { get; }
         List<Expression<Func<T, object>>> Includes { get; }
+
+        Expression<Func<T, Object>> Extra { get;  }
     }
 }
