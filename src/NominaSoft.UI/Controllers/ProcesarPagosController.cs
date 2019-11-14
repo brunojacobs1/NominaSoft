@@ -41,10 +41,11 @@ namespace NominaSoft.UI.Controllers
         [HttpGet]
         public IActionResult ProcesarPagos()
         {
-            ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos();
+            ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos
+            {
+                PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification())
+            };
             
-            viewModelProcesarPagos.PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification());
-
             if (viewModelProcesarPagos.PeriodoPago == null)
                 viewModelProcesarPagos.PeriodoActivo = 1;
                 
