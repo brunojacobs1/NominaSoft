@@ -7,7 +7,7 @@
  - Jose Alberto Esparza del Castillo
  - Bruno Jacobs Schulz
  - José Miguel Leython Lias
- - Loana Valeri Yañez López
+ - Loana Valeri Yañez Camacho
 
 ### Propósito del proyecto
 Desarrollar un sistema de nómina de empleados y evaluar la calidad del producto. Su alcance es sólo la implementación
