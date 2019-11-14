@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   unit-tests:
-    name: Ejecución de pruebas unitarias en ${{ matrix.}}
+    name: Ejecución de pruebas unitarias en ${{ matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -30,7 +30,7 @@ jobs:
       matrix:
         dotnet: [2.2.108, 3.0.100]
         os: [ubuntu-latest, windows-latest, macOS-latest]
-    needs: [unit-tests]
+    needs: unit-tests
     
     steps:
       - uses: actions/checkout@v1
