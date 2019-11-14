@@ -127,11 +127,8 @@
                                                         break;
                                                     case 4:
                                                         <input type="text" class="form-control" disabled value="Viudo" />
-
                                                         break;
                                                 }
-
-                                                <!--<input type="text" class="form-control" disabled value="@Model.Empleado.EstadoCivil" /> -->
                                             }
                                             else
                                             {
@@ -167,10 +164,8 @@
                                                         break;
                                                     case 5:
                                                         <input type="text" class="form-control" disabled value="Doctor" />
-
                                                         break;
                                                 }
-                                                <!--<input type="text" class="form-control" disabled value="@Model.Empleado.Grado" />-->
                                             }
                                             else
                                             {
@@ -253,112 +248,227 @@
     </div>
 </div>
 
-<div class="modal fade bd-example-modal-lg" id="crearContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">CREAR CONTRATO</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
-                    <h4 class="card-title" style="margin-bottom: 30px">Ingrese los siguientes datos</h4>
-                    <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="CrearContrato">
-                        @if (Model.Empleado != null)
-                        {
-                            <input id="empleadoId" name="empleadoId" type="hidden" value="@Model.Empleado.IdEmpleado">
-                        }
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
-                                    <div class="col-sm-9">
-                                        <input asp-for="Contrato.FechaInicio" type="date" class="form-control" />
+@{
+    if (Model.Contrato != null)
+    {
+        <div class="modal fade bd-example-modal-lg" id="crearContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">CREAR CONTRATO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <h4 class="card-title" style="margin-bottom: 30px">Ingrese los siguientes datos</h4>
+                            <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="CrearContratoLimpio">
+                                @if (Model.Empleado != null)
+                                {
+                                    <input id="empleadoId" name="empleadoId" type="hidden" value="@Model.Empleado.IdEmpleado">
+                                }
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
+                                            <div class="col-sm-9">
+                                                <input id="fechaInicio" name="fechaInicio" type="date" class="form-control" />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
-                                    <div class="col-sm-9">
-                                        <input asp-for="Contrato.FechaFin" type="date" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
-                                    <div class="col-sm-9">
-                                        <input asp-for="Contrato.Cargo" type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            @{
-                                                if (Model.AFPs != null)
-                                                {
-                                                    <select asp-for="Contrato.IdAFP" class="form-control" id="sel1">
-                                                        <option selected value="0">Seleccione una AFP</option>
-                                                        @{
-                                                            foreach (var afp in Model.AFPs)
-                                                            {
-                                                                <option value="@afp.IdAFP">@afp.NombreAFP</option>
-                                                            }
-                                                        }
-                                                    </select>
-                                                }
-                                            }
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
+                                            <div class="col-sm-9">
+                                                <input id="fechaFin" name="fechaFin" type="date" class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
-                                    <div class="col-sm-9 col-form-label" style="text-align: center">
-                                        <input asp-for="Contrato.EsAsignacionFamiliar" type="checkbox" />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
+                                            <div class="col-sm-9">
+                                                <input id="cargo" name="cargo" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    @{
+                                                        if (Model.AFPs != null)
+                                                        {
+                                                            <select name="afp" class="form-control" id="afp">
+                                                                <option selected value="0">Seleccione una AFP</option>
+                                                                @{
+                                                                    foreach (var afp in Model.AFPs)
+                                                                    {
+                                                                        <option value="@afp.IdAFP">@afp.NombreAFP</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
-                                    <div class="col-sm-9">
-                                        <input asp-for="Contrato.ValorHora" type="text" class="form-control" />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
+                                            <div class="col-sm-9 col-form-label" style="text-align: center">
+                                                <input id="asignacionFamiliar" name="asignacionFamiliar" type="checkbox" value="false"  onchange="this.value=this.checked" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
+                                            <div class="col-sm-9">
+                                                <input id="valorHora" name="valorHora" type="text" class="form-control" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
-                                    <div class="col-sm-9">
-                                        <input asp-for="Contrato.TotalHorasSemanales" type="text" class="form-control" />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
+                                            <div class="col-sm-9">
+                                                <input id="totalHoras" name="totalHoras" type="text" class="form-control" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    }
+    else
+    {
+        <div class="modal fade bd-example-modal-lg" id="crearContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">CREAR CONTRATO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <h4 class="card-title" style="margin-bottom: 30px">Ingrese los siguientes datos</h4>
+                            <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="CrearContrato">
+                                @if (Model.Empleado != null)
+                                {
+                                    <input id="empleadoId" name="empleadoId" type="hidden" value="@Model.Empleado.IdEmpleado">
+                                }
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">F. Inicio</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="Contrato.FechaInicio" type="date" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Fecha Fin</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="Contrato.FechaFin" type="date" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Cargo</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="Contrato.Cargo" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">AFP</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    @{
+                                                        if (Model.AFPs != null)
+                                                        {
+                                                            <select asp-for="Contrato.IdAFP" class="form-control" id="sel1">
+                                                                <option selected value="0">Seleccione una AFP</option>
+                                                                @{
+                                                                    foreach (var afp in Model.AFPs)
+                                                                    {
+                                                                        <option value="@afp.IdAFP">@afp.NombreAFP</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3" style="text-align: center">Asignación Familiar</label>
+                                            <div class="col-sm-9 col-form-label" style="text-align: center">
+                                                <input asp-for="Contrato.EsAsignacionFamiliar" type="checkbox" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Valor H.</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="Contrato.ValorHora" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" style="text-align: center">Total Horas Por Semana</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="Contrato.TotalHorasSemanales" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
 
 <div class="modal fade bd-example-modal-lg" id="editarContrato" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -610,13 +720,10 @@
     </div>
 </div>
 
-@section SweetAlert2 {
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <!--
-        <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
+@section SweetAlert2
+{
 
-    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
-    -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
 
         function replaceAll(searchString, replaceString, str) {
@@ -660,7 +767,7 @@
                   html:
                      replaceAll('.','<br>',mensajeError)
                 })
-                
+
             }
         }
 

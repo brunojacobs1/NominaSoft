@@ -53,9 +53,6 @@ namespace NominaSoft.Core.Entities
             }
         } 
           
-        /* public bool VerificarFechaFin() => FechaFin.Month - FechaInicio.Month >= 3 &&
-                    (((FechaFin.Year - FechaInicio.Year) * 12) + FechaFin.Month - FechaInicio.Month) <= 12;*/
-
         public bool VerificarFechaInicio(Contrato _contrato)
         {
             if (_contrato != null)
@@ -65,7 +62,6 @@ namespace NominaSoft.Core.Entities
             return true;
         }
             
-
         public bool VerificarTotalHorasSemanales() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;
 
         public bool VerificarVigencia() => (FechaFin >= DateTime.Today) && !EsAnulado;
