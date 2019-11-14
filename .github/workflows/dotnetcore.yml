@@ -21,9 +21,11 @@ jobs:
           dotnet-version: ${{ matrix.dotnet }}
 
       - name: Añadiendo xUnit
+        shell: bash
         run: dotnet add ./src/NominaSoft.Tests/NominaSoft.Tests.csproj package dotnet-xunit
           
       - name: Corriendo pruebas unitarias
+        shell: bash
         run: dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
 
   build:
@@ -45,4 +47,5 @@ jobs:
           dotnet-version: ${{ matrix.dotnet }}
 
       - name: Building
+        shell: bash
         run: dotnet build ./src
