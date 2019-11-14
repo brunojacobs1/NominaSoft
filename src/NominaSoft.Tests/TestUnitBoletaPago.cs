@@ -430,7 +430,7 @@ namespace NominaSoft.Tests
                 ConceptosDePago = concepto
             };
 
-            double valorEsperado =1552.3;
+            double valorEsperado = 1552.3;
             double valorObtenido = boleta.CalcularTotalDescuentos();
             Assert.Equal<double>(Math.Round(valorEsperado, decimales), Math.Round(valorObtenido, decimales));
         }
