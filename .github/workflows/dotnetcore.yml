@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   unit-tests:
-    name: Ejecución de pruebas unitarias en ${{ matrix.os}}
+    name: UT ${{ matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -17,14 +17,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
+      - run: dotnet add ./src/NominaSoft.Tests/NominaSoft.Tests.csproj package dotnet-xunit
           
       - name: Corriendo pruebas unitarias
-        run: |
-          dotnet add ./src/NominaSoft.Tests/NominaSoft.Tests.csproj package dotnet-xunit
-          dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
+        run: dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
 
   build:
-    name: Despliegue en ${{ matrix.os }}
+    name: Build ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
