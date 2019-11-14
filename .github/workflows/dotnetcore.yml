@@ -20,7 +20,7 @@ jobs:
           
       - name: Corriendo pruebas unitarias
         run: |
-          dotnet add package ./src/NominaSoft.Tests/NominaSoft.Tests.csproj dotnet-xunit
+          dotnet add ./src/NominaSoft.Tests/NominaSoft.Tests.csproj package dotnet-xunit
           dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
 
   build:
