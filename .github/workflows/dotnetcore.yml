@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Configurando el repositorio en la máquina virtual
-      - uses: actions/checkout@v1
+        uses: actions/checkout@v1
 
       - name: Configurando .NET Core ${{ matrix.dotnet }}
         uses: actions/setup-dotnet@v1
@@ -36,7 +36,8 @@ jobs:
     needs: unit-tests
     
     steps:
-      - uses: actions/checkout@v1
+      - name: Configurando el repositorio en la máquina virtual
+        uses: actions/checkout@v1
 
       - name: Configurando .NET Core ${{ matrix.dotnet }}
         uses: actions/setup-dotnet@v1
