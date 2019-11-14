@@ -19,10 +19,9 @@ jobs:
           dotnet-version: ${{ matrix.dotnet }}
           
       - name: Corriendo pruebas unitarias
-        dir: ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
         run: |
-          dotnet add package ${ dir }} dotnet-xunit
-          dotnet test ${{ dir }}
+          dotnet add package ./src/NominaSoft.Tests/NominaSoft.Tests.csproj dotnet-xunit
+          dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
 
   build:
     name: Despliegue en ${{ matrix.os }}
