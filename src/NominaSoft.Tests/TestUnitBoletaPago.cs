@@ -142,7 +142,7 @@ namespace NominaSoft.Tests
                 PeriodoPago = periodo
             };
 
-            Double valorEsperado=12673;
+            Double valorEsperado = 12673;
             Double valorObtenido = boleta.CalcularSueldoBasico();
             Assert.Equal<Double>(valorEsperado, valorObtenido);
 
