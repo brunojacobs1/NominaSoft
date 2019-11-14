@@ -1,6 +1,9 @@
 name: NominaSoft-CI
 
-on: [push]
+on:
+  push:
+    branches: 
+      - dev
 
 jobs:
   build:
@@ -18,7 +21,7 @@ jobs:
           dotnet-version: 2.2.108
           
       - name: Building
-        run: dotnet build
+        run: dotnet build ./src
       - name: Corriendo pruebas unitarias
         run: |
           dotnet add package dotnet-xunit
