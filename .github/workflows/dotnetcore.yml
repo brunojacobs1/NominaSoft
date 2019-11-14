@@ -7,11 +7,11 @@ on:
 
 jobs:
   unit-testing:
-    name: Pruebas unitarias en ${{matrix.os}}
+    name: Pruebas unitarias en ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latets, macOS-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     
     steps:
       - uses: actions/checkout@v1
