@@ -1,13 +1,10 @@
 name: NominaSoft-CI
 
-on: 
-  push:
-    branches: 
-      - dev
+on: [push]
 
 jobs:
-  unit-testing:
-    name: Pruebas unitarias en ${{ matrix.os }}
+  build:
+    name: Despliegue en ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -15,12 +12,14 @@ jobs:
     
     steps:
       - uses: actions/checkout@v1
-      - name: Configurando dotnet
+      - name: Configurando .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 2.2.108
+          
+      - name: Building
+        run: dotnet build
       - name: Corriendo pruebas unitarias
         run: |
-          dotnet restore
           dotnet add package dotnet-xunit
           dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
