@@ -17,8 +17,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-03-2019"),
-                FechaFin = Convert.ToDateTime("28-06-2019")
+                FechaInicio = DateTime.Parse("01-03-2019"),
+                FechaFin = DateTime.Parse("28-06-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -40,8 +40,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-01-2019"),
-                FechaFin = Convert.ToDateTime("30-07-2019")
+                FechaInicio = DateTime.Parse("01-01-2019"),
+                FechaFin = DateTime.Parse("30-07-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -63,8 +63,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("11-03-2019"),
-                FechaFin = Convert.ToDateTime("20-12-2019")
+                FechaInicio = DateTime.Parse("11-03-2019"),
+                FechaFin = DateTime.Parse("20-12-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -86,8 +86,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("23-05-2019"),
-                FechaFin = Convert.ToDateTime("22-10-2019")
+                FechaInicio = DateTime.Parse("23-05-2019"),
+                FechaFin = DateTime.Parse("22-10-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -109,8 +109,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("10-07-2019"),
-                FechaFin = Convert.ToDateTime("04-02-2020")
+                FechaInicio = DateTime.Parse("10-07-2019"),
+                FechaFin = DateTime.Parse("04-02-2020")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -133,8 +133,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("10-07-2019"),
-                FechaFin = Convert.ToDateTime("04-02-2020")
+                FechaInicio = DateTime.Parse("10-07-2019"),
+                FechaFin = DateTime.Parse("04-02-2020")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -158,8 +158,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("11-03-2019"),
-                FechaFin = Convert.ToDateTime("20-12-2019")
+                FechaInicio = DateTime.Parse("11-03-2019"),
+                FechaFin = DateTime.Parse("20-12-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -183,8 +183,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-03-2019"),
-                FechaFin = Convert.ToDateTime("28-06-2019")
+                FechaInicio = DateTime.Parse("01-03-2019"),
+                FechaFin = DateTime.Parse("28-06-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -208,8 +208,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("23-05-2019"),
-                FechaFin = Convert.ToDateTime("22-10-2019")
+                FechaInicio = DateTime.Parse("23-05-2019"),
+                FechaFin = DateTime.Parse("22-10-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -233,8 +233,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-01-2019"),
-                FechaFin = Convert.ToDateTime("30-07-2019")
+                FechaInicio = DateTime.Parse("01-01-2019"),
+                FechaFin = DateTime.Parse("30-07-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -264,8 +264,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("10-07-2019"),
-                FechaFin = Convert.ToDateTime("04-02-2020")
+                FechaInicio = DateTime.Parse("10-07-2019"),
+                FechaFin = DateTime.Parse("04-02-2020")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -294,8 +294,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("11-03-2019"),
-                FechaFin = Convert.ToDateTime("20-12-2019")
+                FechaInicio = DateTime.Parse("11-03-2019"),
+                FechaFin = DateTime.Parse("20-12-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -324,8 +324,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("23-05-2019"),
-                FechaFin = Convert.ToDateTime("22-10-2019")
+                FechaInicio = DateTime.Parse("23-05-2019"),
+                FechaFin = DateTime.Parse("22-10-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -354,8 +354,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-03-2019"),
-                FechaFin = Convert.ToDateTime("28-06-2019")
+                FechaInicio = DateTime.Parse("01-03-2019"),
+                FechaFin = DateTime.Parse("28-06-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -384,8 +384,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-01-2019"),
-                FechaFin = Convert.ToDateTime("30-07-2019")
+                FechaInicio = DateTime.Parse("01-01-2019"),
+                FechaFin = DateTime.Parse("30-07-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -420,8 +420,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("10-07-2019"),
-                FechaFin = Convert.ToDateTime("04-02-2020")
+                FechaInicio = DateTime.Parse("10-07-2019"),
+                FechaFin = DateTime.Parse("04-02-2020")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -457,8 +457,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("11-03-2019"),
-                FechaFin = Convert.ToDateTime("20-12-2019")
+                FechaInicio = DateTime.Parse("11-03-2019"),
+                FechaFin = DateTime.Parse("20-12-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -494,8 +494,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("23-05-2019"),
-                FechaFin = Convert.ToDateTime("22-10-2019")
+                FechaInicio = DateTime.Parse("23-05-2019"),
+                FechaFin = DateTime.Parse("22-10-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -531,8 +531,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-03-2019"),
-                FechaFin = Convert.ToDateTime("28-06-2019")
+                FechaInicio = DateTime.Parse("01-03-2019"),
+                FechaFin = DateTime.Parse("28-06-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -568,8 +568,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-01-2019"),
-                FechaFin = Convert.ToDateTime("30-07-2019")
+                FechaInicio = DateTime.Parse("01-01-2019"),
+                FechaFin = DateTime.Parse("30-07-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -601,8 +601,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("10-07-2019"),
-                FechaFin = Convert.ToDateTime("04-02-2020")
+                FechaInicio = DateTime.Parse("10-07-2019"),
+                FechaFin = DateTime.Parse("04-02-2020")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -634,8 +634,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("11-03-2019"),
-                FechaFin = Convert.ToDateTime("20-12-2019")
+                FechaInicio = DateTime.Parse("11-03-2019"),
+                FechaFin = DateTime.Parse("20-12-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -667,8 +667,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("23-05-2019"),
-                FechaFin = Convert.ToDateTime("22-10-2019")
+                FechaInicio = DateTime.Parse("23-05-2019"),
+                FechaFin = DateTime.Parse("22-10-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -700,8 +700,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-03-2019"),
-                FechaFin = Convert.ToDateTime("28-06-2019")
+                FechaInicio = DateTime.Parse("01-03-2019"),
+                FechaFin = DateTime.Parse("28-06-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -734,8 +734,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-01-2019"),
-                FechaFin = Convert.ToDateTime("30-07-2019")
+                FechaInicio = DateTime.Parse("01-01-2019"),
+                FechaFin = DateTime.Parse("30-07-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -775,8 +775,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("10-07-2019"),
-                FechaFin = Convert.ToDateTime("04-02-2020")
+                FechaInicio = DateTime.Parse("10-07-2019"),
+                FechaFin = DateTime.Parse("04-02-2020")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -816,8 +816,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("11-03-2019"),
-                FechaFin = Convert.ToDateTime("20-12-2019")
+                FechaInicio = DateTime.Parse("11-03-2019"),
+                FechaFin = DateTime.Parse("20-12-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -857,8 +857,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("23-05-2019"),
-                FechaFin = Convert.ToDateTime("22-10-2019")
+                FechaInicio = DateTime.Parse("23-05-2019"),
+                FechaFin = DateTime.Parse("22-10-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -898,8 +898,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-03-2019"),
-                FechaFin = Convert.ToDateTime("28-06-2019")
+                FechaInicio = DateTime.Parse("01-03-2019"),
+                FechaFin = DateTime.Parse("28-06-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
@@ -939,8 +939,8 @@ namespace NominaSoft.Tests
             };
             PeriodoPago periodo = new PeriodoPago
             {
-                FechaInicio = Convert.ToDateTime("01-01-2019"),
-                FechaFin = Convert.ToDateTime("30-07-2019")
+                FechaInicio = DateTime.Parse("01-01-2019"),
+                FechaFin = DateTime.Parse("30-07-2019")
             };
             BoletaPago boleta = new BoletaPago
             {
