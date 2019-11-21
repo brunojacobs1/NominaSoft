@@ -2,7 +2,7 @@
 
 ### Integrantes del proyecto
 
- - Luis Sebastián Arribasplata Chávarri
+ - Luis Sebastián Arribasplata Chávarri 
  - Daniel Badinho Cornejo Chunga
  - Jose Alberto Esparza del Castillo
  - Bruno Jacobs Schulz
