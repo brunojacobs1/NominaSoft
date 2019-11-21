@@ -39,8 +39,8 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaInicio = Convert.ToDateTime("02/01/2019"),
-                FechaFin = Convert.ToDateTime("02/11/2019")
+                FechaInicio = Convert.ToDateTime("02-01-2019"),
+                FechaFin = Convert.ToDateTime("02-11-2019")
             };
 
             Boolean valorEsperado = true;
@@ -53,8 +53,8 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaInicio = Convert.ToDateTime("02/06/2019"),
-                FechaFin = Convert.ToDateTime("02/07/2019")
+                FechaInicio = Convert.ToDateTime("02-06-2019"),
+                FechaFin = Convert.ToDateTime("02-07-2019")
             };
 
             Boolean valorEsperado = false;
@@ -67,8 +67,8 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaInicio = Convert.ToDateTime("02/01/2019"),
-                FechaFin = Convert.ToDateTime("02/07/2020")
+                FechaInicio = Convert.ToDateTime("02-01-2019"),
+                FechaFin = Convert.ToDateTime("02-07-2020")
             };
 
             Boolean valorEsperado = false;
@@ -81,12 +81,12 @@ namespace NominaSoft.Test
         {
             Contrato contratoAnterior = new Contrato
             {
-                FechaFin = Convert.ToDateTime("02/07/2019")
+                FechaFin = Convert.ToDateTime("02-07-2019")
             };
 
             Contrato contratoNuevo = new Contrato
             {
-                FechaInicio = Convert.ToDateTime("02/08/2019")
+                FechaInicio = Convert.ToDateTime("02-08-2019")
             };
 
 
@@ -100,12 +100,12 @@ namespace NominaSoft.Test
         {
             Contrato contratoAnterior = new Contrato
             {
-                FechaFin = Convert.ToDateTime("14/08/2019")
+                FechaFin = Convert.ToDateTime("14-08-2019")
             };
 
             Contrato contratoNuevo = new Contrato
             {
-                FechaInicio = Convert.ToDateTime("23/06/2019")
+                FechaInicio = Convert.ToDateTime("23-06-2019")
             };
 
 
@@ -119,12 +119,12 @@ namespace NominaSoft.Test
         {
             Contrato contratoAnterior = new Contrato
             {
-                FechaFin = Convert.ToDateTime("23/06/2019")
+                FechaFin = Convert.ToDateTime("23-06-2019")
             };
 
             Contrato contratoNuevo = new Contrato
             {
-                FechaInicio = Convert.ToDateTime("23/06/2019")
+                FechaInicio = Convert.ToDateTime("23-06-2019")
             };
 
 
@@ -177,7 +177,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = Convert.ToDateTime("02/12/2019"),
+                FechaFin = Convert.ToDateTime("02-12-2019"),
                 EsAnulado = false
             };
 
@@ -191,7 +191,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = Convert.ToDateTime("02/10/2019"),
+                FechaFin = Convert.ToDateTime("02-10-2019"),
                 EsAnulado = true
             };
 
@@ -205,7 +205,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = Convert.ToDateTime("20/09/2019"),
+                FechaFin = Convert.ToDateTime("20-09-2019"),
                 EsAnulado = false
             };
 
@@ -219,7 +219,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = Convert.ToDateTime("20/07/2019"),
+                FechaFin = Convert.ToDateTime("20-07-2019"),
                 EsAnulado = true
             };
 
