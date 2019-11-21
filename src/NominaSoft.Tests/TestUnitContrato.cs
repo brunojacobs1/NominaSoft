@@ -39,8 +39,8 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaInicio = DateTime.Parse("02-01-2019"),
-                FechaFin = DateTime.Parse("02-11-2019")
+                FechaInicio = DateTime.ParseExact("02-01-2019", "dd/MM/yyyy", null),
+                FechaFin = DateTime.ParseExact("02-11-2019", "dd/MM/yyyy", null)
             };
 
             Boolean valorEsperado = true;
@@ -53,8 +53,8 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaInicio = DateTime.Parse("02-06-2019"),
-                FechaFin = DateTime.Parse("02-07-2019")
+                FechaInicio = DateTime.ParseExact("02-06-2019", "dd/MM/yyyy", null),
+                FechaFin = DateTime.ParseExact("02-07-2019", "dd/MM/yyyy", null)
             };
 
             Boolean valorEsperado = false;
@@ -67,8 +67,8 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaInicio = DateTime.Parse("02-01-2019"),
-                FechaFin = DateTime.Parse("02-07-2020")
+                FechaInicio = DateTime.ParseExact("02-01-2019", "dd/MM/yyyy", null),
+                FechaFin = DateTime.ParseExact("02-07-2020", "dd/MM/yyyy", null)
             };
 
             Boolean valorEsperado = false;
@@ -81,12 +81,12 @@ namespace NominaSoft.Test
         {
             Contrato contratoAnterior = new Contrato
             {
-                FechaFin = DateTime.Parse("02-07-2019")
+                FechaFin = DateTime.ParseExact("02-07-2019", "dd/MM/yyyy", null)
             };
 
             Contrato contratoNuevo = new Contrato
             {
-                FechaInicio = DateTime.Parse("02-08-2019")
+                FechaInicio = DateTime.ParseExact("02-08-2019", "dd/MM/yyyy", null)
             };
 
 
@@ -100,12 +100,12 @@ namespace NominaSoft.Test
         {
             Contrato contratoAnterior = new Contrato
             {
-                FechaFin = DateTime.Parse("14-08-2019")
+                FechaFin = DateTime.ParseExact("14-08-2019", "dd/MM/yyyy", null)
             };
 
             Contrato contratoNuevo = new Contrato
             {
-                FechaInicio = DateTime.Parse("23-06-2019")
+                FechaInicio = DateTime.ParseExact("23-06-2019", "dd/MM/yyyy", null)
             };
 
 
@@ -119,12 +119,12 @@ namespace NominaSoft.Test
         {
             Contrato contratoAnterior = new Contrato
             {
-                FechaFin = DateTime.Parse("23-06-2019")
+                FechaFin = DateTime.ParseExact("23-06-2019", "dd/MM/yyyy", null)
             };
 
             Contrato contratoNuevo = new Contrato
             {
-                FechaInicio = DateTime.Parse("23-06-2019")
+                FechaInicio = DateTime.ParseExact("23-06-2019", "dd/MM/yyyy", null)
             };
 
 
@@ -177,7 +177,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = DateTime.Parse("02-12-2019"),
+                FechaFin = DateTime.ParseExact("02-12-2019", "dd/MM/yyyy", null),
                 EsAnulado = false
             };
 
@@ -191,7 +191,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = DateTime.Parse("02-10-2019"),
+                FechaFin = DateTime.ParseExact("02-10-2019", "dd/MM/yyyy", null),
                 EsAnulado = true
             };
 
@@ -205,7 +205,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = DateTime.Parse("20-09-2019"),
+                FechaFin = DateTime.ParseExact("20-09-2019", "dd/MM/yyyy", null),
                 EsAnulado = false
             };
 
@@ -219,7 +219,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = DateTime.Parse("20-07-2019"),
+                FechaFin = DateTime.ParseExact("20-07-2019", "dd/MM/yyyy", null),
                 EsAnulado = true
             };
 
