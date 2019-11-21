@@ -263,7 +263,7 @@
                     <div class="modal-body">
                         <div class="card-body">
                             <h4 class="card-title" style="margin-bottom: 30px">Ingrese los siguientes datos</h4>
-                            <form class="form-sample" method="post" asp-controller="GestionarContratoN" asp-action="CrearContrato">
+                            <form class="form-sample" method="post" asp-controller="GestionarContrato" asp-action="CrearNuevoContrato">
                                 @if (Model.Empleado != null)
                                 {
                                     <input id="empleadoId" name="empleadoId" type="hidden" value="@Model.Empleado.IdEmpleado">
