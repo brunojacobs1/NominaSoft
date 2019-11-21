@@ -55,49 +55,32 @@ namespace NominaSoft.UI.Controllers
         [HttpPost]
         public ViewResult VerificarProcesado()
         {
-            IEnumerable<ConceptosDePago> conceptosDePagos = _repositoryConceptoPago.List(new BusquedaConceptosPeriodoActivoSpecification());
+            IEnumerable<ConceptosDePago> conceptosDePagos;
 
             ICollection<Contrato> contratos = new List<Contrato>();
 
-            foreach(ConceptosDePago concepto in conceptosDePagos)
-            {
-                contratos.Add(concepto.Contrato);
-            }
-               
-
             ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos() {
                 PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification()),
-                Contratos = contratos,
                 Planilla = new Planilla()
                 {
                     DatosPlanillas = new List<DatosPlanilla>()
                 }
             };
-            //R01
+
             if(viewModelProcesarPagos.PeriodoPago != null)
             {
+                conceptosDePagos = _repositoryConceptoPago.List(new BusquedaConceptosPeriodoActivoSpecification());
+
+                foreach (ConceptosDePago concepto in conceptosDePagos)
+                {
+                    contratos.Add(concepto.Contrato);
+                }
+                viewModelProcesarPagos.Contratos = contratos;
+
                 if (DateTime.Now >= viewModelProcesarPagos.PeriodoPago.FechaFin)
                 {
-                    /*
-                    foreach(Contrato c in viewModelProcesarPagos.Contratos)
-                    {
-                        foreach (var cp in c.ConceptosDePago)
-                        {
-                            
-                        }
-                        if ()
-                        {
-                            Console.WriteLine(c.IdContrato);
-                            viewModelProcesarPagos.Contratos.ToList().Remove(c);
-                        }
-                    }
-
-                    int ga = viewModelProcesarPagos.Contratos.Count();
-                    */
                     if (viewModelProcesarPagos.Contratos.Count() != 0)
                     {   
-                  
-
                         BoletaPago boletaPago;
                         foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
                         {
@@ -111,16 +94,8 @@ namespace NominaSoft.UI.Controllers
                                 boletaPago = viewModelProcesarPagos.Planilla.GenerarBoleta(viewModelProcesarPagos.PeriodoPago, contrato, conceptosDePago);
                                 _repositoryBoletaPago.Add(boletaPago);
 
-                                DatosPlanilla datosPlanilla = new DatosPlanilla()
-                                {
-                                    Empleado = contrato.Empleado,
-                                    Contrato = contrato,
-                                    TotalHoras = boletaPago.CalcularTotalHorasBoleta(),
-                                    SueldoBasico = boletaPago.CalcularSueldoBasico(),
-                                    TotalIngresos = boletaPago.CalcularTotalIngresos(),
-                                    TotalDescuentos = boletaPago.CalcularTotalDescuentos(),
-                                    SueldoNeto = boletaPago.CalcularSueldoNeto()
-                                };
+                                DatosPlanilla datosPlanilla = new DatosPlanilla(contrato, boletaPago);
+                                
                                 viewModelProcesarPagos.Planilla.DatosPlanillas.Add(datosPlanilla);
                             }
                         }

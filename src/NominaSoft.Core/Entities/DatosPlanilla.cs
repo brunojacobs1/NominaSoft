@@ -14,6 +14,15 @@ namespace NominaSoft.Core.Entities
         public Double TotalDescuentos { get; set; }
         public Double SueldoNeto { get; set; }
 
-
+        public DatosPlanilla(Contrato contrato, BoletaPago boletaPago)
+        {
+            Empleado = contrato.Empleado;
+            Contrato = contrato;
+            TotalHoras = boletaPago.CalcularTotalHorasBoleta();
+            SueldoBasico = boletaPago.CalcularSueldoBasico();
+            TotalIngresos = boletaPago.CalcularTotalIngresos();
+            TotalDescuentos = boletaPago.CalcularTotalDescuentos();
+            SueldoNeto = boletaPago.CalcularSueldoNeto();
+        }
     }
 }
