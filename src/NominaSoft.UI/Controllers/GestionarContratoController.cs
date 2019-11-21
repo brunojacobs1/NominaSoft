@@ -121,8 +121,9 @@ namespace NominaSoft.UI.Controllers
             }
         }
 
+        
         [HttpPost]
-        public IActionResult CrearContrato(int empleadoId, DateTime fechaInicio, DateTime fechaFin, string cargo, int afp, bool asignacionFamiliar, int valorHora, int totalHoras)
+        public IActionResult CrearContratoN(int empleadoId, DateTime fechaInicio, DateTime fechaFin, string cargo, int afp, bool asignacionFamiliar, int valorHora, int totalHoras)
         {
             try
             {

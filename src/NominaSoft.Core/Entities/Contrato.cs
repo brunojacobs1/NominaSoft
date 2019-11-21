@@ -56,10 +56,10 @@ namespace NominaSoft.Core.Entities
         public bool VerificarFechaInicio(Contrato _contrato)
         {
             if (_contrato != null)
-                if (FechaInicio.CompareTo(_contrato.FechaFin) < 0)
-                    return false;
+                if (DateTime.Compare(FechaInicio, _contrato.FechaFin) > 0)
+                    return true;
 
-            return true;
+            return false;
         }
             
         public bool VerificarTotalHorasSemanales() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;
