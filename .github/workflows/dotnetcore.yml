@@ -3,39 +3,13 @@ name: NominaSoft-CI-dev
 on: [push]
 
 jobs:
-  unit-tests:
-    name: UT ${{ matrix.os}} ${{ matrix.dotnet }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        dotnet: [2.2.108, 3.0.100]
-        os: [ubuntu-latest, windows-latest]
-
-    steps:
-      - name: Configurando el repositorio en la máquina virtual
-        uses: actions/checkout@v1
-
-      - name: Configurando .NET Core ${{ matrix.dotnet }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ matrix.dotnet }}
-
-      - name: Añadiendo xUnit
-        shell: bash
-        run: dotnet add ./src/NominaSoft.Tests/NominaSoft.Tests.csproj package dotnet-xunit
-          
-      - name: Corriendo pruebas unitarias
-        shell: bash
-        run: dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
-
   build:
     name: Build ${{ matrix.os }} ${{ matrix.dotnet }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        dotnet: [2.2.108, 3.0.100]
+        dotnet: [2.2.108]
         os: [ubuntu-latest, windows-latest]
-    needs: unit-tests
     
     steps:
       - name: Configurando el repositorio en la máquina virtual
@@ -45,6 +19,15 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
+
+      - name: Añadiendo dependencias
+        shell: bash
+        run: | 
+          dotnet add ./src/NominaSoft.Tests/NominaSoft.Tests.csproj package dotnet-xunit
+
+      - name: Corriendo pruebas unitarias
+        shell: bash
+        run: dotnet test ./src/NominaSoft.Tests/NominaSoft.Tests.csproj
 
       - name: Building
         shell: bash
