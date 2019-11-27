@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NominaSoft.Core\NominaSoft.Core.csproj" />
     <ProjectReference Include="..\NominaSoft.Infraestructure\NominaSoft.Infraestructure.csproj" />
+    <ProjectReference Include="..\NominaSoft.UseCases\NominaSoft.UseCases.csproj" />
   </ItemGroup>
 
 </Project>

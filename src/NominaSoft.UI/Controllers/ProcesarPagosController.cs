@@ -7,6 +7,7 @@ using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
 using NominaSoft.Core.Specifications;
 using NominaSoft.UI.ViewModels;
+using NominaSoft.UseCases;
 
 namespace NominaSoft.UI.Controllers
 {

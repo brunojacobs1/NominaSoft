@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NominaSoft.Core", "NominaSo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NominaSoft.Tests", "NominaSoft.Tests\NominaSoft.Tests.csproj", "{43F096AE-6423-4DC6-B69F-A8E1EFDD72C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NominaSoft.UseCases", "NominaSoft.UseCases\NominaSoft.UseCases.csproj", "{91D30757-4D96-4AD9-B80E-FB9059A70F5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{43F096AE-6423-4DC6-B69F-A8E1EFDD72C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43F096AE-6423-4DC6-B69F-A8E1EFDD72C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43F096AE-6423-4DC6-B69F-A8E1EFDD72C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91D30757-4D96-4AD9-B80E-FB9059A70F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D30757-4D96-4AD9-B80E-FB9059A70F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D30757-4D96-4AD9-B80E-FB9059A70F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D30757-4D96-4AD9-B80E-FB9059A70F5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
