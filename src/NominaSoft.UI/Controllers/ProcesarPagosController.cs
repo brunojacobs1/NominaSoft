@@ -120,6 +120,5 @@ namespace NominaSoft.UI.Controllers
             }
             return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml",viewModelProcesarPagos);
         }
-
     }
 }
