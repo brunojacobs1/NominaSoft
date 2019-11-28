@@ -9,11 +9,11 @@ namespace NominaSoft.Core.Specifications
     public class BusquedaConceptoPagoSpecification : BaseSpecification<ConceptosDePago>
     {
         public BusquedaConceptoPagoSpecification(int idContrato, int idPeriodoPago)
-            : base(cp => cp.IdContrato == idContrato && cp.IdPeriodoPago == idPeriodoPago)
+            : base(cp => cp.Contrato.IdContrato == idContrato && cp.PeriodoPago.IdPeriodoPago == idPeriodoPago)
         {
             AddInclude(cp => cp.Contrato);
             AddInclude(cp => cp.PeriodoPago);
-            AddInclude(cp => cp.BoletaPago);
+            //AddInclude(cp => cp.BoletaPago);
         }
     }
 }

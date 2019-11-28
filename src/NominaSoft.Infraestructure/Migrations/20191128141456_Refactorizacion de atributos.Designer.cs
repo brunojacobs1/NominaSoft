@@ -9,14 +9,14 @@ using NominaSoft.Infraestructure.EFCore;
 namespace NominaSoft.Infraestructure.Migrations
 {
     [DbContext(typeof(NSContext))]
-    [Migration("20191128001240_Refactorizacion punto 6")]
-    partial class Refactorizacionpunto6
+    [Migration("20191128141456_Refactorizacion de atributos")]
+    partial class Refactorizaciondeatributos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("NominaSoft.Core.Entities.AFP", b =>
@@ -42,23 +42,23 @@ namespace NominaSoft.Infraestructure.Migrations
                     b.Property<int>("IdBoletaPago")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ConceptosDePagoIdConceptosDePago");
+
+                    b.Property<int?>("ContratoIdContrato");
+
                     b.Property<DateTime>("FechaPago");
 
                     b.Property<bool>("Habilitado");
 
-                    b.Property<int>("IdConceptosDePago");
-
-                    b.Property<int>("IdContrato");
-
-                    b.Property<int>("IdPeriodoPago");
+                    b.Property<int?>("PeriodoPagoIdPeriodoPago");
 
                     b.HasKey("IdBoletaPago");
 
-                    b.HasIndex("IdConceptosDePago");
+                    b.HasIndex("ConceptosDePagoIdConceptosDePago");
 
-                    b.HasIndex("IdContrato");
+                    b.HasIndex("ContratoIdContrato");
 
-                    b.HasIndex("IdPeriodoPago");
+                    b.HasIndex("PeriodoPagoIdPeriodoPago");
 
                     b.ToTable("BoletaPago");
                 });
@@ -183,18 +183,15 @@ namespace NominaSoft.Infraestructure.Migrations
                 {
                     b.HasOne("NominaSoft.Core.Entities.ConceptosDePago", "ConceptosDePago")
                         .WithMany()
-                        .HasForeignKey("IdConceptosDePago")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ConceptosDePagoIdConceptosDePago");
 
                     b.HasOne("NominaSoft.Core.Entities.Contrato", "Contrato")
                         .WithMany()
-                        .HasForeignKey("IdContrato")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ContratoIdContrato");
 
                     b.HasOne("NominaSoft.Core.Entities.PeriodoPago", "PeriodoPago")
                         .WithMany()
-                        .HasForeignKey("IdPeriodoPago")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PeriodoPagoIdPeriodoPago");
                 });
 
             modelBuilder.Entity("NominaSoft.Core.Entities.ConceptosDePago", b =>
@@ -211,11 +208,11 @@ namespace NominaSoft.Infraestructure.Migrations
             modelBuilder.Entity("NominaSoft.Core.Entities.Contrato", b =>
                 {
                     b.HasOne("NominaSoft.Core.Entities.AFP", "AFP")
-                        .WithMany("Contratos")
+                        .WithMany()
                         .HasForeignKey("AFPIdAFP");
 
                     b.HasOne("NominaSoft.Core.Entities.Empleado", "Empleado")
-                        .WithMany("Contratos")
+                        .WithMany()
                         .HasForeignKey("EmpleadoIdEmpleado");
                 });
 #pragma warning restore 612, 618

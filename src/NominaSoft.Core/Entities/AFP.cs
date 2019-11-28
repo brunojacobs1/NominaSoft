@@ -14,6 +14,6 @@ namespace NominaSoft.Core.Entities
 
         public bool Habilitado { get; set; }
 
-        public ICollection<Contrato> Contratos { get; set; }
+        //public ICollection<Contrato> Contratos { get; set; }
     }
 }

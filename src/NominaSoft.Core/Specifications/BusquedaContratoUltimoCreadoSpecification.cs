@@ -9,7 +9,7 @@ namespace NominaSoft.Core.Specifications
     public class BusquedaContratoUltimoCreadoSpecification : BaseSpecification<Contrato>
     {
         public BusquedaContratoUltimoCreadoSpecification(int idEmpleado)
-            : base (c => c.IdEmpleado == idEmpleado, c => c.IdContrato)
+            : base (c => c.Empleado.IdEmpleado == idEmpleado, c => c.IdContrato)
         {
         }
     }

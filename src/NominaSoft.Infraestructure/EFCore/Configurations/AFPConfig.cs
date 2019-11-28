@@ -14,10 +14,10 @@ namespace NominaSoft.Infraestructure.EFCore.Configurations
             builder.HasKey(a => a.IdAFP);
             builder.Property(a => a.NombreAFP).HasMaxLength(50).IsRequired();
 
-            builder.HasMany(a => a.Contratos)
-                   .WithOne(c => c.AFP)
-                   .HasForeignKey(c => c.IdAFP)
-                   .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(a => a.Contratos)
+            //       .WithOne(c => c.AFP)
+            //       .HasForeignKey(c => c.IdAFP)
+            //       .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasQueryFilter(a => EF.Property<bool>(a, "Habilitado") == true);
         }

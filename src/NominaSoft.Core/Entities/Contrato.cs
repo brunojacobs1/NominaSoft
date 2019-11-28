@@ -19,10 +19,10 @@ namespace NominaSoft.Core.Entities
         public DateTime FechaFin { get; set; }
         public DateTime FechaInicio { get; set; }
 
-        public int IdAFP { get; set; }
+        //public int IdAFP { get; set; }
         public AFP AFP { get; set; }
 
-        public int IdEmpleado { get; set; }
+        //public int IdEmpleado { get; set; }
         public Empleado Empleado { get; set; }
 
         public bool Habilitado { get; set; }
@@ -58,8 +58,11 @@ namespace NominaSoft.Core.Entities
             if (_contrato != null)
                 if (DateTime.Compare(FechaInicio, _contrato.FechaFin) > 0)
                     return true;
-
-            return false;
+                else
+                {
+                    return false;
+                }
+            return true;
         }
             
         public bool VerificarTotalHorasSemanales() => TotalHorasSemanales >= 8 && TotalHorasSemanales <= 40;

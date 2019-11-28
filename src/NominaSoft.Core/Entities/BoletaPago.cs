@@ -11,12 +11,12 @@ namespace NominaSoft.Core.Entities
 
         public DateTime FechaPago { get; set; }
 
-        public int IdContrato { get; set; }
+        //public int IdContrato { get; set; }
         public Contrato Contrato { get; set; }
 
-        public int IdPeriodoPago { get; set; }
+        //public int IdPeriodoPago { get; set; }
         public PeriodoPago PeriodoPago { get; set; }
-        public int IdConceptosDePago { get; set; }
+        //public int IdConceptosDePago { get; set; }
         public ConceptosDePago ConceptosDePago { get; set; }
         public bool Habilitado { get; set; }
 

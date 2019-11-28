@@ -37,20 +37,22 @@ namespace NominaSoft.UI.Controllers
             {
                 ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
                 {
-                    Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni))
+                    Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni)),
+                    Contratos = _repositoryContrato.List(new BusquedaContratosSpecification(dni))
                 };
 
                 if (viewModelGestionarContrato.Empleado != null)
                 {
                     viewModelGestionarContrato.AFPs = _repositoryAFP.List();
-                    foreach (Contrato contrato in viewModelGestionarContrato.Empleado.Contratos.ToList())
+                    foreach (Contrato contrato in viewModelGestionarContrato.Contratos.ToList())
                     {
                         if (!contrato.VerificarVigencia())
-                            viewModelGestionarContrato.Empleado.Contratos.Remove(contrato);
+                            viewModelGestionarContrato.Contratos.ToList().Remove(contrato);
                         else
                             viewModelGestionarContrato.Contrato = contrato;
                     }
-                }  
+
+                }
                 else
                     viewModelGestionarContrato.EmpleadoNoEncontrado = 1;
 
@@ -200,7 +202,7 @@ namespace NominaSoft.UI.Controllers
                 if (!viewModelGestionarContrato.Contrato.VerificarVigencia())
                     viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
                 // R02
-                if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
+                if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.SecondToLastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
                     viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
                 // R03
                 if (!viewModelGestionarContrato.Contrato.VerificarFechaFin())

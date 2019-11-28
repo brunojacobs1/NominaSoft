@@ -200,7 +200,7 @@
                                         }
                                         else
                                         {
-                                            if (Model.Empleado.Contratos.Count == 0)
+                                            if (Model.Contratos.Count() == 0)
                                             {
                                                 <div class="col-sm-4">
                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearContrato">
@@ -412,7 +412,7 @@
                                                     @{
                                                         if (Model.AFPs != null)
                                                         {
-                                                            <select asp-for="Contrato.IdAFP" class="form-control" id="sel1">
+                                                            <select asp-for="Contrato.AFP.IdAFP" class="form-control" id="sel1">
                                                                 <option selected value="0">Seleccione una AFP</option>
                                                                 @{
                                                                     foreach (var afp in Model.AFPs)
@@ -534,7 +534,7 @@
                                         <div class="form-group">
                                             @if (Model.Contrato != null)
                                             {
-                                                <select asp-for="Contrato.IdAFP" class="form-control" id="sel1">
+                                                <select asp-for="Contrato.AFP.IdAFP" class="form-control" id="sel1">
                                                     <option selected value="0">Seleccione una AFP</option>
                                                     @{
                                                         foreach (var afp in Model.AFPs)
@@ -657,7 +657,7 @@
                                         <div class="form-group">
                                             @if (Model.Contrato != null)
                                             {
-                                                <select asp-for="Contrato.IdAFP" disabled class="form-control" id="sel1">
+                                                <select asp-for="Contrato.AFP.IdAFP" disabled class="form-control" id="sel1">
                                                     <option selected value="0">Seleccione una AFP</option>
                                                     @{
                                                         foreach (var afp in Model.AFPs)

@@ -12,7 +12,7 @@ namespace NominaSoft.Core.Specifications
         public BusquedaPorDniSpecification(string dni)
             : base(e => e.Dni == dni)
         {
-            AddInclude(e => e.Contratos);
+            //AddInclude(e => e.Contratos);
         }
     }
 }

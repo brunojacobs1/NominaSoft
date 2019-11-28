@@ -19,6 +19,6 @@ namespace NominaSoft.Core.Entities
 
         public DateTime FechaDeNacimiento { get; set; }
 
-        public ICollection<Contrato> Contratos { get; set; }
+        //public ICollection<Contrato> Contratos { get; set; }
     }
 }

@@ -16,10 +16,10 @@ namespace NominaSoft.Infraestructure.EFCore.Configurations
             builder.Property(e => e.Dni).HasMaxLength(8).IsRequired();
             builder.Property(e => e.Direccion).HasMaxLength(80);
 
-            builder.HasMany(e => e.Contratos)
-                   .WithOne(c => c.Empleado)
-                   .HasForeignKey(c => c.IdEmpleado)
-                   .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(e => e.Contratos)
+            //       .WithOne(c => c.Empleado)
+            //       .HasForeignKey(c => c.IdEmpleado)
+            //       .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasQueryFilter(e => EF.Property<bool>(e, "Habilitado") == true);
         }

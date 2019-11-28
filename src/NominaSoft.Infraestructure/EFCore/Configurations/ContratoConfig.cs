@@ -24,6 +24,16 @@ namespace NominaSoft.Infraestructure.EFCore.Configurations
             //       .HasForeignKey(bp => bp.IdContrato)
             //       .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasOne(c => c.AFP)
+                   .WithMany()
+                   .HasForeignKey("IdAFP")
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Empleado)
+                   .WithMany()
+                   .HasForeignKey("IdEmpleado")
+                   .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasQueryFilter(c => EF.Property<bool>(c, "Habilitado") == true);
         }
     }
