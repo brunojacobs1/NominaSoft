@@ -11,8 +11,8 @@ namespace NominaSoft.Core.Specifications
         public BusquedaPeriodoActivoSpecification()
             : base(pp => pp.Esactivo == true)
         {
-            AddInclude(pp => pp.BoletasPago);
-            AddInclude(pp => pp.ConceptosPago);
+            //AddInclude(pp => pp.BoletasPago);
+            //AddInclude(pp => pp.ConceptosPago);
         }
     }
 }

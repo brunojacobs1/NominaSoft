@@ -59,6 +59,19 @@ namespace NominaSoft.Infraestructure
                 .Take(1);
         }
 
+        public IEnumerable<T> SecondToLastList(ISpecification<T> spec)
+        {
+            var resultadoConIncludes = spec.Includes
+                .Aggregate(_dbContext.Set<T>().AsQueryable(),
+                (current, include) => current.Include(include));
+
+            return resultadoConIncludes
+                .Where(spec.Condicion)
+                .OrderByDescending(spec.Extra)
+                .Skip(1)
+                .Take(1);
+        }
+
         public IEnumerable<T> List() => _dbContext.Set<T>().AsEnumerable();
 
         public IEnumerable<T> List(ISpecification<T> spec)

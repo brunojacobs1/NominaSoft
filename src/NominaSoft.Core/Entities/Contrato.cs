@@ -29,8 +29,8 @@ namespace NominaSoft.Core.Entities
 
         public const double SueldoMinimo = 930.00;
 
-        public ICollection<BoletaPago> BoletasPago { get; set; }
-        public ICollection<ConceptosDePago> ConceptosDePago { get; set; }
+        //public ICollection<BoletaPago> BoletasPago { get; set; }
+        //public ICollection<ConceptosDePago> ConceptosDePago { get; set; }
 
         public double CalcularAsignacionFamiliar() => EsAsignacionFamiliar ? SueldoMinimo * 0.1 : 0;
 

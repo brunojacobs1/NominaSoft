@@ -87,9 +87,9 @@ namespace NominaSoft.UI.Controllers
                         {
                             if (contrato.VerificarVigencia())
                             {
-                                contrato.AFP = _repositoryAfp.GetById(contrato.IdAFP);
+                                contrato.AFP = _repositoryAfp.GetById(contrato.AFP.IdAFP);
 
-                                contrato.Empleado = _repositoryEmpleado.GetById(contrato.IdEmpleado);
+                                contrato.Empleado = _repositoryEmpleado.GetById(contrato.Empleado.IdEmpleado);
                                 
                                 ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get(new BusquedaConceptoPagoSpecification(contrato.IdContrato, viewModelProcesarPagos.PeriodoPago.IdPeriodoPago));
                                 boletaPago = viewModelProcesarPagos.Planilla.GenerarBoleta(viewModelProcesarPagos.PeriodoPago, contrato, conceptosDePago);

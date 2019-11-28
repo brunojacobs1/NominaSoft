@@ -13,8 +13,8 @@ namespace NominaSoft.Core.Entities
         public DateTime FechaInicio { get; set; }
         public bool Habilitado { get; set; }
 
-        public ICollection<BoletaPago> BoletasPago { get; set; }
-        public ICollection<ConceptosDePago> ConceptosPago { get; set; }
+        //public ICollection<BoletaPago> BoletasPago { get; set; }
+        //public ICollection<ConceptosDePago> ConceptosPago { get; set; }
 
         public void DesactivarPeriodo() => Esactivo = false;
 

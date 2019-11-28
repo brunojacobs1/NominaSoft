@@ -80,10 +80,10 @@ namespace NominaSoft.UI.Controllers
                     EsAnulado = false
                 };
 
-                if (viewModelGestionarContrato.Contrato.IdAFP == 0)
+                if (viewModelGestionarContrato.Contrato.AFP.IdAFP == 0)
                     afpInvalida = true;
                 else
-                    contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.IdAFP);
+                    contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.AFP.IdAFP);
 
                 viewModelGestionarContrato = new ViewModelGestionarContrato();
 
@@ -94,7 +94,7 @@ namespace NominaSoft.UI.Controllers
                 if (!contrato.VerificarVigencia())
                     viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
                 // RO2
-                if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).FirstOrDefault()))
+                if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
                     viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
                 // R03
                 if (!contrato.VerificarFechaFin())
@@ -158,7 +158,7 @@ namespace NominaSoft.UI.Controllers
                 if (!contrato.VerificarVigencia())
                     viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
                 // RO2
-                if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).FirstOrDefault()))
+                if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
                     viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
                 // R03
                 if (!contrato.VerificarFechaFin())
@@ -194,13 +194,13 @@ namespace NominaSoft.UI.Controllers
                 viewModelGestionarContrato.Contrato.Empleado = _repositoryEmpleado.GetById(empleadoId);
 
                 // AFP
-                if (viewModelGestionarContrato.Contrato.IdAFP == 0)
+                if (viewModelGestionarContrato.Contrato.AFP.IdAFP == 0)
                     viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
                 // R01
                 if (!viewModelGestionarContrato.Contrato.VerificarVigencia())
                     viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
                 // R02
-                if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).FirstOrDefault()))
+                if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
                     viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
                 // R03
                 if (!viewModelGestionarContrato.Contrato.VerificarFechaFin())
@@ -223,7 +223,7 @@ namespace NominaSoft.UI.Controllers
                 contrato.FechaInicio = viewModelGestionarContrato.Contrato.FechaInicio;
                 contrato.FechaFin = viewModelGestionarContrato.Contrato.FechaFin;
                 contrato.Cargo = viewModelGestionarContrato.Contrato.Cargo;
-                contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.IdAFP);
+                contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.AFP.IdAFP);
                 contrato.EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar;
                 contrato.ValorHora = viewModelGestionarContrato.Contrato.ValorHora;
                 contrato.TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales;
