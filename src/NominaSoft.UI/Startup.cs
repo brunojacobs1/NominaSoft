@@ -26,8 +26,9 @@ namespace NominaSoft
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<NSContext>(
-                options => options.UseMySql(Configuration.GetConnectionString("NSDBConnection")));
+            //services.AddDbContextPool<NSContext>(
+                //options => options.UseMySql(Configuration.GetConnectionString("NSDBConnection")));
+            services.AddDataAccessServices(Configuration.GetConnectionString("NSDBConnection"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDistributedMemoryCache();

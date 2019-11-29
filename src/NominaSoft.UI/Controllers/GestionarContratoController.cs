@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
+using NominaSoft.Core.UseCases;
 using NominaSoft.Core.Specifications;
 using NominaSoft.UI.ViewModels;
 
@@ -12,17 +13,11 @@ namespace NominaSoft.UI.Controllers
 {
     public class GestionarContratoController : Controller
     {
-        private readonly IRepository<Empleado> _repositoryEmpleado;
-        private readonly IRepository<AFP> _repositoryAFP;
-        private readonly IRepository<Contrato> _repositoryContrato;
+        private readonly GestionarContratoUseCases _useCasesGestionarContrato;
 
-        public GestionarContratoController(IRepository<Empleado> repositoryEmpleado,
-                                            IRepository<AFP> repositoryAFP,
-                                            IRepository<Contrato> repositoryContrato)
+        public GestionarContratoController(GestionarContratoUseCases useCasesGestionarContrato)
         {
-            _repositoryEmpleado = repositoryEmpleado;
-            _repositoryAFP = repositoryAFP;
-            _repositoryContrato = repositoryContrato;
+            _useCasesGestionarContrato = useCasesGestionarContrato;
         }
 
         [Route("GestionarContrato")]
@@ -37,21 +32,14 @@ namespace NominaSoft.UI.Controllers
             {
                 ViewModelGestionarContrato viewModelGestionarContrato = new ViewModelGestionarContrato
                 {
-                    Empleado = _repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni)),
-                    Contratos = _repositoryContrato.List(new BusquedaContratosSpecification(dni))
+                    Empleado = _useCasesGestionarContrato._repositoryEmpleado.Get(new BusquedaPorDniSpecification(dni)),
+                    Contratos = _useCasesGestionarContrato._repositoryContrato.List(new BusquedaContratosSpecification(dni))
                 };
 
                 if (viewModelGestionarContrato.Empleado != null)
                 {
-                    viewModelGestionarContrato.AFPs = _repositoryAFP.List();
-                    foreach (Contrato contrato in viewModelGestionarContrato.Contratos.ToList())
-                    {
-                        if (!contrato.VerificarVigencia())
-                            viewModelGestionarContrato.Contratos.ToList().Remove(contrato);
-                        else
-                            viewModelGestionarContrato.Contrato = contrato;
-                    }
-
+                    viewModelGestionarContrato.AFPs = _useCasesGestionarContrato._repositoryAFP.List();
+                    viewModelGestionarContrato.Contrato = _useCasesGestionarContrato.RetornarContratoVigente(viewModelGestionarContrato.Contratos);
                 }
                 else
                     viewModelGestionarContrato.EmpleadoNoEncontrado = 1;
@@ -69,44 +57,22 @@ namespace NominaSoft.UI.Controllers
         {
             try
             {
-                Boolean afpInvalida = false;
                 Contrato contrato = new Contrato()
                 {
-                    Empleado = _repositoryEmpleado.GetById(empleadoId),
+                    Empleado = _useCasesGestionarContrato._repositoryEmpleado.GetById(empleadoId),
                     FechaInicio = viewModelGestionarContrato.Contrato.FechaInicio,
                     FechaFin = viewModelGestionarContrato.Contrato.FechaFin,
                     Cargo = viewModelGestionarContrato.Contrato.Cargo,
                     EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar,
                     ValorHora = viewModelGestionarContrato.Contrato.ValorHora,
                     TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales,
-                    EsAnulado = false
+                    EsAnulado = false,
+                    AFP = _useCasesGestionarContrato.RetornarAFPValida(viewModelGestionarContrato.Contrato.AFP.IdAFP)
                 };
-
-                if (viewModelGestionarContrato.Contrato.AFP.IdAFP == 0)
-                    afpInvalida = true;
-                else
-                    contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.AFP.IdAFP);
 
                 viewModelGestionarContrato = new ViewModelGestionarContrato();
 
-                // AFP
-                if (afpInvalida)
-                    viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
-                // R01
-                if (!contrato.VerificarVigencia())
-                    viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
-                // RO2
-                if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
-                    viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
-                // R03
-                if (!contrato.VerificarFechaFin())
-                    viewModelGestionarContrato.MensajeError += "La fecha fin es incorrecta.";
-                // R04
-                if (!contrato.VerificarTotalHorasSemanales())
-                    viewModelGestionarContrato.MensajeError += "El total de horas semanales es incorrecto.";
-                // R05
-                if (!contrato.VerificarValorHora())
-                    viewModelGestionarContrato.MensajeError += "El valor por hora es incorrecto.";
+                viewModelGestionarContrato.MensajeError += _useCasesGestionarContrato.RetornarMensajeError(contrato, empleadoId);
 
                 if (!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
                 {
@@ -114,7 +80,7 @@ namespace NominaSoft.UI.Controllers
                     return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
                 }
 
-                _repositoryContrato.Add(contrato);
+                _useCasesGestionarContrato._repositoryContrato.Add(contrato);
                 return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new ViewModelGestionarContrato{ ContratoCreado = 1 });
             }
             catch(Exception e)
@@ -139,38 +105,20 @@ namespace NominaSoft.UI.Controllers
 
                 Contrato contrato = new Contrato()
                 {
-                    Empleado = _repositoryEmpleado.GetById(empleadoId),
+                    Empleado = _useCasesGestionarContrato._repositoryEmpleado.GetById(empleadoId),
                     FechaInicio = fechaInicio,
                     FechaFin = fechaFin,
                     Cargo = cargo,
                     EsAsignacionFamiliar = asignacionFamiliar,
                     ValorHora = valorHora,
                     TotalHorasSemanales = totalHoras,
-                    EsAnulado = false
+                    EsAnulado = false,
+                    AFP = _useCasesGestionarContrato._repositoryAFP.GetById(afp)
                 };
 
                 viewModelGestionarContrato = new ViewModelGestionarContrato();
 
-                // AFP
-                if (afp == 0)
-                    viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
-                else
-                    contrato.AFP = _repositoryAFP.GetById(afp);
-                // R01
-                if (!contrato.VerificarVigencia())
-                    viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
-                // RO2
-                if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
-                    viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
-                // R03
-                if (!contrato.VerificarFechaFin())
-                    viewModelGestionarContrato.MensajeError += "La fecha fin es incorrecta.";
-                // R04
-                if (!contrato.VerificarTotalHorasSemanales())
-                    viewModelGestionarContrato.MensajeError += "El total de horas semanales es incorrecto.";
-                // R05
-                if (!contrato.VerificarValorHora())
-                    viewModelGestionarContrato.MensajeError += "El valor por hora es incorrecto.";
+                viewModelGestionarContrato.MensajeError += _useCasesGestionarContrato.RetornarMensajeError(contrato, empleadoId);
 
                 if (!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
                 {
@@ -178,7 +126,7 @@ namespace NominaSoft.UI.Controllers
                     return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
                 }
 
-                _repositoryContrato.Add(contrato);
+                _useCasesGestionarContrato._repositoryContrato.Add(contrato);
                 return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new ViewModelGestionarContrato { ContratoCreado = 1 });
             }
             catch (Exception e)
@@ -193,26 +141,9 @@ namespace NominaSoft.UI.Controllers
             try
             {
                 Contrato contrato;
-                viewModelGestionarContrato.Contrato.Empleado = _repositoryEmpleado.GetById(empleadoId);
+                viewModelGestionarContrato.Contrato.Empleado = _useCasesGestionarContrato._repositoryEmpleado.GetById(empleadoId);
 
-                // AFP
-                if (viewModelGestionarContrato.Contrato.AFP.IdAFP == 0)
-                    viewModelGestionarContrato.MensajeError = "AFP no seleccionada.";
-                // R01
-                if (!viewModelGestionarContrato.Contrato.VerificarVigencia())
-                    viewModelGestionarContrato.MensajeError += "El contrato no es vigente.";
-                // R02
-                if (!viewModelGestionarContrato.Contrato.VerificarFechaInicio(_repositoryContrato.SecondToLastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
-                    viewModelGestionarContrato.MensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
-                // R03
-                if (!viewModelGestionarContrato.Contrato.VerificarFechaFin())
-                    viewModelGestionarContrato.MensajeError += "La fecha fin es incorrecta.";
-                // R04
-                if (!viewModelGestionarContrato.Contrato.VerificarTotalHorasSemanales())
-                    viewModelGestionarContrato.MensajeError += "El total de horas semanales es incorrecto.";
-                // R05
-                if (!viewModelGestionarContrato.Contrato.VerificarValorHora())
-                    viewModelGestionarContrato.MensajeError += "El valor por hora es incorrecto.";
+                viewModelGestionarContrato.MensajeError += _useCasesGestionarContrato.RetornarMensajeError(viewModelGestionarContrato.Contrato, empleadoId);
 
                 if (!String.IsNullOrEmpty(viewModelGestionarContrato.MensajeError))
                 {
@@ -221,16 +152,16 @@ namespace NominaSoft.UI.Controllers
                     return View("~/Views/GestionarContrato/GestionarContrato.cshtml", viewModelGestionarContrato);
                 }
 
-                contrato = _repositoryContrato.GetById(contratoId);
+                contrato = _useCasesGestionarContrato._repositoryContrato.GetById(contratoId);
                 contrato.FechaInicio = viewModelGestionarContrato.Contrato.FechaInicio;
                 contrato.FechaFin = viewModelGestionarContrato.Contrato.FechaFin;
                 contrato.Cargo = viewModelGestionarContrato.Contrato.Cargo;
-                contrato.AFP = _repositoryAFP.GetById(viewModelGestionarContrato.Contrato.AFP.IdAFP);
+                contrato.AFP = _useCasesGestionarContrato._repositoryAFP.GetById(viewModelGestionarContrato.Contrato.AFP.IdAFP);
                 contrato.EsAsignacionFamiliar = viewModelGestionarContrato.Contrato.EsAsignacionFamiliar;
                 contrato.ValorHora = viewModelGestionarContrato.Contrato.ValorHora;
                 contrato.TotalHorasSemanales = viewModelGestionarContrato.Contrato.TotalHorasSemanales;
 
-                _repositoryContrato.Edit(contrato);
+                _useCasesGestionarContrato._repositoryContrato.Edit(contrato);
 
                 return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new ViewModelGestionarContrato { ModificacionesContrato = 1 });
             }
@@ -245,9 +176,9 @@ namespace NominaSoft.UI.Controllers
         {
             try
             {
-                Contrato contrato = _repositoryContrato.GetById(contratoId);
+                Contrato contrato = _useCasesGestionarContrato._repositoryContrato.GetById(contratoId);
                 contrato.EsAnulado = true;
-                _repositoryContrato.Edit(contrato);
+                _useCasesGestionarContrato._repositoryContrato.Edit(contrato);
 
                 return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new ViewModelGestionarContrato { ContratoAnulado = 1 });
             }
