@@ -32,15 +32,6 @@ namespace NominaSoft
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDistributedMemoryCache();
-
-            services.AddTransient<IRepository<AFP>, Repository<AFP>>();
-            services.AddTransient<IRepository<BoletaPago>, Repository<BoletaPago>>();
-            services.AddTransient<IRepository<ConceptosDePago>, Repository<ConceptosDePago>>();
-            services.AddTransient<IRepository<Contrato>, Repository<Contrato>>();
-            services.AddTransient<IRepository<Empleado>, Repository<Empleado>>();
-            services.AddTransient<IRepository<PeriodoPago>, Repository<PeriodoPago>>();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,7 +9,7 @@ using NominaSoft.Infraestructure.EFCore;
 
 namespace NominaSoft.Infraestructure
 {
-    public static class ServiceCollectionExtensions
+    public static class DbContextExtension
     {
         public static void AddDataAccessServices(this IServiceCollection services, string connectionString)
         {
