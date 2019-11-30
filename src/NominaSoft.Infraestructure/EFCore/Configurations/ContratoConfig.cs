@@ -35,6 +35,7 @@ namespace NominaSoft.Infraestructure.EFCore.Configurations
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasQueryFilter(c => EF.Property<bool>(c, "Habilitado") == true);
+            builder.HasQueryFilter(c => EF.Property<bool>(c, "EsAnulado") == false);
         }
     }
 }

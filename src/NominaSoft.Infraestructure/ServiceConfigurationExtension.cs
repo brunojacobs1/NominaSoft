@@ -6,9 +6,9 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NominaSoft.Infraestructure.EFCore;
-using NominaSoft.Infraestructure.UseCases;
 using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
+using NominaSoft.Core.UseCases;
 
 namespace NominaSoft.Infraestructure
 {
@@ -28,6 +28,7 @@ namespace NominaSoft.Infraestructure
             services.AddTransient<IRepository<Contrato>, Repository<Contrato>>();
             services.AddTransient<IRepository<Empleado>, Repository<Empleado>>();
             services.AddTransient<IRepository<PeriodoPago>, Repository<PeriodoPago>>();
+            services.AddTransient<IGestionarContratoUC, GestionarContratoUC>();
         }
     }
 }

@@ -8,7 +8,6 @@ using NominaSoft.Core.Interfaces;
 using NominaSoft.Core.Specifications;
 using NominaSoft.Core.DataTransferObjects;
 using NominaSoft.Core.Holders;
-using NominaSoft.Infraestructure.UseCases;
 
 namespace NominaSoft.UI.Controllers
 {

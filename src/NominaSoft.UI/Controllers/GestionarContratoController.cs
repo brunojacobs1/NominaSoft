@@ -7,18 +7,20 @@ using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
 using NominaSoft.Core.Specifications;
 using NominaSoft.Core.DataTransferObjects;
-using NominaSoft.Infraestructure.UseCases;
+using NominaSoft.Core.UseCases;
 
 namespace NominaSoft.UI.Controllers
 {
     public class GestionarContratoController : Controller
     {
-        private readonly GestionarContratoUC _useCasesGestionarContrato = new GestionarContratoUC();
+        private readonly IGestionarContratoUC _useCasesGestionarContrato;
 
         public GestionarContratoController(IRepository<Empleado> repositoryEmpleado,
                                         IRepository<AFP> repositoryAFP,
-                                        IRepository<Contrato> repositoryContrato)
+                                        IRepository<Contrato> repositoryContrato,
+                                        IGestionarContratoUC useCasesGestionarContrato)
         {
+            _useCasesGestionarContrato = useCasesGestionarContrato;
             _useCasesGestionarContrato.Setup(repositoryEmpleado, repositoryAFP, repositoryContrato);
         }
     

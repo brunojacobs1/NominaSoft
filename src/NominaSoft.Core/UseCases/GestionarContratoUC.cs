@@ -8,9 +8,9 @@ using NominaSoft.Core.Interfaces;
 using NominaSoft.Core.Specifications;
 using NominaSoft.Core.DataTransferObjects;
 
-namespace NominaSoft.Infraestructure.UseCases
+namespace NominaSoft.Core.UseCases
 {
-    public class GestionarContratoUC
+    public class GestionarContratoUC : IGestionarContratoUC
     {
         public IRepository<Empleado> _repositoryEmpleado { get; set; }
         public IRepository<AFP> _repositoryAFP { get; set; }
@@ -208,7 +208,7 @@ namespace NominaSoft.Infraestructure.UseCases
             else if (!contrato.VerificarVigencia())
                 return "El contrato no es vigente.";
             // R02
-            else if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
+            else if (!contrato.VerificarFechaInicio(_repositoryContrato.SecondToLastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
                 return "La fecha inicio no es superior a la fecha fin del último contrato.";
             // R03
             else if (!contrato.VerificarFechaFin())
