@@ -66,7 +66,7 @@ namespace NominaSoft.Infraestructure.UseCases
                     ValorHora = gestionarContratoDTO.Contrato.ValorHora,
                     TotalHorasSemanales = gestionarContratoDTO.Contrato.TotalHorasSemanales,
                     EsAnulado = false,
-                    AFP = RetornarAFPValida(gestionarContratoDTO.Contrato.AFP.IdAFP)
+                    AFP = gestionarContratoDTO.Contrato.AFP.IdAFP != 0 ? _repositoryAFP.GetById(gestionarContratoDTO.Contrato.AFP.IdAFP) : null
                 };
 
                 gestionarContratoDTO = new GestionarContratoDTO();
@@ -88,9 +88,106 @@ namespace NominaSoft.Infraestructure.UseCases
             }
         }
 
-        // Funciones genéricas
+        // [POST] GestionarContratoController.CrearNuevoContrato
+        public GestionarContratoDTO CrearNuevoContrato(int empleadoId,
+                                                        DateTime fechaInicio,
+                                                        DateTime fechaFin,
+                                                        string cargo,
+                                                        int afp,
+                                                        bool asignacionFamiliar,
+                                                        int valorHora,
+                                                        int totalHoras)
+        {
+            try
+            {
+                GestionarContratoDTO gestionarContratoDTO = new GestionarContratoDTO();
 
-        public AFP RetornarAFPValida(int idAFP) => idAFP != 0 ? _repositoryAFP.GetById(idAFP) : null;
+                Contrato contrato = new Contrato()
+                {
+                    Empleado = _repositoryEmpleado.GetById(empleadoId),
+                    FechaInicio = fechaInicio,
+                    FechaFin = fechaFin,
+                    Cargo = cargo,
+                    EsAsignacionFamiliar = asignacionFamiliar,
+                    ValorHora = valorHora,
+                    TotalHorasSemanales = totalHoras,
+                    EsAnulado = false,
+                    AFP = _repositoryAFP.GetById(afp)
+                };
+
+                gestionarContratoDTO.MensajeError += RetornarMensajeError(contrato, empleadoId);
+
+                if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
+                {
+                    gestionarContratoDTO.ErrorDatosContrato = 1;
+                    return gestionarContratoDTO;
+                }
+
+                _repositoryContrato.Add(contrato);
+
+                return new GestionarContratoDTO{ ContratoCreado = 1};
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // [POST] GestionarContratoController.EditarContrato
+        public GestionarContratoDTO EditarContrato(GestionarContratoDTO gestionarContratoDTO, int contratoId, int empleadoId)
+        {
+            try
+            {
+                gestionarContratoDTO.Contrato.Empleado = _repositoryEmpleado.GetById(empleadoId);
+
+                gestionarContratoDTO.MensajeError += RetornarMensajeError(gestionarContratoDTO.Contrato, empleadoId);
+
+                if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
+                {
+                    gestionarContratoDTO.ErrorDatosContrato = 1;
+                    gestionarContratoDTO.Contrato = null;
+
+                    return gestionarContratoDTO;
+                }
+
+                Contrato contrato = _repositoryContrato.GetById(contratoId);
+                contrato.FechaInicio = gestionarContratoDTO.Contrato.FechaInicio;
+                contrato.FechaInicio = gestionarContratoDTO.Contrato.FechaInicio;
+                contrato.FechaFin = gestionarContratoDTO.Contrato.FechaFin;
+                contrato.Cargo = gestionarContratoDTO.Contrato.Cargo;
+                contrato.AFP = _repositoryAFP.GetById(gestionarContratoDTO.Contrato.AFP.IdAFP);
+                contrato.EsAsignacionFamiliar = gestionarContratoDTO.Contrato.EsAsignacionFamiliar;
+                contrato.ValorHora = gestionarContratoDTO.Contrato.ValorHora;
+                contrato.TotalHorasSemanales = gestionarContratoDTO.Contrato.TotalHorasSemanales;
+
+                _repositoryContrato.Edit(contrato);
+
+                return new GestionarContratoDTO{ ModificacionesContrato = 1 };
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // [POST] GestionarContratoController.AnularContrato
+        public GestionarContratoDTO AnularContrato (int contratoId)
+        {
+            try
+            {
+                Contrato contrato = _repositoryContrato.GetById(contratoId);
+                contrato.EsAnulado = true;
+                _repositoryContrato.Edit(contrato);
+
+                return new GestionarContratoDTO{ ContratoAnulado = 1 };
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // Funciones genéricas
 
         public Contrato RetornarContratoVigente(IEnumerable<Contrato> contratos)
         {

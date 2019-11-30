@@ -50,93 +50,19 @@ namespace NominaSoft.UI.Controllers
                                                     int valorHora,
                                                     int totalHoras)
         {
-            try
-            {
-                GestionarContratoDTO gestionarContratoDTO;
-
-                Contrato contrato = new Contrato()
-                {
-                    Empleado = _useCasesGestionarContrato._repositoryEmpleado.GetById(empleadoId),
-                    FechaInicio = fechaInicio,
-                    FechaFin = fechaFin,
-                    Cargo = cargo,
-                    EsAsignacionFamiliar = asignacionFamiliar,
-                    ValorHora = valorHora,
-                    TotalHorasSemanales = totalHoras,
-                    EsAnulado = false,
-                    AFP = _useCasesGestionarContrato._repositoryAFP.GetById(afp)
-                };
-
-                gestionarContratoDTO = new GestionarContratoDTO();
-
-                gestionarContratoDTO.MensajeError += _useCasesGestionarContrato.RetornarMensajeError(contrato, empleadoId);
-
-                if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
-                {
-                    gestionarContratoDTO.ErrorDatosContrato = 1;
-                    return View("~/Views/GestionarContrato/GestionarContrato.cshtml", gestionarContratoDTO);
-                }
-
-                _useCasesGestionarContrato._repositoryContrato.Add(contrato);
-                return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new GestionarContratoDTO { ContratoCreado = 1 });
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.CrearNuevoContrato(empleadoId, fechaInicio, fechaFin, cargo, afp, asignacionFamiliar, valorHora, totalHoras));
         }
 
         [HttpPost]
         public IActionResult EditarContrato(GestionarContratoDTO gestionarContratoDTO, int contratoId, int empleadoId)
         {
-            try
-            {
-                Contrato contrato;
-                gestionarContratoDTO.Contrato.Empleado = _useCasesGestionarContrato._repositoryEmpleado.GetById(empleadoId);
-
-                gestionarContratoDTO.MensajeError += _useCasesGestionarContrato.RetornarMensajeError(gestionarContratoDTO.Contrato, empleadoId);
-
-                if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
-                {
-                    gestionarContratoDTO.ErrorDatosContrato = 1;
-                    gestionarContratoDTO.Contrato = null;
-                    return View("~/Views/GestionarContrato/GestionarContrato.cshtml", gestionarContratoDTO);
-                }
-
-                contrato = _useCasesGestionarContrato._repositoryContrato.GetById(contratoId);
-                contrato.FechaInicio = gestionarContratoDTO.Contrato.FechaInicio;
-                contrato.FechaFin = gestionarContratoDTO.Contrato.FechaFin;
-                contrato.Cargo = gestionarContratoDTO.Contrato.Cargo;
-                contrato.AFP = _useCasesGestionarContrato._repositoryAFP.GetById(gestionarContratoDTO.Contrato.AFP.IdAFP);
-                contrato.EsAsignacionFamiliar = gestionarContratoDTO.Contrato.EsAsignacionFamiliar;
-                contrato.ValorHora = gestionarContratoDTO.Contrato.ValorHora;
-                contrato.TotalHorasSemanales = gestionarContratoDTO.Contrato.TotalHorasSemanales;
-
-                _useCasesGestionarContrato._repositoryContrato.Edit(contrato);
-
-                return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new GestionarContratoDTO { ModificacionesContrato = 1 });
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.EditarContrato(gestionarContratoDTO, contratoId, empleadoId));
         }
 
         [HttpPost]
         public IActionResult AnularContrato(int contratoId)
         {
-            try
-            {
-                Contrato contrato = _useCasesGestionarContrato._repositoryContrato.GetById(contratoId);
-                contrato.EsAnulado = true;
-                _useCasesGestionarContrato._repositoryContrato.Edit(contrato);
-
-                return View("~/Views/GestionarContrato/GestionarContrato.cshtml", new GestionarContratoDTO { ContratoAnulado = 1 });
-            }
-            catch(Exception e)
-            {
-                throw e;
-            } 
+            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.AnularContrato(contratoId));
         }
     }
 }
