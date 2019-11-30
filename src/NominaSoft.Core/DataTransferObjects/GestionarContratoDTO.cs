@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NominaSoft.UI.ViewModels
+namespace NominaSoft.Core.DataTransferObjects
 {
-    public class ViewModelGestionarContrato
+    public class GestionarContratoDTO
     {
         public Empleado Empleado { get; set; }
         public Contrato Contrato { get; set; }

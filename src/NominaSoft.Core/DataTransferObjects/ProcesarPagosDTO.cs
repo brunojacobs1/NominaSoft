@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NominaSoft.Core.UseCases;
+using NominaSoft.Core.Holders;
 
-namespace NominaSoft.UI.ViewModels
+namespace NominaSoft.Core.DataTransferObjects
 {
-    public class ViewModelProcesarPagos
+    public class ProcesarPagosDTO
     {
         public PeriodoPago PeriodoPago { get; set; }
         public IEnumerable<Contrato> Contratos { get; set; }

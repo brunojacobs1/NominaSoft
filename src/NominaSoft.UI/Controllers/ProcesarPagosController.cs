@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using NominaSoft.Core.Entities;
 using NominaSoft.Core.Interfaces;
 using NominaSoft.Core.Specifications;
-using NominaSoft.Core.UseCases;
-using NominaSoft.UI.ViewModels;
-
+using NominaSoft.Core.DataTransferObjects;
+using NominaSoft.Core.Holders;
+using NominaSoft.Infraestructure.UseCases;
 
 namespace NominaSoft.UI.Controllers
 {
@@ -43,15 +43,15 @@ namespace NominaSoft.UI.Controllers
         [HttpGet]
         public IActionResult ProcesarPagos()
         {
-            ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos
+            ProcesarPagosDTO procesarPagosDTO = new ProcesarPagosDTO
             {
                 PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification())
             };
             
-            if (viewModelProcesarPagos.PeriodoPago == null)
-                viewModelProcesarPagos.PeriodoActivo = 1;
+            if (procesarPagosDTO.PeriodoPago == null)
+                procesarPagosDTO.PeriodoActivo = 1;
                 
-            return View(viewModelProcesarPagos);
+            return View(procesarPagosDTO);
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@ namespace NominaSoft.UI.Controllers
 
             ICollection<Contrato> contratos = new List<Contrato>();
 
-            ViewModelProcesarPagos viewModelProcesarPagos = new ViewModelProcesarPagos() {
+            ProcesarPagosDTO procesarPagosDTO = new ProcesarPagosDTO() {
                 PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification()),
                 Planilla = new Planilla()
                 {
@@ -69,7 +69,7 @@ namespace NominaSoft.UI.Controllers
                 }
             };
 
-            if(viewModelProcesarPagos.PeriodoPago != null)
+            if(procesarPagosDTO.PeriodoPago != null)
             {
                 conceptosDePagos = _repositoryConceptoPago.List(new BusquedaConceptosPeriodoActivoSpecification());
 
@@ -77,14 +77,14 @@ namespace NominaSoft.UI.Controllers
                 {
                     contratos.Add(concepto.Contrato);
                 }
-                viewModelProcesarPagos.Contratos = contratos;
+                procesarPagosDTO.Contratos = contratos;
 
-                if (DateTime.Now >= viewModelProcesarPagos.PeriodoPago.FechaFin)
+                if (DateTime.Now >= procesarPagosDTO.PeriodoPago.FechaFin)
                 {
-                    if (viewModelProcesarPagos.Contratos.Count() != 0)
+                    if (procesarPagosDTO.Contratos.Count() != 0)
                     {   
                         BoletaPago boletaPago;
-                        foreach (Contrato contrato in viewModelProcesarPagos.Contratos)
+                        foreach (Contrato contrato in procesarPagosDTO.Contratos)
                         {
                             if (contrato.VerificarVigencia())
                             {
@@ -92,35 +92,35 @@ namespace NominaSoft.UI.Controllers
 
                                 contrato.Empleado = _repositoryEmpleado.GetById(contrato.Empleado.IdEmpleado);
                                 
-                                ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get(new BusquedaConceptoPagoSpecification(contrato.IdContrato, viewModelProcesarPagos.PeriodoPago.IdPeriodoPago));
-                                boletaPago = viewModelProcesarPagos.Planilla.GenerarBoleta(viewModelProcesarPagos.PeriodoPago, contrato, conceptosDePago);
+                                ConceptosDePago conceptosDePago = _repositoryConceptoPago.Get(new BusquedaConceptoPagoSpecification(contrato.IdContrato, procesarPagosDTO.PeriodoPago.IdPeriodoPago));
+                                boletaPago = procesarPagosDTO.Planilla.GenerarBoleta(procesarPagosDTO.PeriodoPago, contrato, conceptosDePago);
                                 _repositoryBoletaPago.Add(boletaPago);
 
                                 DatosPlanilla datosPlanilla = new DatosPlanilla(contrato, boletaPago);
                                 
-                                viewModelProcesarPagos.Planilla.DatosPlanillas.Add(datosPlanilla);
+                                procesarPagosDTO.Planilla.DatosPlanillas.Add(datosPlanilla);
                             }
                         }
-                        viewModelProcesarPagos.PagosProcesados = 1;
+                        procesarPagosDTO.PagosProcesados = 1;
                     }
                     else
                     {
-                        viewModelProcesarPagos.ContratosVigentes = 1;
-                        return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
+                        procesarPagosDTO.ContratosVigentes = 1;
+                        return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", procesarPagosDTO);
                     }
                 }
                 else
                 {
-                    viewModelProcesarPagos.ProcesarPagos = 1;
-                    return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
+                    procesarPagosDTO.ProcesarPagos = 1;
+                    return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", procesarPagosDTO);
                 }
             }
             else
             {
-                viewModelProcesarPagos.PeriodoActivo = 1;
-                return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", viewModelProcesarPagos);
+                procesarPagosDTO.PeriodoActivo = 1;
+                return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", procesarPagosDTO);
             }
-            return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml",viewModelProcesarPagos);
+            return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml",procesarPagosDTO);
         }
     }
 }

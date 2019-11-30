@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using NominaSoft.Core.Entities;
 
-namespace NominaSoft.Core.UseCases
+namespace NominaSoft.Core.Holders
 {
     public class DatosPlanilla
     {

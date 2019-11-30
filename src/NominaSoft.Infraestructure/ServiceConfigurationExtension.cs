@@ -5,13 +5,21 @@ using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NominaSoft.Core.Interfaces;
+using NominaSoft.Infraestructure.EFCore;
+using NominaSoft.Infraestructure.UseCases;
 using NominaSoft.Core.Entities;
+using NominaSoft.Core.Interfaces;
 
-namespace NominaSoft.Core
+namespace NominaSoft.Infraestructure
 {
-    public static class RepositoryTransientExtension
+    public static class ServiceConfigurationExtension
     {
+        public static void AddDataAccessServices(this IServiceCollection services, string connectionString)
+        {
+            services.AddDbContext<NSContext>(options =>
+              options.UseMySql(connectionString));
+        }
+
         public static void AddTransientServices(this IServiceCollection services)
         {
             services.AddTransient<IRepository<AFP>, Repository<AFP>>();
