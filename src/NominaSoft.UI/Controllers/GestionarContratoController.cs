@@ -15,6 +15,14 @@ namespace NominaSoft.UI.Controllers
     {
         private readonly GestionarContratoUC _useCasesGestionarContrato = new GestionarContratoUC();
 
+        public GestionarContratoController(IRepository<Empleado> repositoryEmpleado,
+                                        IRepository<AFP> repositoryAFP,
+                                        IRepository<Contrato> repositoryContrato)
+        {
+            _useCasesGestionarContrato.Setup(repositoryEmpleado, repositoryAFP, repositoryContrato);
+        }
+    
+
         [Route("GestionarContrato")]
         [HttpGet]
         public IActionResult GestionarContrato() => View(new GestionarContratoDTO());

@@ -12,11 +12,11 @@ namespace NominaSoft.Infraestructure.UseCases
 {
     public class GestionarContratoUC
     {
-        public readonly IRepository<Empleado> _repositoryEmpleado;
-        public readonly IRepository<AFP> _repositoryAFP;
-        public readonly IRepository<Contrato> _repositoryContrato;
+        public IRepository<Empleado> _repositoryEmpleado { get; set; }
+        public IRepository<AFP> _repositoryAFP { get; set; }
+        public IRepository<Contrato> _repositoryContrato { get; set; }
 
-        public GestionarContratoUC(IRepository<Empleado> repositoryEmpleado,
+        public void Setup(IRepository<Empleado> repositoryEmpleado,
                                             IRepository<AFP> repositoryAFP,
                                             IRepository<Contrato> repositoryContrato)
         {
