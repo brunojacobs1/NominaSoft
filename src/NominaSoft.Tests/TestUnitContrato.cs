@@ -177,7 +177,7 @@ namespace NominaSoft.Test
         {
             Contrato contrato = new Contrato
             {
-                FechaFin = DateTime.ParseExact("02/12/2019", "dd/MM/yyyy", null),
+                FechaFin = DateTime.ParseExact("25/12/2019", "dd/MM/yyyy", null),
                 EsAnulado = false
             };
 
