@@ -80,20 +80,20 @@
                             </thead>
                             <tbody>
                                 @{
-                                    if (Model.Planilla != null)
+                                    if (Model.Filas != null)
                                     {
-                                        foreach (var datosPlanilla in Model.Planilla.DatosPlanillas)
+                                        foreach (var fila in Model.Filas)
                                         {
                                             <tr class="table text-center">
-                                                <td>@datosPlanilla.Empleado.IdEmpleado</td>
-                                                <td>@datosPlanilla.Empleado.NombreEmpleado</td>
-                                                <td>@datosPlanilla.Empleado.Dni</td>
-                                                <td>@datosPlanilla.TotalHoras</td>
-                                                <td>@datosPlanilla.Contrato.ValorHora</td>
-                                                <td>@datosPlanilla.SueldoBasico</td>
-                                                <td>@datosPlanilla.TotalIngresos</td>
-                                                <td>@datosPlanilla.TotalDescuentos</td>
-                                                <td>@datosPlanilla.SueldoNeto</td>
+                                                <td>@fila.Item1.Empleado.IdEmpleado</td>
+                                                <td>@fila.Item1.Empleado.NombreEmpleado</td>
+                                                <td>@fila.Item1.Empleado.Dni</td>
+                                                <td>@fila.Item2.CalcularTotalHorasBoleta()</td>
+                                                <td>@fila.Item1.ValorHora</td>
+                                                <td>@fila.Item2.CalcularSueldoBasico()</td>
+                                                <td>@fila.Item2.CalcularTotalIngresos()</td>
+                                                <td>@fila.Item2.CalcularTotalDescuentos()</td>
+                                                <td>@fila.Item2.CalcularSueldoNeto()</td>
                                             </tr>
                                         }
                                     }

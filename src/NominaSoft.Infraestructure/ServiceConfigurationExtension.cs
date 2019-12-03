@@ -29,6 +29,7 @@ namespace NominaSoft.Infraestructure
             services.AddTransient<IRepository<Empleado>, Repository<Empleado>>();
             services.AddTransient<IRepository<PeriodoPago>, Repository<PeriodoPago>>();
             services.AddTransient<IGestionarContratoUC, GestionarContratoUC>();
+            services.AddTransient<IProcesarPagosUC, ProcesarPagosUC>();
         }
     }
 }

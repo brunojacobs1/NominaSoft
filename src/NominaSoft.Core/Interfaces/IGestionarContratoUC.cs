@@ -11,8 +11,10 @@ namespace NominaSoft.Core.Interfaces
         void Setup(IRepository<Empleado> repositoryEmpleado,
                    IRepository<AFP> repositoryAFP,
                    IRepository<Contrato> repositoryContrato);
+
         GestionarContratoDTO BuscarEmpleado(String dni);
         GestionarContratoDTO CrearContrato(GestionarContratoDTO gestionarContratoDTO, int empleadoId);
+
         GestionarContratoDTO CrearNuevoContrato(int empleadoId,
                                                 DateTime fechaInicio,
                                                 DateTime fechaFin,
@@ -21,6 +23,7 @@ namespace NominaSoft.Core.Interfaces
                                                 bool asignacionFamiliar,
                                                 int valorHora,
                                                 int totalHoras);
+
         GestionarContratoDTO EditarContrato(GestionarContratoDTO gestionarContratoDTO, int contratoId, int empleadoId);
         GestionarContratoDTO AnularContrato(int contratoId);
         Contrato RetornarContratoVigente(IEnumerable<Contrato> contratos);
