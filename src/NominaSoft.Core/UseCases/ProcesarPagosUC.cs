@@ -58,8 +58,8 @@ namespace NominaSoft.Core.UseCases
         // [POST] ProcesarPagosController.VerificarProcesado
         public ProcesarPagosDTO VerificarProcesado()
         {
-            //try
-            //{
+            try
+            {
                 ProcesarPagosDTO procesarPagosDTO = new ProcesarPagosDTO 
                 {
                     PeriodoPago = _repositoryPeriodoPago.Get(new BusquedaPeriodoActivoSpecification())
@@ -104,11 +104,11 @@ namespace NominaSoft.Core.UseCases
                 procesarPagosDTO.PagosProcesados = 1;
 
                 return procesarPagosDTO;
-            //}
-            //catch (Exception e)
-            //{
-                //throw e;
-            //}
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         // Funciones genéricas
