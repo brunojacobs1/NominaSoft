@@ -16,7 +16,7 @@ namespace NominaSoft.Infraestructure
     {
         public static void AddDataAccessServices(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<NSContext>(options =>
+            services.AddDbContextPool<NSContext>(options =>
               options.UseMySql(connectionString));
         }
 
