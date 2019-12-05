@@ -102,7 +102,8 @@ namespace NominaSoft.Core.UseCases
                 }
 
                 procesarPagosDTO.PagosProcesados = 1;
-
+                procesarPagosDTO.PeriodoPago.DesactivarPeriodo();
+                _repositoryPeriodoPago.Edit(procesarPagosDTO.PeriodoPago);
                 return procesarPagosDTO;
             }
             catch (Exception e)
