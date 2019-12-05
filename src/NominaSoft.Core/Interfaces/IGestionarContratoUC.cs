@@ -13,7 +13,6 @@ namespace NominaSoft.Core.Interfaces
                    IRepository<Contrato> repositoryContrato);
 
         GestionarContratoDTO BuscarEmpleado(String dni);
-        GestionarContratoDTO CrearContrato(GestionarContratoDTO gestionarContratoDTO, int empleadoId);
 
         GestionarContratoDTO CrearNuevoContrato(int empleadoId,
                                                 DateTime fechaInicio,

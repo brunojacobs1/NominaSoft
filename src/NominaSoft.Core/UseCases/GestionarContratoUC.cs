@@ -51,43 +51,6 @@ namespace NominaSoft.Core.UseCases
             }
         }
 
-        // [POST] GestionarContratoController.CrearContrato
-        public GestionarContratoDTO CrearContrato(GestionarContratoDTO gestionarContratoDTO, int empleadoId)
-        {
-            try
-            {
-                Contrato contrato = new Contrato()
-                {
-                    Empleado = _repositoryEmpleado.GetById(empleadoId),
-                    FechaInicio = gestionarContratoDTO.Contrato.FechaInicio,
-                    FechaFin = gestionarContratoDTO.Contrato.FechaFin,
-                    Cargo = gestionarContratoDTO.Contrato.Cargo,
-                    EsAsignacionFamiliar = gestionarContratoDTO.Contrato.EsAsignacionFamiliar,
-                    ValorHora = gestionarContratoDTO.Contrato.ValorHora,
-                    TotalHorasSemanales = gestionarContratoDTO.Contrato.TotalHorasSemanales,
-                    EsAnulado = false,
-                    AFP = gestionarContratoDTO.Contrato.AFP.IdAFP != 0 ? _repositoryAFP.GetById(gestionarContratoDTO.Contrato.AFP.IdAFP) : null
-                };
-
-                gestionarContratoDTO = new GestionarContratoDTO();
-
-                gestionarContratoDTO.MensajeError += RetornarMensajeError(contrato, empleadoId, true);
-
-                if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
-                {
-                    gestionarContratoDTO.ErrorDatosContrato = 1;
-                    return gestionarContratoDTO;
-                }
-
-                _repositoryContrato.Add(contrato);
-                return new GestionarContratoDTO{ ContratoCreado = 1 };
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
         // [POST] GestionarContratoController.CrearNuevoContrato
         public GestionarContratoDTO CrearNuevoContrato(int empleadoId,
                                                         DateTime fechaInicio,

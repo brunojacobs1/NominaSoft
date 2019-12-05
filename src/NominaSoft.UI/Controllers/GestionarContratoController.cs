@@ -35,10 +35,6 @@ namespace NominaSoft.UI.Controllers
         public IActionResult BuscarEmpleado(String dni) 
             => View("GestionarContrato", _useCasesGestionarContrato.BuscarEmpleado(dni));
 
-        [HttpPost]
-        public IActionResult CrearContrato(GestionarContratoDTO gestionarContratoDTO, int empleadoId) 
-            => View("GestionarContrato", _useCasesGestionarContrato.CrearContrato(gestionarContratoDTO, empleadoId));
-
         [HttpPost]   
         public IActionResult CrearNuevoContrato(int empleadoId,
                                                     DateTime fechaInicio,
