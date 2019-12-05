@@ -27,7 +27,7 @@ namespace NominaSoft.Core.Interfaces
         GestionarContratoDTO EditarContrato(GestionarContratoDTO gestionarContratoDTO, int contratoId, int empleadoId);
         GestionarContratoDTO AnularContrato(int contratoId);
         Contrato RetornarContratoVigente(IEnumerable<Contrato> contratos);
-        String RetornarMensajeError(Contrato contrato, int empleadoId);
+        String RetornarMensajeError(Contrato contrato, int empleadoId, bool esEdicion);
 
     }
 }

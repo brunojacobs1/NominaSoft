@@ -27,20 +27,17 @@ namespace NominaSoft.UI.Controllers
 
         [Route("GestionarContrato")]
         [HttpGet]
-        public IActionResult GestionarContrato() => View(new GestionarContratoDTO());
+        public IActionResult GestionarContrato() 
+            => View(new GestionarContratoDTO());
 
         [Route("GestionarContrato/Empleado")]
         [HttpGet]
-        public IActionResult BuscarEmpleado(String dni)
-        {
-            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.BuscarEmpleado(dni));
-        }
+        public IActionResult BuscarEmpleado(String dni) 
+            => View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.BuscarEmpleado(dni));
 
         [HttpPost]
-        public IActionResult CrearContrato(GestionarContratoDTO gestionarContratoDTO, int empleadoId)
-        {
-            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.CrearContrato(gestionarContratoDTO, empleadoId));
-        }
+        public IActionResult CrearContrato(GestionarContratoDTO gestionarContratoDTO, int empleadoId) 
+            => View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.CrearContrato(gestionarContratoDTO, empleadoId));
 
         [HttpPost]   
         public IActionResult CrearNuevoContrato(int empleadoId,
@@ -51,20 +48,14 @@ namespace NominaSoft.UI.Controllers
                                                     bool asignacionFamiliar,
                                                     int valorHora,
                                                     int totalHoras)
-        {
-            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.CrearNuevoContrato(empleadoId, fechaInicio, fechaFin, cargo, afp, asignacionFamiliar, valorHora, totalHoras));
-        }
+            => View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.CrearNuevoContrato(empleadoId, fechaInicio, fechaFin, cargo, afp, asignacionFamiliar, valorHora, totalHoras));
 
         [HttpPost]
         public IActionResult EditarContrato(GestionarContratoDTO gestionarContratoDTO, int contratoId, int empleadoId)
-        {
-            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.EditarContrato(gestionarContratoDTO, contratoId, empleadoId));
-        }
+            => View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.EditarContrato(gestionarContratoDTO, contratoId, empleadoId));
 
         [HttpPost]
         public IActionResult AnularContrato(int contratoId)
-        {
-            return View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.AnularContrato(contratoId));
-        }
+            => View("~/Views/GestionarContrato/GestionarContrato.cshtml", _useCasesGestionarContrato.AnularContrato(contratoId));
     }
 }

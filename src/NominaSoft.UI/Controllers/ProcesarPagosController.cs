@@ -28,14 +28,10 @@ namespace NominaSoft.UI.Controllers
 
         [HttpGet]
         public IActionResult ProcesarPagos()
-        {
-            return View(_useCasesProcesarPagos.ProcesarPagos());
-        }
+            => View(_useCasesProcesarPagos.ProcesarPagos());
 
         [HttpPost]
         public ViewResult VerificarProcesado()
-        {
-            return View("~/Views/ProcesarPagos/ProcesarPagos.cshtml",_useCasesProcesarPagos.VerificarProcesado());
-        }
+            => View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", _useCasesProcesarPagos.VerificarProcesado());
     }
 }

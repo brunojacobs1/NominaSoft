@@ -71,7 +71,7 @@ namespace NominaSoft.Core.UseCases
 
                 gestionarContratoDTO = new GestionarContratoDTO();
 
-                gestionarContratoDTO.MensajeError += RetornarMensajeError(contrato, empleadoId);
+                gestionarContratoDTO.MensajeError += RetornarMensajeError(contrato, empleadoId, true);
 
                 if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
                 {
@@ -115,7 +115,7 @@ namespace NominaSoft.Core.UseCases
                     AFP = _repositoryAFP.GetById(afp)
                 };
 
-                gestionarContratoDTO.MensajeError += RetornarMensajeError(contrato, empleadoId);
+                gestionarContratoDTO.MensajeError += RetornarMensajeError(contrato, empleadoId, false);
 
                 if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
                 {
@@ -125,7 +125,7 @@ namespace NominaSoft.Core.UseCases
 
                 _repositoryContrato.Add(contrato);
 
-                return new GestionarContratoDTO{ ContratoCreado = 1};
+                return new GestionarContratoDTO{ ContratoCreado = 1 };
             }
             catch (Exception e)
             {
@@ -140,7 +140,7 @@ namespace NominaSoft.Core.UseCases
             {
                 gestionarContratoDTO.Contrato.Empleado = _repositoryEmpleado.GetById(empleadoId);
 
-                gestionarContratoDTO.MensajeError += RetornarMensajeError(gestionarContratoDTO.Contrato, empleadoId);
+                gestionarContratoDTO.MensajeError += RetornarMensajeError(gestionarContratoDTO.Contrato, empleadoId, true);
 
                 if (!String.IsNullOrEmpty(gestionarContratoDTO.MensajeError))
                 {
@@ -200,27 +200,37 @@ namespace NominaSoft.Core.UseCases
             return null;
         }
 
-        public String RetornarMensajeError(Contrato contrato, int empleadoId)
+        public String RetornarMensajeError(Contrato contrato, int empleadoId, bool esEdicion)
         {
-            if (contrato.AFP == null)
-                return "AFP no seleccionada.";
-            // R01
-            else if (!contrato.VerificarVigencia())
-                return "El contrato no es vigente.";
-            // R02
-            else if (!contrato.VerificarFechaInicio(_repositoryContrato.SecondToLastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
-                return "La fecha inicio no es superior a la fecha fin del último contrato.";
-            // R03
-            else if (!contrato.VerificarFechaFin())
-                return "La fecha fin es incorrecta.";
-            // R04
-            else if (!contrato.VerificarTotalHorasSemanales())
-                return "El total de horas semanales es incorrecto.";
-            // R05
-            else if (!contrato.VerificarValorHora())
-                return "El valor por hora es incorrecto.";
+            string mensajeError = "";
 
-            return null;
+            if (contrato.AFP == null)
+                mensajeError += "AFP no seleccionada.";
+            // R01
+            if (!contrato.VerificarVigencia())
+                mensajeError += "El contrato no es vigente.";
+            // R02
+            if (esEdicion)
+            {
+                if (!contrato.VerificarFechaInicio(_repositoryContrato.SecondToLastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
+                    mensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
+            }     
+            else if (!contrato.VerificarFechaInicio(_repositoryContrato.LastList(new BusquedaContratoUltimoCreadoSpecification(empleadoId)).SingleOrDefault()))
+                        mensajeError += "La fecha inicio no es superior a la fecha fin del último contrato.";
+            // R03
+            if (!contrato.VerificarFechaFin())
+            mensajeError += "La fecha fin es incorrecta.";
+            // R04
+            if (!contrato.VerificarTotalHorasSemanales())
+                mensajeError += "El total de horas semanales es incorrecto.";
+            // R05
+            if (!contrato.VerificarValorHora())
+                mensajeError += "El valor por hora es incorrecto.";
+
+            if (!String.IsNullOrEmpty(mensajeError))
+                return mensajeError;
+            else
+                return null;
         }
     }
 }
