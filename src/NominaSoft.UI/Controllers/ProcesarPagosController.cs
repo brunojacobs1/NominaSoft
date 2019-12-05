@@ -32,6 +32,6 @@ namespace NominaSoft.UI.Controllers
 
         [HttpPost]
         public ViewResult VerificarProcesado()
-            => View("~/Views/ProcesarPagos/ProcesarPagos.cshtml", _useCasesProcesarPagos.VerificarProcesado());
+            => View("ProcesarPagos", _useCasesProcesarPagos.VerificarProcesado());
     }
 }
